@@ -8,7 +8,11 @@ import { BooksInCategoryComponent } from './books-in-category/books-in-category.
 
 
 @NgModule({
-  declarations: [HomeComponent, BookdetailsComponent, BooksInCategoryComponent],
+  declarations: [
+    HomeComponent, 
+    BookdetailsComponent, 
+    BooksInCategoryComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule

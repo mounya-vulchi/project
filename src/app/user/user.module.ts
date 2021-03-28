@@ -11,7 +11,14 @@ import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
-  declarations: [UserComponent, WishlistComponent, UsercartComponent, MyordersComponent, UserprofileComponent, PaymentComponent],
+  declarations: [
+    UserComponent, 
+    WishlistComponent, 
+    UsercartComponent, 
+    MyordersComponent, 
+    UserprofileComponent, 
+    PaymentComponent
+  ],
   imports: [
     CommonModule,
     UserRoutingModule

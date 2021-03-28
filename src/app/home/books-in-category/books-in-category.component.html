@@ -1,1 +1,17 @@
-<p>books-in-category works!</p>
+<div class="container">
+    <div class="col-md-12">
+        <div class="card row">
+            <div class="col-md-3">
+                <div class="card" *ngFor="let b of booksArray,let i=index">
+                    <img [src]=b.bookImgLink class="card-img-top" style="height: 250px;" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{b.booktitle}}</h5>
+                        <p class="card-title">
+                            <ngb-rating [max]="5" [rate]=b.rating ></ngb-rating>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

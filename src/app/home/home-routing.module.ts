@@ -5,9 +5,12 @@ import { BooksInCategoryComponent } from './books-in-category/books-in-category.
 import { HomeComponent } from './home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path:'bookdetails', component:BookdetailsComponent},
-  { path:'category books',component:BooksInCategoryComponent}
+  { path:'', component:HomeComponent, children:[
+    { path:"bookdetails", component:BookdetailsComponent},
+    { path:"categorybooks",component:BooksInCategoryComponent},
+    { path:"",redirectTo:"/home/categorybooks",pathMatch:"full"}
+  ]},
+  
 ];
 
 @NgModule({
