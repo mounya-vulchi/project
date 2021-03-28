@@ -1,0 +1,10 @@
+.container{
+    font-family: poppins;
+}
+ngb-rating {
+    color: #FFC107;
+    font-size: 30px;
+}
+p{
+    font-size: 20px;
+}

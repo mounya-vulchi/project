@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 
@@ -10,10 +10,12 @@ import { DataService } from 'src/app/data.service';
 export class BooksInCategoryComponent implements OnInit {
 
   booksArray=[];
+  @Input() searchTerm:string;  
   constructor(private ds:DataService, private router:Router ) { }
 
   ngOnInit(): void {
     this.getBooks();
+    localStorage.clear();
   }
 
 
@@ -28,5 +30,11 @@ export class BooksInCategoryComponent implements OnInit {
 
       }
     )
+  }
+
+  bookDetails(book){
+    //console.log("the book is ",book)
+    localStorage.setItem("book",book["booktitle"])
+    this.router.navigateByUrl("/home/bookdetails")
   }
 }

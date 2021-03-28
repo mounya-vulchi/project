@@ -1,4 +1,19 @@
 ngb-rating {
     color: #FFC107;
-    font-size: 25px;
+    font-size: 30px;
+}
+.container{
+    font-family:poppins;
+}
+strong,p{
+    font-size: 15px;
+}
+.price{
+    font-family: Arial,sans-serif;
+    font-size: 21px;
+}
+
+.card{
+    border: none;
+    cursor: pointer;
 }

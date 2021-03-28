@@ -68,5 +68,18 @@ adminApiObj.get("/getallbooks",asyncHandler(async(req,res,next)=>{
     res.send({booksarray:AllBooks})
 }))
 
+//get book details
+adminApiObj.get("/bookdetails/:book",asyncHandler(async(req,res,next)=>{
+    let Books=req.app.get("booksCollectionObj")
+    
+    let BookDetails=await Books.findOne({booktitle:req.params.book})
+    if(BookDetails!==0){
+        res.send({Details:BookDetails})
+    }
+    else{
+        res.send({message:"Book not found"})
+    }
+}))
+
 //export
 module.exports= adminApiObj;

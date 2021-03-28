@@ -1,5 +1,21 @@
 a{
     font-size: medium;
     color: thistle;
-    display: block;
+    font-family:poppins;
+    cursor: pointer;
+}
+.navbar .collapse .nav-link{
+    font-size: 20px;
+    font-weight: bold;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+.navbar-brand{
+    font-size: 30px;
+    font-family: cursive;
+    font-weight: bold;
+    color: white;
+}
+.container{
+    font-family:poppins;
 }
