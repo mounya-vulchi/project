@@ -9,12 +9,14 @@ import { DataService } from '../data.service';
 })
 export class HomeComponent implements OnInit {
 
+  username;
+  userCartSize=0;
   booksArray=[];
   search;
   constructor(private ds:DataService, private router:Router ) { }
 
   ngOnInit(): void {
-
+    this.username=localStorage.getItem("username")
   }
 
   goto(n){

@@ -5,7 +5,7 @@ const mc=require("mongodb").MongoClient;
 const mongoose=require("mongoose")
 
 //import .env file
-require("dotenv").config;
+require("dotenv").config();
 
 const path=require("path")
 //connect angular with web server
@@ -27,7 +27,7 @@ app.use("/wishlist",wishlistApi)
 app.use("/myorders",myorderApi)
 
 //connect dburl
-const dburl="mongodb+srv://Pujitha:cdb37@mongodb-cluster.daalo.mongodb.net/BookStore?retryWrites=true&w=majority";
+const dburl=process.env.dburl;
 mc.connect(dburl,{useNewUrlParser:true,useUnifiedTopology:true})
 .then(client=>{
 

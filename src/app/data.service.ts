@@ -10,6 +10,24 @@ export class DataService {
 
   constructor(private hc:HttpClient, private router:Router) { }
 
+
+  //mounya
+  createUser(userObj):Observable<any>{
+    return this.hc.post("/user/register",userObj)
+
+  }
+  loginUser(userCredObj):Observable<any>{
+    return this.hc.post("/user/login",userCredObj)
+
+  }
+  getUser(username):Observable<any>{
+    return this.hc.get("/user/getuser/"+username)
+  }
+  getCartItems(username):Observable<any>{
+    console.log("the username is ",username)
+    return this.hc.get("/user/getcartitems/"+username);
+  }
+
   //create new book
   addNewBook(obj):Observable<any>{
     //console.log("the data in ds is ",obj)
