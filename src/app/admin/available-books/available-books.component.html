@@ -1,1 +1,12 @@
-<p>available-books works!</p>
+<div class="container">
+    <h3 class="text-center">Books in Stock</h3>
+    <div class="row">
+        <div class="col-md-3 mb-3" *ngFor="let b of booksArray">    
+            <div class="card mx-3" (click)="bookDetails(b)">
+                <img [src]=b.bookImgLink class="card-img-top"  style="height: 270px;" alt="...">
+            </div>
+        </div>
+    </div>                   
+</div>
+
+
