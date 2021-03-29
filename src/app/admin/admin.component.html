@@ -1,1 +1,25 @@
-<p>admin works!</p>
+
+<div class="container-fluid mt-5 mb-2">
+    <div class="row">
+        <div class="col-sm-2 bg-dark">
+            <nav class="nav my-3">
+                <li class="nav-item">
+                    <a routerLink="/admin/addbook" class="nav-link">Add New Book</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/admin/usermanagement" class="nav-link">Users Management</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/admin/allbooks" class="nav-link">Available Books</a>
+                </li>
+                <li class="nav-item">
+                <a routerLink="/admin/categories" class="nav-link">Available Categories</a>
+                </li>
+            </nav>   
+        </div>
+    
+        <div class="col-sm-9">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

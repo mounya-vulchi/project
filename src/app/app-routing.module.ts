@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
-const routes: Routes = [
-  { path: 'userdashboard', loadChildren: () => import('./user/user.module').then(m => m.UserModule) }, 
+const routes: Routes = [ 
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }, 
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
   { path:"user", loadChildren:()=>import('./user/user.module').then(m=> m.UserModule)},
@@ -15,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

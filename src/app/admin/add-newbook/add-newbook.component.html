@@ -1,1 +1,104 @@
-<p>add-newbook works!</p>
+<div class="container">
+    <p class="display-6 text-center" style="color: black;">Add New Book</p>
+
+    <form class="row g-3 mt-3 mb-5 bg-light p-5" #formRef="ngForm" (ngSubmit)="formRef.form.valid&&onSubmit(formRef)">
+        
+
+        <!-- book title -->
+        <div class="col-md-6">
+            <label for="booktitle" class="form-label">Title</label>
+            <input type="text" class="form-control" id="booktitle" name="booktitle" placeholder="title of the book" ngModel required #book="ngModel">
+            <!-- validation for username -->
+            <span class="text-danger" *ngIf="(book.touched || formRef.submitted) && book.errors?.required">
+                Title of the Book is required
+            </span>
+        </div>
+        <!-- Author -->
+        <div class="col-md-4">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" name="author" placeholder="Author of the book" ngModel required #author="ngModel">
+            <!-- validation for Author -->
+            <span class="text-danger" *ngIf="(author.touched || formRef.submitted) && author.errors?.required">
+                Author is required
+            </span>
+        </div>
+
+        <!-- no of pages -->
+        <div class="col-md-2">
+            <label for="paperback" class="form-label">Paperback</label>
+            <input type="number" class="form-control" name="paperback" id="paperback" placeholder="No of pages" ngModel required #paperback="ngModel">
+            <!-- validation for paperback -->
+            <span class="text-danger" *ngIf="(paperback.touched || formRef.submitted) && paperback.errors?.required">
+                Paperback is required
+            </span>
+        </div>
+
+        <!-- price of the book -->
+        <div class="col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="price in Rupees" ngModel required #price="ngModel">
+            <!-- validation for book price -->
+            <span class="text-danger" *ngIf="(price.touched || formRef.submitted) && price.errors?.required">
+                Price is required
+            </span>
+        </div>
+        
+        <!--publisher  -->
+        <div class="col-md-4">
+            <label for="publisher" class="form-label">Publisher</label>
+            <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Publisher of the book" ngModel required #publisher="ngModel">
+            <!-- validation for Publisher -->
+            <span class="text-danger" *ngIf="(publisher.touched || formRef.submitted) && publisher.errors?.required">
+                Publisher is required
+            </span>
+        </div>
+        <!-- publication date -->
+        <div class="col-md-4">
+            <label for="publicationdate" class="form-label">Publication Date</label>
+            <input type="date" class="form-control" id="publicationdate" name="publicationdate" placeholder="publication date" ngModel required #publicationdate="ngModel">
+            <!-- validation for publication date -->
+            <span class="text-danger" *ngIf="(publicationdate.touched || formRef.submitted) && publicationdate.errors?.required">
+                publication date is required
+            </span>
+        </div>
+
+        <!-- rating -->
+        <div class="col-md-4">
+            <label for="rating" class="form-label">Rate the Book :</label>
+            <ngb-rating [max]="5" [(rate)]="currentRate" [readonly]="false" id="rating" name="rating" class="px-2" ngModel></ngb-rating>
+        </div>
+        
+        <!-- category -->
+        <div class="col-md-4">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" name="category" placeholder="category of the book" ngModel required #category="ngModel">
+            <!-- validation for category -->
+            <span class="text-danger" *ngIf="(category.touched || formRef.submitted) && category.errors?.required">
+                Category of the Book is required
+            </span>
+        </div>
+        <!--cover photo -->
+        <div class="col-md-4 p-3"> 
+            <label for="photo" class="form-label">Cover Photo</label>
+            <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" id="photo" accept='image/*' placeholder="Upload cover photo of the book">
+        </div>
+        
+        <!-- book description -->
+        <div class="col-md-12">
+            <label for="description" class="form-label">Book Description</label>
+            <textarea name="description" id="description" class="form-control" cols="10" rows="5" placeholder="description of the book" ngModel #description="ngModel" required minlength="20"></textarea>
+            <!-- validation for book description -->
+            <span class="text-danger" *ngIf="(description.touched || formRef.submitted) && description.errors?.required">
+                Description is required
+            </span>
+            <span class="text-danger" *ngIf="(description.errors?.minlength)">
+                Description of the Book should contain minimum of 20 characters.
+            </span>
+                
+        </div>
+
+        <div class="col-md-12 pt-1 text-center">
+            <button type="submit" class="btn btn-primary">Add Book</button>
+        </div>
+    </form>
+</div>

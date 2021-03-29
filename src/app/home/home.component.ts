@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
-    //console.log(this.username)
   }
 
   goto(n){
@@ -41,10 +40,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   logout(){
     localStorage.clear();
     this.router.navigateByUrl("/home");
     window. location. reload ();
   } 
+=======
+  
+>>>>>>> Pujitha
 
 }

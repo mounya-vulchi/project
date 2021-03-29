@@ -1,0 +1,11 @@
+.nav-link{
+    font-size: 20px;
+    font-weight: bold;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+.navbar-brand{
+    font-size: 30px;
+    font-family: cursive;
+    font-weight: bold;
+    color: white;
+}
