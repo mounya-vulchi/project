@@ -40,14 +40,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   logout(){
     localStorage.clear();
     this.router.navigateByUrl("/home");
     window. location. reload ();
   } 
-=======
-  
->>>>>>> Pujitha
 
 }
