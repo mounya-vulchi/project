@@ -1,1 +1,14 @@
-<p>users-management works!</p>
+<div class="container">
+    <h3 class="text-center">Users of this Book Store</h3>
+    <div class="row">
+        <div class="col-md-2 mb-3" *ngFor="let u of Users">    
+            <div class="card text-center p-1">
+                <img [src]=u.userImgLink class="card-img-top mx-auto"  style="width:50%;height:120px;border-radius: 50%;" alt="...">
+            <div class="card-body">
+                <div class="card-title">{{u.username}}</div>
+                <div class="card-title" style="font-size: 12px;">{{u.email}}</div>
+                <button class="btn btn-danger text-center">delete</button>
+            </div>
+        </div>
+    </div>       
+</div>

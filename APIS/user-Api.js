@@ -110,7 +110,12 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
     }
 }))
 
-
+//get all users
+userApiObj.get("/getusers",asyncHandler(async(req,res,next)=>{
+    let userCollectionObject=req.app.get("userCollectionObj");
+    let allUsers=await userCollectionObject.find().toArray();
+    res.send({users:allUsers})
+}))
 //get user
 userApiObj.get("/getuser/:username",asyncHandler(async(req,res,next)=>{
     //get user usercollection object

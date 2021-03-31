@@ -9,15 +9,15 @@ import { DataService } from 'src/app/data.service';
 })
 export class BooksInCategoryComponent implements OnInit {
 
+  username;
   booksArray=[];
   @Input() searchTerm:string;  
   constructor(private ds:DataService, private router:Router ) { }
 
   ngOnInit(): void {
+    this.username=localStorage.getItem("username")
     this.getBooks();
-    localStorage.clear();
   }
-
 
   getBooks(){
     this.ds.getAllBooks().subscribe(

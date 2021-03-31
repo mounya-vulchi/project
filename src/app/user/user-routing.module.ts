@@ -8,12 +8,13 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 
 const routes: Routes = [
-  { path:"userdashboard", component: UserComponent },
-  { path:"usercart", component:UsercartComponent},
-  { path:"userprofile",component:UserprofileComponent},
-  { path:"wishlist",component:WishlistComponent},
-  { path:"myorder", component:MyordersComponent},
-  { path:"payment", component:PaymentComponent}
+  { path:"userdashboard", component: UserComponent,children:[
+    { path:"usercart", component:UsercartComponent},
+    { path:"userprofile",component:UserprofileComponent},
+    { path:"wishlist",component:WishlistComponent},
+    { path:"myorder", component:MyordersComponent},
+    { path:"payment", component:PaymentComponent}
+  ]},
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
@@ -9,31 +10,40 @@ import { DataService } from '../data.service';
 })
 export class LoginComponent implements OnInit {
 
-  
+  loginForm:FormGroup;
 
-  constructor(private us:DataService,private router:Router) { }
+
+  constructor(private ds:DataService, private router:Router) { }
 
   ngOnInit(): void {
+
+    this.loginForm=new FormGroup({
+
+      //username
+      username:new FormControl(null,Validators.required),
+      
+      //password
+      password:new FormControl(null,Validators.required),
+
+    });
   }
     
-  onSubmit(formRef:any){
-    let userCredObj=formRef.value;
-    if(userCredObj.username=="admin" && userCredObj.password=="admin"){
-      localStorage.setItem("username","admin")
-        this.router.navigateByUrl("/admin")
-    }
-     
-    //if user
-    else{
-        this.us.loginUser(userCredObj).subscribe(
+  onSubmit(){
+    let userCredObj=this.loginForm.value
+    
+        this.ds.loginUser(userCredObj).subscribe(
           res=>{
-            if(res["message"]=="success"){
+            if(res.message==="success"){
               //store token and username in local storage
-              localStorage.setItem("token",res["signedToken"])
-              localStorage.setItem("username",res["username"])
-  
+              localStorage.setItem("token",res.signedToken)
+              localStorage.setItem("username",res.username)
+              if(res.username=="Admin"){
+                this.router.navigateByUrl("/admin")
+              }
+              else{
               //navigate to user component
               this.router.navigateByUrl("/home")
+              }
             }
             else{
               alert(res["message"])
@@ -46,12 +56,10 @@ export class LoginComponent implements OnInit {
           }
         )
   
-      }
-  
-      
-    }
-    regiser(){
-      this.router.navigateByUrl("/register")
-    }
+}
+
+regiser(){
+  this.router.navigateByUrl("/register")
+}
 
 }

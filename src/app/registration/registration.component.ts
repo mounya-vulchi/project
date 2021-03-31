@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
@@ -14,14 +15,38 @@ export class RegistrationComponent implements OnInit {
   incomingfile(event:any) {
     this.file= event.target.files[0];
   }
+  registerForm:FormGroup;
 
   constructor(private router:Router,private ds:DataService) { }
 
   ngOnInit(): void {
+    this.registerForm=new FormGroup({
+
+      //username
+      username:new FormControl(null,Validators.required),
+      //email
+      email:new FormControl(null,[Validators.required,Validators.pattern('.+@.+.com') ]),
+      //password
+      password:new FormControl(null,[Validators.required,Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')]),
+      //phonenumber
+      phonenumber:new FormControl(null,Validators.required),
+      //address
+      address:new FormControl(null,Validators.required),
+      //city
+      city:new FormControl(null,Validators.required),
+      //state
+      state:new FormControl(null,Validators.required),
+      //pincode
+      pincode:new FormControl(null,Validators.required),
+      //photo
+      photo:new FormControl(null,Validators.required),
+
+    });
   }
-  onSubmit(ref:any){
-    let userObj=ref.value;
-    //console.log(userObj);
+  onSubmit(){
+    let userObj=this.registerForm.value
+
+    //console.log(userObj)
 
     let formData = new FormData();
 
@@ -33,7 +58,7 @@ export class RegistrationComponent implements OnInit {
 
     this.ds.createUser(formData).subscribe(
       res=>{
-        if(res["message"]=="user existed"){
+        if(res.message==="user existed"){
           alert("Username is already existed...choose another name");
           this.router.navigateByUrl("/userdashboard")
         }

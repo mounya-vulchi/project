@@ -73,12 +73,49 @@ adminApiObj.get("/bookdetails/:book",asyncHandler(async(req,res,next)=>{
     let Books=req.app.get("booksCollectionObj")
     
     let BookDetails=await Books.findOne({booktitle:req.params.book})
-    if(BookDetails!==0){
+    if(BookDetails!==null){
         res.send({Details:BookDetails})
     }
     else{
         res.send({message:"Book not found"})
     }
+}))
+
+//update book details
+adminApiObj.put("/updatebook",asyncHandler(async(req,res,next)=>{
+    //console.log(req.body)
+    let AllBooks=req.app.get("booksCollectionObj")
+    let BookDetails=await AllBooks.findOne({booktitle:req.body.booktitle})
+    if(BookDetails!==null){
+        let edit=await AllBooks.updateOne({booktitle:req.body.booktitle},{$set:{
+            author:req.body.author,
+            price:req.body.price,
+            publisher:req.body.publisher,
+            publicationdate:req.body.publicationdate,
+            paperback:req.body.paperback,
+            rating:req.body.rating,
+            category:req.body.category,
+            description:req.body.description
+        }});
+        res.send({message:true});
+    }
+    else{
+        res.send({message:"Book not found"})
+    }
+}))
+
+//delete the book
+adminApiObj.post("/deletebook",asyncHandler(async(req,res,next)=>{
+    //console.log(req.body)
+    let AllBooks=req.app.get("booksCollectionObj")
+    let BookDetails=await AllBooks.findOne({booktitle:req.body.booktitle})
+
+    //if username alreaddy taken
+    if(BookDetails!==null){
+        let remove=await AllBooks.deleteOne({booktitle:req.body.booktitle});
+        res.send({message:true});
+    }
+
 }))
 
 //export
