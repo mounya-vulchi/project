@@ -5,7 +5,8 @@ const adminApiObj=exp.Router()
 //enable body parser middleware
 adminApiObj.use(exp.json())
 
-const asyncHandler=require("express-async-handler")
+const asyncHandler=require("express-async-handler");
+const verifyToken=require("./middlewares/verifyToken");
 
 //import cloudinary
 const cloudinary = require("cloudinary").v2;

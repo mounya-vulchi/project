@@ -87,10 +87,8 @@
         
         <!-- book description -->
         <div class="col-md-12">
-            <div class="form-floating">
-                <textarea name="description" id="description" class="form-control" cols="10" rows="5" placeholder="description of the book" formControlName="description"></textarea>
-                <label for="description">Book Description</label>
-            </div>
+            <label for="description">Book Description</label>
+            <textarea name="description" id="description" class="form-control" cols="10" rows="5" placeholder="description of the book" formControlName="description"></textarea>
             <!-- validation for book description -->
             <p class="text text-danger" *ngIf="registerForm.get('description').hasError('required')&& getcontrol().description.touched||submitted"> Description is required</p>
             <p class="text-danger" *ngIf="registerForm.get('description').hasError('minlength')"> Description of the Book should contain minimum of 20 characters.</p>                

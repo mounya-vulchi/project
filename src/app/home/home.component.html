@@ -26,7 +26,19 @@
           </li>
           <!-- login button -->
           <li class="nav-item">
-            <a class="nav-link" style="color:white" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+            <a class="nav-link" style="color:white" *ngIf="!admin&&username==null" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+          </li>
+          <!-- userprofile -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> {{username}}</a>
+          </li>
+          <!-- logout for user -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" *ngIf="username!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Logout</a>
+          </li>
+          <!-- for admin -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Admin</a>
           </li>
           
       </ul>

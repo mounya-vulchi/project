@@ -65,7 +65,7 @@ export class AddNewbookComponent implements OnInit {
         alert("Product is already existed..choose another");
       }
       else{
-        alert("Product Added Successfully");
+        alert(res.message);
 
         //navigate to login component
         this.router.navigateByUrl("/admin/allbooks");

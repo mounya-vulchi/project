@@ -1,13 +1,16 @@
 const exp=require("express");
 const userApiObj=exp.Router();
 
-const asyncHandler=require("express-async-handler")
+const asyncHandler=require("express-async-handler");
 
 //extract body of req obj
 userApiObj.use(exp.json());
 
 //import bcrypt
-const bcryptjs=require("bcryptjs")
+const bcryptjs=require("bcryptjs");
+
+//import verifyToken middleware
+const verifyToken=require("./middlewares/verifyToken");
 
 //import cloudinary
 const cloudinary = require("cloudinary").v2;
@@ -99,7 +102,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:10});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:100});
             
             //send token
             res.send({message:"success",signedToken:token,username:user.username});
@@ -117,7 +120,7 @@ userApiObj.get("/getusers",asyncHandler(async(req,res,next)=>{
     res.send({users:allUsers})
 }))
 //get user
-userApiObj.get("/getuser/:username",asyncHandler(async(req,res,next)=>{
+userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object
     let userCollectionObject=req.app.get("userCollectionObj")
     let userObj=await userCollectionObject.findOne({username:req.params.username})
