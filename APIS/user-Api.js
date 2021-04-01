@@ -10,7 +10,7 @@ userApiObj.use(exp.json());
 const bcryptjs=require("bcryptjs");
 
 //import verifyToken middleware
-const verifyToken=require("./middlewares/verifyToken");
+//const verifyToken=require("./middlewares/verifyToken");
 
 const jwt=require("jsonwebtoken")
 const verifyToken=require("./middlewares/verifyToken")
