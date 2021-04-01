@@ -26,7 +26,7 @@ export class UserComponent implements OnInit {
         else{
           alert(res["message"])
           //navigate login
-          // this.router.navigateByUrl("/login")
+          this.router.navigateByUrl("/login")
 
         }
       },

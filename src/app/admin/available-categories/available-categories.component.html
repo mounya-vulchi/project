@@ -1,1 +1,12 @@
-<p>available-categories works!</p>
+<div class="container">
+    <div *ngFor="let c of categories">
+        <h2>{{c}}</h2>
+        <div class="row" *ngFor="let b of books | search : c">
+            <div class="col-md-3 mb-3" >    
+                <div class="card mx-3" (click)="bookDetails(b)">
+                    <img [src]=b.bookImgLink class="card-img-top"  style="height: 270px;" alt="...">
+                </div>
+            </div>
+        </div>       
+    </div>
+</div>

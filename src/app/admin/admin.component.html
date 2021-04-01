@@ -15,6 +15,9 @@
                 <li class="nav-item">
                 <a routerLink="/admin/categories" class="nav-link"><i class="fas fa-swatchbook"></i> Available Categories</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color:white" *ngIf="username!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+                  </li>
             </nav>   
         </div>
         <div class="col-sm-10">

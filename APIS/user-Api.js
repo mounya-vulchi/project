@@ -13,7 +13,7 @@ const bcryptjs=require("bcryptjs");
 const verifyToken=require("./middlewares/verifyToken");
 
 const jwt=require("jsonwebtoken")
-const verifyToken=require("./middlewares/verifyToken")
+
 
 //import cloudinary
 const cloudinary = require("cloudinary").v2;
@@ -105,7 +105,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:100});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
             
             //send token
             res.send({message:"success",signedToken:token,username:user.username});

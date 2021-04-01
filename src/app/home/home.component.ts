@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     
     if(this.username=="Admin"){
       this.admin=true;
-      console.log(this.admin)
+      //console.log(this.admin)
     }
   }
 

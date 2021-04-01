@@ -82,4 +82,8 @@ export class DataService {
     return this.hc.post("/admin/deletebook",obj);
   }
 
+  categoryBooks(cat):Observable<any>{
+    return this.hc.get("/admin/categorybooks/"+cat)
+  }
+
 }
