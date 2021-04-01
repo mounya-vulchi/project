@@ -1,1 +1,44 @@
-<p>userprofile works!</p>
+<!-- 
+<div class="container-fluid">
+    <div class="row mt-5 mb-5">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3">
+            <img [src]=userObj.userImgLink alt="user image" class="rounded-circle" width="80%" >
+        </div>
+        <div class="col-sm-5">
+            <h3>Name:{{userObj.username}}</h3>
+            <h3>Email-Id:{{userObj.email}}</h3>
+            <h3>PhoneNumber:{{userObj.phonenumber}}</h3>
+            <h3>Address:{{userObj.address}}</h3>
+            <h3>City:{{userObj.city}}</h3>
+            <h3>State:{{userObj.state}}</h3>
+            <h3>Pincode:{{userObj.pincode}}</h3>
+            <button class="btn btn-success  me-2">Edit</button>
+        <button class="btn btn-primary" (click)="back()">Back</button>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+</div> -->
+
+
+
+    <div class="card g-5 mx-auto mt-5" style="max-width: 800px;">
+        <div class="row">
+            <div class="col-md-5">
+                <img [src]=userObj.userImgLink alt="user image" class="rounded-circle" width="100%" height="100%">
+              </div>
+              <div class="col-md-7">
+                <div class="card-body">
+                  <h3>Name: {{userObj.username}}</h3>
+                  <p class="card-text">Email-Id:{{userObj.email}}</p>
+                  <p class="card-text">PhoneNumber:{{userObj.phonenumber}}</p>
+                  <p class="card-text">Address:{{userObj.address}}</p>
+                  <p class="card-text">City:{{userObj.city}}</p>
+                  <p class="card-text">State:{{userObj.state}}</p>
+                  <p class="card-text">Pincode:{{userObj.pincode}}</p>
+                  <button class="btn btn-success  me-2">Edit</button>
+                </div>
+        </div>
+      </div>
+    </div>
+ 

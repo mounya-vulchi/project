@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
 @Component({
+
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']

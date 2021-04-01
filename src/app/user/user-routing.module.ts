@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RouteGuard } from '../route.guard';
 import { MyordersComponent } from './myorders/myorders.component';
 import { PaymentComponent } from './payment/payment.component';
 import { UserComponent } from './user.component';
@@ -7,14 +8,15 @@ import { UsercartComponent } from './usercart/usercart.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 
+
 const routes: Routes = [
   { path:"userdashboard", component: UserComponent,children:[
-    { path:"usercart", component:UsercartComponent},
-    { path:"userprofile",component:UserprofileComponent},
-    { path:"wishlist",component:WishlistComponent},
-    { path:"myorder", component:MyordersComponent},
-    { path:"payment", component:PaymentComponent}
-  ]},
+    { path:"usercart", component:UsercartComponent,canActivate:[RouteGuard]},
+    { path:"userprofile",component:UserprofileComponent,canActivate:[RouteGuard]},
+    { path:"wishlist",component:WishlistComponent,canActivate:[RouteGuard]},
+    { path:"myorder", component:MyordersComponent,canActivate:[RouteGuard]},
+    { path:"payment", component:PaymentComponent,canActivate:[RouteGuard]}
+  ],canActivate:[RouteGuard]},
 ];
 
 @NgModule({

@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate} from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouteGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      //check token in local storage
+  canActivate(): boolean {
+
+    //check token in local storage
     let token=localStorage.getItem("token")
-    //if token is not found, return true
+    //if token is found , return false
     if(token==undefined){
       alert("Unauthorized access")
       return false;

@@ -12,6 +12,9 @@ const bcryptjs=require("bcryptjs");
 //import verifyToken middleware
 const verifyToken=require("./middlewares/verifyToken");
 
+const jwt=require("jsonwebtoken")
+const verifyToken=require("./middlewares/verifyToken")
+
 //import cloudinary
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary")
@@ -41,7 +44,7 @@ var upload = multer({ storage: storage });
 
 
 
-const jwt=require("jsonwebtoken")
+
 
 //post req handler for user register
 userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,next)=>{

@@ -23,13 +23,15 @@ const verifyToken=(req,res,next)=>{
             }
         })
     }
-    //if bearer token is not existed
+    //if beare token is not existed
     else{
         return res.send({message:"Unauthorized access. Plz login to continue"})
     }
 
 
 }
+
+
 
 //export
 module.exports=verifyToken;

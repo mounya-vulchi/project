@@ -5,9 +5,9 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { BookdetailsComponent } from './bookdetails/bookdetails.component';
 import { BooksInCategoryComponent } from './books-in-category/books-in-category.component';
-import { SearchPipe } from '../search.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchPipe } from '../search.pipe';
+import { NgbModule, NgbRating } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({

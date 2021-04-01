@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,11 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class DataService {
 
-  constructor(private hc:HttpClient, private router:Router) { }
+  constructor(private hc:HttpClient) { }
 
 
   //user services
-  //mounya
+  
   createUser(userObj):Observable<any>{
     return this.hc.post("/user/register",userObj)
 
@@ -32,9 +31,31 @@ export class DataService {
     return this.hc.get("/user/getcartitems/"+username);
   }
 
+  usercart(obj):Observable<any>{
+    return this.hc.post("/cart/addto",obj);
+  }
+
+  getCartSize(username):Observable<any>{
+    //console.log("the us is ",username);
+    return this.hc.get("/cart/getsize/"+username);
+  }
+
+  deleteCartProduct(obj):Observable<any>{
+    return this.hc.post("/cart/deleteproduct",obj);
+  }
+  userwishlist(obj):Observable<any>{
+    return this.hc.post("/wishlist/addto",obj)
+  }
+  getWishlistItems(username):Observable<any>{
+    return this.hc.get("/wishlist/getwishlistitems/"+username);
+  }
+  deleteWishlistProduct(obj):Observable<any>{
+    return this.hc.post("/wishlist/deleteproduct",obj);
+  }
 
 
   //admin services-----------------------------------------------
+ 
   //create new book
   addNewBook(obj):Observable<any>{
     //console.log("the data in ds is ",obj)
