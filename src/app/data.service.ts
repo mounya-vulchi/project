@@ -22,11 +22,7 @@ export class DataService {
   getUser(username):Observable<any>{
     return this.hc.get("/user/getuser/"+username)
   }
-  getCartItems(username):Observable<any>{
-    console.log("the username is ",username)
-    return this.hc.get("/user/getcartitems/"+username);
-  }
-
+ 
   //create new book
   addNewBook(obj):Observable<any>{
     //console.log("the data in ds is ",obj)
@@ -42,5 +38,29 @@ export class DataService {
     console.log("the book is ",book)
     return this.hc.get("/admin/bookdetails/"+book)
   }
+    usercart(obj):Observable<any>{
+      return this.hc.post("/cart/addto",obj);
+    }
+
+    getCartSize(username):Observable<any>{
+      //console.log("the us is ",username);
+      return this.hc.get("/cart/getsize/"+username);
+    }
+    getCartItems(username):Observable<any>{
+      //console.log("the username is ",username)
+      return this.hc.get("/cart/getcartitems/"+username);
+    }
+    deleteCartProduct(obj):Observable<any>{
+      return this.hc.post("/cart/deleteproduct",obj);
+    }
+    userwishlist(obj):Observable<any>{
+      return this.hc.post("/wishlist/addto",obj)
+    }
+    getWishlistItems(username):Observable<any>{
+      return this.hc.get("/wishlist/getwishlistitems/"+username);
+    }
+    deleteWishlistProduct(obj):Observable<any>{
+      return this.hc.post("/wishlist/deleteproduct",obj);
+    }
   
 }

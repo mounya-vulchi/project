@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
+    this.cartStatus();
   }
 
   goto(n){
@@ -39,6 +40,22 @@ export class HomeComponent implements OnInit {
       this.search="mongodb";
     }
   }
+
+  cartStatus(){
+    this.ds.getCartSize(this.username).subscribe(
+      res=>{
+        this.userCartSize=res["cartsize"];
+      },
+      err=>{
+        alert("Something went wrong in getting all products")
+        console.log(err)
+      }
+    )
+
+  }
+
+
+
 
   logout(){
     localStorage.clear();

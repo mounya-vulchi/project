@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-
+import{FormControl,FormGroup,Validators} from '@angular/forms'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,15 +9,29 @@ import { DataService } from '../data.service';
 })
 export class LoginComponent implements OnInit {
 
+
+  loginForm:FormGroup;
+
+
   constructor(private ds:DataService, private router:Router) { }
 
   ngOnInit(): void {
+
+    this.loginForm=new FormGroup({
+
+      //username
+      username:new FormControl(null,Validators.required),
+      
+      //password
+      password:new FormControl(null,Validators.required),
+
+    });
   }
     
-  onSubmit(formRef:any){
-    let userCredObj=formRef.value;
+  onSubmit(){
+    let userCredObj=this.loginForm.value
     if(userCredObj.username=="admin" && userCredObj.password=="admin"){
-      //localStorage.setItem("username","admin")
+      localStorage.setItem("username","admin")
         this.router.navigateByUrl("/admin")
     }
      
@@ -25,10 +39,10 @@ export class LoginComponent implements OnInit {
     else{
         this.ds.loginUser(userCredObj).subscribe(
           res=>{
-            if(res["message"]==="success"){
+            if(res.message==="success"){
               //store token and username in local storage
-              localStorage.setItem("token",res["signedToken"])
-              localStorage.setItem("username",res["username"])
+              localStorage.setItem("token",res.signedToken)
+              localStorage.setItem("username",res.username)
   
               //navigate to user component
               this.router.navigateByUrl("/home")

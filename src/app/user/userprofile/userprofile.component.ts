@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/data.service';
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -7,9 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserprofileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ds:DataService, private router:Router) { }
+
+  userObj;
 
   ngOnInit(): void {
+    let username=localStorage.getItem("username")
+    this.userObj=this.ds.getUser(username).subscribe(
+      res=>{
+        if(res["message"]=="success")
+        {
+          this.userObj=res["user"]
+          console.log(this.userObj)
+        }
+        else{
+          alert(res["message"])
+          //navigate login
+          this.router.navigateByUrl("/login")
+
+        }
+      },
+      err=>{
+        alert("something went wrong")
+        console.log(err)
+      }
+    )
   }
+
+  back(){
+    this.router.navigateByUrl("/user/userdashboard")
+  }
+
 
 }

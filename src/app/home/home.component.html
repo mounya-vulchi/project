@@ -19,7 +19,7 @@
             <a class="nav-link" style="color:white" routerLink="/home" routerLinkActive="active"><i class="fas fa-home"></i>Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" style="color:white" routerLink="/login" routerLinkActive="active">Sign in</a>
+            <a class="nav-link" style="color:white" routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign in</a>
           </li>
           
       </ul>
@@ -40,7 +40,7 @@
         <button class="btn btn-danger m-2 px-4 mt-3" (click)="logout()">Logout</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color:white" routerLink="/user/usercart" routerLinkActive="active">
+        <a class="nav-link" style="color:white" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
           <h4 class="fas fa-cart-arrow-down text-danger mt-3 float-end">
             <sup class="text-danger float-end mx-1 ">{{userCartSize}}</sup>
           </h4>

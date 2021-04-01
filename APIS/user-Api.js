@@ -9,6 +9,9 @@ userApiObj.use(exp.json());
 //import bcrypt
 const bcryptjs=require("bcryptjs")
 
+const jwt=require("jsonwebtoken")
+const verifyToken=require("./middlewares/verifyToken")
+
 //import cloudinary
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary")
@@ -38,7 +41,7 @@ var upload = multer({ storage: storage });
 
 
 
-const jwt=require("jsonwebtoken")
+
 
 //post req handler for user register
 userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,next)=>{
@@ -99,7 +102,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:10});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
             
             //send token
             res.send({message:"success",signedToken:token,username:user.username});
@@ -112,7 +115,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
 
 
 //get user
-userApiObj.get("/getuser/:username",asyncHandler(async(req,res,next)=>{
+userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object
     let userCollectionObject=req.app.get("userCollectionObj")
     let userObj=await userCollectionObject.findOne({username:req.params.username})

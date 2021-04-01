@@ -1,1 +1,31 @@
-<p>user works!</p>
+
+<span class="header-1 mt-5">Welcome,{{userObj.username}}</span>
+ 
+    <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width:2%; height:2%">
+            <button class="float-end btn ms-2 d-block btn-success mt-2" (click)="logout()">Signout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+
+            <div class="container-fluid mt-5 mb-5">
+                <div class="row">
+                    <div class="col-sm-2 bg-dark">
+                        <nav class="nav my-3 mx-5">
+                            <li class="nav-item">
+                                <a routerLink="/user/userdashboard/usercart" class="nav-link"><i class="fas fa-shopping-cart"></i> Cart</a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/user/userdashboard/wishlist" class="nav-link"><i class="fas fa-heart"></i> WishList</a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/user/userdashboard/myorder" class="nav-link"><i class="fas fa-clipboard-list"></i> My Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/user/userdashboard/userprofile" class="nav-link"><i class="fas fa-user-circle"></i> My Profile</a>
+                            </li>
+                        </nav>   
+                    </div>
+                
+                    <div class="col-sm-9 ">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+            
