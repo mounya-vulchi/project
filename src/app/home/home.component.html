@@ -1,25 +1,44 @@
 <body>
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #C3073F">
-  <img src="https://i.postimg.cc/tT6BZkKJ/bookstoreicon.png" alt="digital-library-online-book-store-preview"  width="4%">
-    <a class="navbar-brand" href="#">BookStore</a>
+  <img src="https://i.postimg.cc/tT6BZkKJ/bookstoreicon.png" alt="digital-library-online-book-store-preview"  width="3%">
+    <a class="navbar-brand" href="#" style="font-size: 25px;">BookStore</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-            <input type="text" class="form-control " style="width: 300px;" placeholder="search by title" [(ngModel)]="search">
-        </li>
-        <li class="nav-item">
-            <button class="btn btn-success mx-3">Search</button>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" style="color:white" routerLink="/home" routerLinkActive="active"><i class="fas fa-home"></i>Home</a>
-          </li>
+          <!-- search bar -->
           <li class="nav-item">
-            <a class="nav-link" style="color:white" routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign in</a>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search">
+              <div class="input-group-append">
+                <button class="btn btn-light" >
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </li>
+          <!-- home button -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" routerLink="/home" routerLinkActive="active"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <!-- login button -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" *ngIf="!admin&&username==null" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+          </li>
+          <!-- userprofile -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> {{username}}</a>
+          </li>
+          <!-- logout for user -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" *ngIf="username!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Logout</a>
+          </li>
+          <!-- for admin -->
+          <li class="nav-item">
+            <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Admin</a>
           </li>
           
       </ul>
@@ -29,19 +48,20 @@
 </nav>
 <nav class="navbar navbar-expand-lg bg-dark" *ngIf="username!=null">
           
-  <a class="navbar-brand" href="#"style="color:white;font-size:25px;">Welcome {{username}}</a>
+  <a class="navbar-brand" href="#"style="color:white;font-size: 20px;">Welcome {{username}}</a>
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" style="color:white" routerLink="/user/userdashboard" routerLinkActive="active">{{username}}</a>
+        <a class="nav-link" style="color:white" *ngIf="!admin" routerLink="/user/userdashboard" routerLinkActive="active">{{username}}</a>
+        <a class="nav-link" style="color:white" *ngIf="admin"  routerLink="/admin" routerLinkActive="active">{{username}}</a>
       </li>
       <li class="nav-item">
-        <button class="btn btn-danger m-2 px-4 mt-3" (click)="logout()">Logout</button>
+        <button class="btn btn-danger mx-2 px-4 " (click)="logout()">Logout</button>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color:white" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
-          <h4 class="fas fa-cart-arrow-down text-danger mt-3 float-end">
+        <a class="nav-link" style="color:white" routerLink="/user/usercart" routerLinkActive="active">
+          <h4 class="fas fa-cart-arrow-down text-danger float-end">
             <sup class="text-danger float-end mx-1 ">{{userCartSize}}</sup>
           </h4>
         </a>
@@ -78,7 +98,7 @@
         <div class="col-sm-2 bg-dark">
             <nav class="nav my-3">
                 <li class="nav-item">
-                    <a><strong class="text-white nav-link">Categories</strong></a>
+                    <strong class="text-white nav-link" style="font-size: 20px;">Categories</strong>
                 </li>
                 <li class="nav-item">
                     <a  (click)="goto(0)" class="nav-link">Full Stack Developer</a>

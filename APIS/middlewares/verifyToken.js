@@ -1,6 +1,4 @@
 const jwt=require("jsonwebtoken")
-
-
 const verifyToken=(req,res,next)=>{
 
     //token verification logic

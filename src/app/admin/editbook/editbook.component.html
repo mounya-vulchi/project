@@ -1,0 +1,101 @@
+<div class="container">
+    <button class="btn btn-danger mt-4 float-end" (click)="deletebook()">Delete book</button>
+    <p class="display-6 text-center pt-3" style="color: black;">Edit Book Details</p>
+
+    <form class="row g-3 mt-3 mb-5 bg-light p-5" [formGroup]="registerForm" (ngSubmit)="onSubmit() ">
+        
+        <!--cover photo -->
+        <div class="col-md-4">
+            <img [src]=bookimg alt="cover photo" width="100%">
+        </div>
+        <div class="col-md-8">
+            <!-- book title -->
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="booktitle" name="booktitle" placeholder="title of the book" formControlName="booktitle">
+                    <label for="booktitle" class="form-label">Title</label>
+                </div>
+            </div>
+            <!-- Author -->
+            <div class="col-md-12 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="author"  name="author" placeholder="Author of the book" formControlName="author">
+                    <label for="author">Author</label>
+                </div>
+                <!-- validation for Author -->
+                <p class="text text-danger" *ngIf="registerForm.get('author').hasError('required')&& getcontrol().author.touched||submitted"> Author is required</p>
+            </div>
+
+            <!-- price of the book -->
+            <div class="col-md-12 mt-2">
+                <div class="form-floating">
+                    <input type="number" class="form-control"  id="price"  name="price" placeholder="price in Rupees" formControlName="price">
+                    <label for="price">Price</label>
+                </div>
+                <!-- validation for book price -->
+                <p class="text text-danger" *ngIf="registerForm.get('price').hasError('required')&& getcontrol().price.touched||submitted"> Price is required</p>
+            </div>
+            
+            <!--publisher  -->
+            <div class="col-md-12 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="publisher"  name="publisher" placeholder="Publisher of the book" formControlName="publisher">
+                    <label for="publisher">Publisher</label>
+                </div>
+                <!-- validation for Publisher -->
+                <p class="text text-danger" *ngIf="registerForm.get('publisher').hasError('required')&& getcontrol().publisher.touched||submitted"> Publisher is required</p>
+            </div>
+
+            <!-- publication date -->
+            <div class="col-md-12 mt-2">
+                <div class="form-floating">
+                    <input type="date" class="form-control" id="publicationdate"  name="publicationdate" placeholder="publication date"formControlName="publicationdate">
+                    <label for="publicationdate">Publication Date</label>
+                </div>
+                <!-- validation for publication date -->
+                <p class="text text-danger" *ngIf="registerForm.get('publicationdate').hasError('required')&& getcontrol().publicationdate.touched||submitted"> publication date is required</p>
+            </div>
+
+            <!-- no of pages -->
+            <div class="col-md-12 mt-2">
+                <div class="form-floating">
+                    <input type="number" class="form-control" name="paperback"  id="paperback" placeholder="No of pages" formControlName="paperback">
+                    <label for="paperback">Paperback</label>
+                </div>
+                <!-- validation for paperback -->
+                <p class="text text-danger" *ngIf="registerForm.get('paperback').hasError('required')&& getcontrol().paperback.touched||submitted"> Paperback is required</p>
+            </div>
+
+            <!-- rating -->
+            <div class="col-md-12 mt-2">
+                <label for="rating" class="form-label">Rate the Book :</label>
+                <ngb-rating [max]="5" [(rate)]="currentRate" [readonly]="false" id="rating" name="rating" class="px-2" formControlName="rating"></ngb-rating>
+                <p class="text-danger" *ngIf="registerForm.get('description').hasError('maxlength')">Give rating outoff 5</p>
+            </div>
+            
+            <!-- category -->
+            <div class="col-md-12 mt-2">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="category"  name="category" placeholder="category of the book" formControlName="category">
+                    <label for="category">Category</label>
+                </div>
+                <!-- validation for category -->
+                <p class="text text-danger" *ngIf="registerForm.get('category').touched && registerForm.get('category').errors?.required"> Category of the Book is required</p>
+            </div>
+        </div>
+        
+        
+        <!-- book description -->
+        <div class="col-md-12 mt-2">
+            <label for="description">Book Description</label>
+            <textarea name="description" id="description" class="form-control"  cols="10" rows="5" placeholder="description of the book" formControlName="description"></textarea>
+            <!-- validation for book description -->
+            <p class="text text-danger" *ngIf="registerForm.get('description').hasError('required')&& getcontrol().description.touched||submitted"> Description is required</p>
+            <p class="text-danger" *ngIf="registerForm.get('description').hasError('minlength')"> Description of the Book should contain minimum of 20 characters.</p>                
+        </div>
+
+        <div class="col-md-12 mt-3 pt-1 text-center">
+            <button type="submit" class="btn btn-primary">Update Book Details</button>
+        </div>
+    </form>
+</div>

@@ -1,5 +1,4 @@
-import { Route } from '@angular/compiler/src/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 
@@ -36,7 +35,8 @@ export class AvailableBooksComponent implements OnInit {
   bookDetails(book){
     //console.log("the book is ",book)
     localStorage.setItem("book",book["booktitle"])
-    this.router.navigateByUrl("/home/bookdetails")
+    this.router.navigateByUrl("/admin/editbook")
   }
+
 
 }

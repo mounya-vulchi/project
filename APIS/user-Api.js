@@ -1,13 +1,16 @@
 const exp=require("express");
 const userApiObj=exp.Router();
 
-const asyncHandler=require("express-async-handler")
+const asyncHandler=require("express-async-handler");
 
 //extract body of req obj
 userApiObj.use(exp.json());
 
 //import bcrypt
-const bcryptjs=require("bcryptjs")
+const bcryptjs=require("bcryptjs");
+
+//import verifyToken middleware
+const verifyToken=require("./middlewares/verifyToken");
 
 const jwt=require("jsonwebtoken")
 const verifyToken=require("./middlewares/verifyToken")
@@ -102,7 +105,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:100});
             
             //send token
             res.send({message:"success",signedToken:token,username:user.username});
@@ -113,7 +116,12 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
     }
 }))
 
-
+//get all users
+userApiObj.get("/getusers",asyncHandler(async(req,res,next)=>{
+    let userCollectionObject=req.app.get("userCollectionObj");
+    let allUsers=await userCollectionObject.find().toArray();
+    res.send({users:allUsers})
+}))
 //get user
 userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object

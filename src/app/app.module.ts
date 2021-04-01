@@ -28,11 +28,11 @@ import { AuthorizationService } from './authorization.service';
   ],
   providers: [
     {
-    provide:HTTP_INTERCEPTORS,
-    useClass:AuthorizationService,
-    multi:true,
-  }
-],
+      provide:HTTP_INTERCEPTORS,
+      useClass:AuthorizationService,
+      multi:true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

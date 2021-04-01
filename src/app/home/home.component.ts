@@ -11,13 +11,18 @@ export class HomeComponent implements OnInit {
 
   username;
   userCartSize;
+  admin=false;
   booksArray=[];
   search;
   constructor(private ds:DataService, private router:Router ) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
-    this.cartStatus();
+    
+    if(this.username=="Admin"){
+      this.admin=true;
+      console.log(this.admin)
+    }
   }
 
   goto(n){
@@ -34,28 +39,12 @@ export class HomeComponent implements OnInit {
       this.search="nodejs";
     }
     else if(n==4){
-      this.search="html,css & ";
+      this.search="html, css & rwd";
     }
     if(n==5){
       this.search="mongodb";
     }
   }
-
-  cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
-      res=>{
-        this.userCartSize=res["cartsize"];
-      },
-      err=>{
-        alert("Something went wrong in getting all products")
-        console.log(err)
-      }
-    )
-
-  }
-
-
-
 
   logout(){
     localStorage.clear();

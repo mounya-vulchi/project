@@ -9,11 +9,18 @@ import { DataService } from './data.service';
 })
 export class AppComponent implements OnInit{
   title = 'BookStore';
-  search;
-  constructor(private ds:DataService,private router:Router){}
-   
-  ngOnInit(){
+  username;
+  admin=false;
+  constructor(private router:Router){}
 
+  ngOnInit(){
+    this.username=localStorage.getItem("username")
+    if(this.username=="Admin"){
+      this.admin=true;
+    }
   }
-  
+  logout(){
+    localStorage.clear();
+    this.router.navigateByUrl("/home");
+  }
 }

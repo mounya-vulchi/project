@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 
@@ -9,6 +10,9 @@ import { DataService } from 'src/app/data.service';
 })
 export class AddNewbookComponent implements OnInit {
 
+
+  registerForm:FormGroup;
+  submitted=false;
   file :File; 
 
   incomingfile(event:any) {
@@ -20,10 +24,31 @@ export class AddNewbookComponent implements OnInit {
   constructor(private ds:DataService, private router:Router) { }
 
   ngOnInit(): void {
+    this.registerForm=new FormGroup({
+      //boottitle
+      booktitle:new FormControl(null,Validators.required),
+      //author
+      author: new FormControl(null,Validators.required),
+      //paperback
+      paperback: new FormControl(null,Validators.required),
+      //price
+      price: new FormControl(null,Validators.required),
+      //publisher'
+      publisher: new FormControl(null,Validators.required),
+      //publicationdate
+      publicationdate: new FormControl(null,Validators.required),
+      //rating
+      rating: new FormControl(null, [Validators.required]),
+      //category
+      category: new FormControl(null,Validators.required),
+      //description yourself
+      description: new FormControl(null,[Validators.required,Validators.minLength(20)])
+      
+    });
   }
 
-  onSubmit(formRef){   
-    let bookObj = formRef.value;
+  onSubmit(){  
+    let bookObj = this.registerForm.value;
     console.log(bookObj);
     let formData = new FormData();
 
@@ -40,7 +65,7 @@ export class AddNewbookComponent implements OnInit {
         alert("Product is already existed..choose another");
       }
       else{
-        alert("Product Added Successfully");
+        alert(res.message);
 
         //navigate to login component
         this.router.navigateByUrl("/admin/allbooks");
@@ -52,6 +77,9 @@ export class AddNewbookComponent implements OnInit {
     }  
   )
    
+}
+getcontrol(){
+  return this.registerForm.controls;
 }
 
 }

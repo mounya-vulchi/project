@@ -1,10 +1,5 @@
-span{
-    font-weight: bold;
-    
-}
-
 a{
-    font-weight: bold;
-    color: thistle;
+    font-size: medium;
+    color: white;
     display: block;
 }
