@@ -26,6 +26,10 @@ export class DataService {
   getAllUsers():Observable<any>{
     return this.hc.get("/user/getusers")
   }
+  deleteUser(user):Observable<any>{
+    //console.log(user)
+    return this.hc.post("/user/deleteuser",user)
+  }
   getCartItems(username):Observable<any>{
     console.log("the username is ",username)
     return this.hc.get("/user/getcartitems/"+username);

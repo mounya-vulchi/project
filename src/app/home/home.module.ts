@@ -7,7 +7,7 @@ import { BookdetailsComponent } from './bookdetails/bookdetails.component';
 import { BooksInCategoryComponent } from './books-in-category/books-in-category.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from '../search.pipe';
-import { NgbModule, NgbRating } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({

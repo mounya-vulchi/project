@@ -9,8 +9,10 @@ import { AvailableBooksComponent } from './available-books/available-books.compo
 import { AvailableCategoriesComponent } from './available-categories/available-categories.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CategoryPipe } from '../category.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditbookComponent } from './editbook/editbook.component';
+
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { EditbookComponent } from './editbook/editbook.component';
     AddNewbookComponent, 
     AvailableBooksComponent, 
     AvailableCategoriesComponent, 
-    EditbookComponent
+    EditbookComponent,
+    CategoryPipe
   ],
   imports: [
     CommonModule,

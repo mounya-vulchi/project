@@ -130,5 +130,16 @@ userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)
     res.send({message:"success",user:userObj})
 
 }))
+//delete user
+userApiObj.post("/deleteuser",asyncHandler(async(req,res,next)=>{
+    //get user usercollection object
+    let userCollectionObject=req.app.get("userCollectionObj")
+    console.log("the user is ",req.body)
+    let userObj=await userCollectionObject.findOne({username:req.body.username})
+    if(userObj!=null){
+        await userCollectionObject.deleteOne({username:req.body.username});
+        res.send({message:true});
+    }
+}))
 //export
 module.exports = userApiObj;

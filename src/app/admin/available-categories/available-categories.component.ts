@@ -9,7 +9,9 @@ import { DataService } from 'src/app/data.service';
 })
 export class AvailableCategoriesComponent implements OnInit {
 
+  searchTerm;
   categories=[];
+  numofcat;
   books;
   constructor(private ds:DataService, private router:Router) { }
 
@@ -18,13 +20,14 @@ export class AvailableCategoriesComponent implements OnInit {
       res=>{
         this.books=res.booksarray;
         this.categories=[...new Set(this.books.map(x=>x.category))];
+        this.numofcat=this.categories.length;
         //console.log("categories are ",this.categories);
       }
     )
   }
   
   categoryBooks(c){
-    
+
   }
 
   bookDetails(book){
