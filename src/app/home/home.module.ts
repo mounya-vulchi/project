@@ -8,6 +8,7 @@ import { BooksInCategoryComponent } from './books-in-category/books-in-category.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from '../search.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CategoryComponent } from './category/category.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HomeComponent, 
     BookdetailsComponent, 
     BooksInCategoryComponent,
-    SearchPipe
+    SearchPipe,
+    CategoryComponent
   ],
   imports: [
     CommonModule,

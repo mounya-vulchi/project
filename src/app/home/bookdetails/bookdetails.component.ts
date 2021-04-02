@@ -88,6 +88,10 @@ export class BookdetailsComponent implements OnInit {
       )
      
     }
+    else{
+      alert("Please sign in to add to cart");
+      this.router.navigateByUrl("/login");
+    }
    
   }
 
@@ -125,6 +129,10 @@ export class BookdetailsComponent implements OnInit {
         }
       )
      
+    }
+    else{
+      alert("Please sign in to add to wishlist");
+      this.router.navigateByUrl("/login");
     }
 
   }
