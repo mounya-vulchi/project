@@ -32,7 +32,7 @@ export class DataService {
   }
   getCartItems(username):Observable<any>{
     console.log("the username is ",username)
-    return this.hc.get("/user/getcartitems/"+username);
+    return this.hc.get("/cart/getcartitems/"+username);
   }
 
   usercart(obj):Observable<any>{
@@ -54,7 +54,13 @@ export class DataService {
     return this.hc.get("/wishlist/getwishlistitems/"+username);
   }
   deleteWishlistProduct(obj):Observable<any>{
+   
     return this.hc.post("/wishlist/deleteproduct",obj);
+  }
+
+  editprofile(userObj):Observable<any>{
+    console.log("obj in data sevice",userObj)
+    return this.hc.put("/user/updateprofile",userObj)
   }
 
 

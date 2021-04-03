@@ -12,11 +12,13 @@ import { SearchPipe } from './search.pipe';
 import { AuthorizationService } from './authorization.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+   
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
@@ -8,6 +8,7 @@ import { UsercartComponent } from './usercart/usercart.component';
 import { MyordersComponent } from './myorders/myorders.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
 import { PaymentComponent } from './payment/payment.component';
+import { EditprofileComponent } from './editprofile/editprofile.component';
 
 
 @NgModule({
@@ -17,11 +18,12 @@ import { PaymentComponent } from './payment/payment.component';
     UsercartComponent, 
     MyordersComponent, 
     UserprofileComponent, 
-    PaymentComponent
+    PaymentComponent, EditprofileComponent
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class UserModule { }
