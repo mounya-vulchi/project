@@ -135,14 +135,27 @@ userApiObj.put("/updateprofile",upload.single('photo'),asyncHandler(async(req,re
     let userCollectionObject=req.app.get("userCollectionObj")
 
     let userObj =  JSON.parse(req.body.userObj)
-    let hashedpwd = await bcryptjs.hash(userObj.password,6);
+    // let hashedpwd = await bcryptjs.hash(userObj.password,6);
 
-       userObj.password = hashedpwd;
+    //    userObj.password = hashedpwd;
        userObj.userImgLink = req.file.path;
-       //console.log("the hashed password is",userObj)
+       console.log("the hashed password is",userObj)
 
     let user=await userCollectionObject.findOne({username:userObj.username})
-    //console.log("the userobj status",user)
+
+    if(user.password!==userObj.password){
+        console.log("the password is different")
+        let hashedpwd = await bcryptjs.hash(userObj.password,6);
+          userObj.password = hashedpwd;
+    }
+    else{
+        console.log("the password is same")    
+    }
+
+
+
+
+    console.log("the userobj status",user)
     if(user!==null){
          let edit=await userCollectionObject.updateOne({username:userObj.username},{$set:{
             email:userObj.email,
