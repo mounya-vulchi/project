@@ -11,6 +11,8 @@ export class BooksInCategoryComponent implements OnInit {
 
   username;
   booksArray=[];
+  alert;
+  closeAlert;
   @Input() searchTerm:string;  
   constructor(private ds:DataService, private router:Router ) { }
 
@@ -25,9 +27,13 @@ export class BooksInCategoryComponent implements OnInit {
         this.booksArray=res["booksarray"]
       },
       err=>{
-        alert("Something went wrong")
+        this.alert=true;
+        this.closeAlert=false;
+                setTimeout(() => {
+                  this.alert = false;
+                  this.closeAlert = true;
+                }, 3000);
         console.log("the error is ",err)
-
       }
     )
   }

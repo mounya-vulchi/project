@@ -21,8 +21,11 @@ export class SearchPipe implements PipeTransform {
       else if(booktitle.length!==0){
         return booktitle;
       }
-      else{
+      else if(author.length!==0){
         return author;
+      }
+      else{
+        alert("No Data Found");
       }
       
     }

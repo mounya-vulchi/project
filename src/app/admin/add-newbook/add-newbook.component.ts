@@ -61,13 +61,13 @@ export class AddNewbookComponent implements OnInit {
   
    this.ds.addNewBook(formData).subscribe(
     res=>{
-      if(res["message"] == "Book already Existed"){
+      if(res.message == "Book already Existed"){
         alert("Product is already existed..choose another");
       }
       else{
         alert(res.message);
 
-        //navigate to login component
+        //navigate to allbooks component
         this.router.navigateByUrl("/admin/allbooks");
       }
     },

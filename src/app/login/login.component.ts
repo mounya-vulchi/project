@@ -11,7 +11,9 @@ import { DataService } from '../data.service';
 export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
-
+  alert;
+  alertmsg;
+  closeAlert;
 
   constructor(private ds:DataService, private router:Router) { }
 
@@ -46,17 +48,30 @@ export class LoginComponent implements OnInit {
               }
             }
             else{
-              alert(res["message"])
+              this.alert=true;
+              this.alertmsg=res.message;
+              this.closeAlert=false;
+                setTimeout(() => {
+                  this.alert = false;
+                  this.closeAlert = true;
+                }, 3000);
               this.router.navigateByUrl("/login")
             }
           },
           err=>{
-            alert("Something went wrong in user login")
+            this.alert=true;
+              this.alertmsg="Something went wrong in user login";
+              this.closeAlert=false;
+                setTimeout(() => {
+                  this.alert = false;
+                  this.closeAlert = true;
+                }, 3000);
             console.log(err)
           }
         )
   
 }
+
 
 regiser(){
   this.router.navigateByUrl("/register")

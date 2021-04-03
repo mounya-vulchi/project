@@ -71,12 +71,12 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
         userObj.password = hashedpwd;
         userObj.userImgLink = req.file.path;
 
-        console.log(userObj)
+        //console.log(userObj)
 
         //create user
         let success=await userCollectionObj.insertOne(userObj);
         res.send({message:"user created"})
-        console.log("user created")
+        //console.log("user created")
        
        
     }

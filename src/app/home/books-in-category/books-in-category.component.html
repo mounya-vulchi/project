@@ -1,7 +1,13 @@
 <div class="container">
+    <div *ngIf="alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error !</strong> Something went wrong !.
+        <button *ngIf="closeAlert" type="button" class="close" data-dismiss="alert" aria-label="close alert">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="row">
-        <div class="col-md-3 mb-3" *ngFor="let b of booksArray | search : searchTerm">    
-            <div class="card mx-3" (click)="bookDetails(b)"  style="min-height:470px">
+        <div class="col-md-3 mb-3" *ngFor="let b of booksArray | search : searchTerm">  
+            <div class="card mx-3" (click)="bookDetails(b)" style="min-height:470px">
                 <img [src]=b.bookImgLink class="card-img-top"  style="height: 270px;" alt="...">
                 <div class="card-body">
                     <strong class="card-title">{{b.booktitle}}</strong>
