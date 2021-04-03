@@ -8,8 +8,7 @@ import { HomeComponent } from './home.component';
 const routes: Routes = [
   { path:'', component:HomeComponent, children:[
     { path:"categorybooks",component:BooksInCategoryComponent},
-    { path:"category",component:CategoryComponent},
-    { path:"",redirectTo:"/home/categorybooks",pathMatch:"full"}
+    { path:"category",component:CategoryComponent}
   ]},
   { path:"bookdetails", component:BookdetailsComponent}
 ];

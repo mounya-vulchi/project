@@ -19,3 +19,8 @@ a{
 .container{
     font-family:poppins;
 }
+
+.carousel{
+    padding-left: 5%;
+    padding-right: 5%;
+}
