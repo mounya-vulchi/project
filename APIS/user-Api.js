@@ -9,8 +9,7 @@ userApiObj.use(exp.json());
 //import bcrypt
 const bcryptjs=require("bcryptjs");
 
-//import verifyToken middleware
-//const verifyToken=require("./middlewares/verifyToken");
+
 
 const jwt=require("jsonwebtoken")
 const verifyToken=require("./middlewares/verifyToken")
@@ -63,7 +62,7 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
         res.send({message:"user existed"});
     }
     else{
-        //console.log("user not there")
+      
         //hash the password
         let hashedpwd = await bcryptjs.hash(userObj.password,6);
 
@@ -90,7 +89,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
     let userCollectionObj = req.app.get("userCollectionObj");
 
     let userCredObj = req.body;
-    //console.log(userCredObj)
+    
     //verify  username
     let user = await userCollectionObj.findOne({username:userCredObj.username})
 
@@ -128,7 +127,45 @@ userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)
     let userCollectionObject=req.app.get("userCollectionObj")
     let userObj=await userCollectionObject.findOne({username:req.params.username})
     res.send({message:"success",user:userObj})
-
+    
 }))
+
+//update userprofile
+userApiObj.put("/updateprofile",upload.single('photo'),asyncHandler(async(req,res,next)=>{
+    let userCollectionObject=req.app.get("userCollectionObj")
+
+    let userObj =  JSON.parse(req.body.userObj)
+    let hashedpwd = await bcryptjs.hash(userObj.password,6);
+
+       userObj.password = hashedpwd;
+       userObj.userImgLink = req.file.path;
+       //console.log("the hashed password is",userObj)
+
+    let user=await userCollectionObject.findOne({username:userObj.username})
+    //console.log("the userobj status",user)
+    if(user!==null){
+         let edit=await userCollectionObject.updateOne({username:userObj.username},{$set:{
+            email:userObj.email,
+            password:userObj.password,
+            phonenumber:userObj.phonenumber,
+            address:userObj.address,
+            city:userObj.city,
+            state:userObj.state,
+            pincode:userObj.pincode, 
+            //photo: new userObj.userImgLink,
+            userImgLink:userObj.userImgLink 
+        }});
+     
+        res.send({message:true});
+    }
+    else{
+        res.send({message:"user not found"})
+    }
+    
+}))
+
+
+
+
 //export
 module.exports = userApiObj;

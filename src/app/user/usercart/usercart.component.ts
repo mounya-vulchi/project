@@ -79,6 +79,9 @@ export class UsercartComponent implements OnInit {
     )
 
   }
+  goto(){
+    this.router.navigateByUrl("/home/categorybooks")
+  }
   
 
 }

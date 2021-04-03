@@ -38,6 +38,9 @@ export class UserprofileComponent implements OnInit {
   back(){
     this.router.navigateByUrl("/user/userdashboard")
   }
+  edit(){
+    this.router.navigateByUrl("/user/userdashboard/editprofile")
+  }
 
 
 }

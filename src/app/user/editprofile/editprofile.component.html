@@ -1,0 +1,252 @@
+<body class="p-5">
+  <div class="container border mb-5 " >
+    <h1 class="text-center">Signup</h1>
+   
+    <form id="form" class="row g-3 p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <div class="col-md-4">
+
+        <img [src]=photo alt="cover photo" class="border rounded-circle" width="100%">
+      </div>
+      <div class="col-md-8">
+
+        <div class="row">
+        <!--email  -->
+        <div class="col-md-6">
+          <!--email-->
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control " id="email" placeholder="name@example.com"  name="email" formControlName="email">
+          <label for="email">Email address</label>
+        </div>
+        <!-- validation for email-->
+        <div *ngIf="registerForm.get('email').invalid&&registerForm.get('email').touched" class="text-danger">
+            <span *ngIf="registerForm.get('email').errors?.required" class="text-danger">Email is required</span>
+            <span *ngIf="registerForm.get('email').errors?.pattern" class="text-danger">*email should end with .com</span>
+        </div>
+      </div>
+
+      <!-- password -->
+      <div class="col-md-6">
+        <div class="form-floating mb-3 ">
+          <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password">
+          <label for="password">Password</label>
+        </div>
+
+        <!-- validation for password -->
+        <div *ngIf="registerForm.get('password').invalid&&registerForm.get('password').touched" class="text-danger">
+            <span *ngIf="registerForm.get('password').errors?.required" class="text-danger">password is required</span>
+            <span *ngIf="registerForm.get('password').errors?.pattern" class="text-danger">*Password should have minimum 6 characters, atleast 1 uppercase letter and 1 digit</span>
+        </div>
+      
+      </div>
+
+      <!-- username -->
+      <div class="col-md-6">
+        <div class="form-floating mb-3 ">
+          <input type="text" class="form-control" id="username" placeholder="Username" name="username" formControlName="username">
+          <label for="username">Username</label>
+        </div>
+        
+       <!--validation for username-->
+        <p *ngIf="registerForm.get('username').touched&&registerForm.get('username').errors?.required" class="text-danger">Username required</p>
+      </div>
+       <!-- phone number -->
+       <div class="col-md-6">
+        <div class="form-floating mb-3 ">
+          <input type="number" class="form-control" id="phonenumber" placeholder="Phonenumber" name="phonenumber" formControlName="phonenumber">
+          <label for="phonenumber">Phonenumber</label>
+        </div>
+
+         <!-- validation for phonenumber -->
+         <p *ngIf="registerForm.get('phonenumber').touched&&registerForm.get('phonenumber').errors?.required" class="text-danger">Phonenumber is required</p>
+
+      
+      </div>
+
+      <!-- address -->
+      <div class="col-md-12">
+        <div class="form-floating mb-3 ">
+          <textarea type="text" class="form-control" id="address" placeholder="Address" name="address" formControlName="address"></textarea>
+          <label for="username">Address</label>
+        </div>
+
+        <!--validation for address-->
+        <p *ngIf="registerForm.get('address').touched&&registerForm.get('address').errors?.required" class="text-danger">Address required</p>
+      </div>
+      <!-- city -->
+      <div class="col-md-4">
+         
+           <!--city-->
+           <div class="form-floating mb-3 ">
+            <input type="text" class="form-control" id="city" placeholder="City" name="city" formControlName="city">
+            <label for="city">City</label>
+          </div>
+          
+         <!--validation for city-->
+          <p *ngIf="registerForm.get('city').touched&&registerForm.get('city').errors?.required" class="text-danger">City required</p>
+
+      </div>
+      <!-- state -->
+      <div class="col-md-4">
+        <div class="form-group mb-3">
+
+          <select  class="form-select p-3" name="state"  id="state" formControlName="state" placeholder="Select" aria-label="Default select example">
+              <option selected disabled>Select your state...</option>
+              <option value="telangana">Telangana</option>
+              <option value="andhra pradesh">Andhra pradesh</option>
+              <option value="karnataka">Karnataka</option>
+              <option value="tamilnadu">Tamilnadu</option>
+          </select>
+      </div>
+       <!--validation for state-->
+       <p *ngIf="registerForm.get('state').touched&&registerForm.get('state').errors?.required" class="text-danger">State required</p>
+      </div>
+
+      <!-- zip -->
+      <div class="col-md-4">
+         <!--pincode-->
+         <div class="form-floating mb-3 ">
+          <input type="number" class="form-control" id="pincode" placeholder="Pincode" name="pincode" formControlName="pincode">
+          <label for="pincode">Pincode</label>
+        </div>
+
+         <!-- validation for pincode -->
+         <p *ngIf="registerForm.get('pincode').touched&&registerForm.get('pincode').errors?.required" class="text-danger">Pincode is required</p>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group ">
+          <label>Profile photo</label>
+          <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload profile photo here" formControlName="userImgLink">    
+        </div>
+        <!--validation for photo-->
+        <p *ngIf="registerForm.get('userImgLink').touched&&registerForm.get('userImgLink').errors?.required" class="text-danger">Photo required</p>
+      </div>
+      </div>
+      </div>
+      
+        <div class="text-center">
+          <button type="submit" class="btn btn-success mx-5" [disabled]="registerForm.invalid">Update</button>
+          <button type="submit" class="btn btn-warning"(click)="cancel()">Cancel</button> 
+        </div>
+
+
+<!-- 
+
+        <div class="col-md-6">
+         
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control " id="email" placeholder="name@example.com"  name="email" formControlName="email">
+            <label for="email">Email address</label>
+          </div>
+         
+          <div *ngIf="registerForm.get('email').invalid&&registerForm.get('email').touched" class="text-danger">
+              <span *ngIf="registerForm.get('email').errors?.required" class="text-danger">Email is required</span>
+              <span *ngIf="registerForm.get('email').errors?.pattern" class="text-danger">*email should end with .com</span>
+          </div>
+        </div>
+  
+        
+        <div class="col-md-6">
+          <div class="form-floating mb-3 ">
+            <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password">
+            <label for="password">Password</label>
+          </div>
+  
+          <div *ngIf="registerForm.get('password').invalid&&registerForm.get('password').touched" class="text-danger">
+              <span *ngIf="registerForm.get('password').errors?.required" class="text-danger">password is required</span>
+              <span *ngIf="registerForm.get('password').errors?.pattern" class="text-danger">*Password should have minimum 6 characters, atleast 1 uppercase letter and 1 digit</span>
+          </div>
+        
+        </div>
+  
+     
+        <div class="col-md-6">
+          <div class="form-floating mb-3 ">
+            <input type="text" class="form-control" id="username" placeholder="Username" name="username" formControlName="username">
+            <label for="username">Username</label>
+          </div>
+          
+      
+          <p *ngIf="registerForm.get('username').touched&&registerForm.get('username').errors?.required" class="text-danger">Username required</p>
+        </div>
+     
+         <div class="col-md-6">
+          <div class="form-floating mb-3 ">
+            <input type="number" class="form-control" id="phonenumber" placeholder="Phonenumber" name="phonenumber" formControlName="phonenumber">
+            <label for="phonenumber">Phonenumber</label>
+          </div>
+  
+          
+           <p *ngIf="registerForm.get('phonenumber').touched&&registerForm.get('phonenumber').errors?.required" class="text-danger">Phonenumber is required</p>
+  
+        
+        </div>
+  
+    
+        <div class="col-md-12">
+          <div class="form-floating mb-3 ">
+            <textarea type="text" class="form-control" id="address" placeholder="Address" name="address" formControlName="address"></textarea>
+            <label for="username">Address</label>
+          </div>
+  
+        
+          <p *ngIf="registerForm.get('address').touched&&registerForm.get('address').errors?.required" class="text-danger">Address required</p>
+        </div>
+      
+        <div class="col-md-6">
+           
+          
+             <div class="form-floating mb-3 ">
+              <input type="text" class="form-control" id="city" placeholder="City" name="city" formControlName="city">
+              <label for="city">City</label>
+            </div>
+            
+          
+            <p *ngIf="registerForm.get('city').touched&&registerForm.get('city').errors?.required" class="text-danger">City required</p>
+  
+        </div>
+       
+        <div class="col-md-3">
+          <div class="form-group mb-3">
+  
+            <select  class="form-select p-3" name="state"  id="state" formControlName="state" placeholder="Select" aria-label="Default select example">
+                <option selected disabled>Select your state...</option>
+                <option value="telangana">Telangana</option>
+                <option value="andhra pradesh">Andhra pradesh</option>
+                <option value="karnataka">Karnataka</option>
+                <option value="tamilnadu">Tamilnadu</option>
+            </select>
+        </div>
+          <p *ngIf="registerForm.get('state').touched&&registerForm.get('state').errors?.required" class="text-danger">State required</p>
+        </div>
+  
+
+        <div class="col-md-3">
+       
+           <div class="form-floating mb-3 ">
+            <input type="number" class="form-control" id="pincode" placeholder="Pincode" name="pincode" formControlName="pincode">
+            <label for="pincode">Pincode</label>
+          </div>
+  
+       
+           <p *ngIf="registerForm.get('pincode').touched&&registerForm.get('pincode').errors?.required" class="text-danger">Pincode is required</p>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group ">
+            <label>Profile photo</label>
+            <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload profile photo here" formControlName="userImgLink">    
+          </div>
+        
+          <p *ngIf="registerForm.get('userImgLink').touched&&registerForm.get('userImgLink').errors?.required" class="text-danger">Photo required</p>
+        </div>
+        
+          <div class="text-center">
+            <button type="submit" class="btn btn-success mx-5" [disabled]="registerForm.invalid">Update</button>
+            <button type="submit" class="btn btn-warning"(click)="cancel()">Cancel</button> 
+          </div> -->
+    </form>
+  </div>
+  </body>
+  
+  
+  
