@@ -6,7 +6,7 @@
             <div class="card mb-3" style="max-width: 540px;"  >
                 <div class="row no-gutters">
                   <div class="col-md-4">
-                    <img [src]=b.bookImgLink class="card-img-top  image-fluid"  style="height: 350px;" alt="...">
+                    <img [src]=b.bookImgLink class="card-img-top  image-fluid"  style="height: 400px;" alt="...">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
@@ -16,8 +16,13 @@
                         <p class="card-title price">Price: {{b.price | currency:"INR"}}</p>
                         <p class="card-title pb-4" *ngIf="b.rating<4">Rating: <span class="bg-warning text-light px-1 rounded-pill ">{{b.rating}}<i class="fas fa-star fa-xs"></i></span></p>
                         <p class="card-title pb-4" *ngIf="b.rating>=4">Rating: <span class="bg-success text-light px-1 rounded-pill ">{{b.rating}}<i class="fas fa-star fa-xs"></i></span></p>
+                        <div class="content">
+                          <button class="btn btn-outline-secondary" id="button1" type="button"(click)="decrement(b)"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                          <span [value]="cart.quantity" class="p-1">{{b.quantity}}</span>
+                          <button class="btn btn-outline-secondary" id="button2" type="button" (click)="increment(b)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                      </div>
                     
-                        <button class="btn btn-danger d-block mb-auto"(click)="delete(i)"><i class="fa fa-trash-o" aria-hidden="true"></i>Remove</button>
+                        <button class="btn btn-danger mt-5 d-block mb-auto"(click)="delete(i)"><i class="fa fa-trash-o" aria-hidden="true"></i>Remove</button>
                     </div>
                   </div>
                 </div>
@@ -25,8 +30,8 @@
         </div>
     </div>    
     <div class="container-fluid" *ngIf="cart.length!==0">
-        <p class="text-center">Total amount is:</p>
-        <button class="btn btn-danger mb-5 d-block mx-auto float-center">Proceed for payment</button>
+        <p class="text-center">Total amount is:{{amount}}</p>
+        <button class="btn btn-danger mb-5 d-block mx-auto float-center"(click)="payment()">Checkout</button>
     </div>
  
     <div class="container-fluid mt-5 tet-center" *ngIf="cart.length==0">

@@ -11,6 +11,7 @@ export class AvailableBooksComponent implements OnInit {
 
   username;
   booksArray=[];
+  numofbooks;
   constructor(private ds:DataService, private router:Router ) { }
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class AvailableBooksComponent implements OnInit {
     this.ds.getAllBooks().subscribe(
       res=>{
         this.booksArray=res["booksarray"]
+        this.numofbooks=this.booksArray.length;
       },
       err=>{
         alert("Something went wrong")

@@ -26,6 +26,10 @@ export class DataService {
   getAllUsers():Observable<any>{
     return this.hc.get("/user/getusers")
   }
+  deleteUser(user):Observable<any>{
+    //console.log(user)
+    return this.hc.post("/user/deleteuser",user)
+  }
   getCartItems(username):Observable<any>{
     console.log("the username is ",username)
     return this.hc.get("/cart/getcartitems/"+username);
@@ -86,6 +90,10 @@ export class DataService {
   deleteBook(obj):Observable<any>{
     console.log(obj," in ds")
     return this.hc.post("/admin/deletebook",obj);
+  }
+
+  categoryBooks(cat):Observable<any>{
+    return this.hc.get("/admin/categorybooks/"+cat)
   }
 
 }

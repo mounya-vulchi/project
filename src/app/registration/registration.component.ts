@@ -18,6 +18,10 @@ export class RegistrationComponent implements OnInit {
   }
   registerForm:FormGroup;
 
+  alert;
+  alertmsg;
+  closeAlert;
+
   constructor(private router:Router,private ds:DataService) { }
 
   ngOnInit(): void {
@@ -38,9 +42,7 @@ export class RegistrationComponent implements OnInit {
       //state
       state:new FormControl(null,Validators.required),
       //pincode
-      pincode:new FormControl(null,Validators.required),
-      //photo
-      userImgLink:new FormControl(null,Validators.required),
+      pincode:new FormControl(null,Validators.required)
 
     });
   }
@@ -61,11 +63,24 @@ export class RegistrationComponent implements OnInit {
     this.ds.createUser(formData).subscribe(
       res=>{
         if(res.message==="user existed"){
-          alert("Username is already existed...choose another name");
+          this.alert=true;
+              this.alertmsg="Username is already existed...choose another name";
+              this.closeAlert=false;
+                setTimeout(() => {
+                  this.alert = false;
+                  this.closeAlert = true;
+                }, 3000);
+          
           this.router.navigateByUrl("/userdashboard")
         }
         else{
-          alert("Registeration sucessfull");
+          this.alert=true;
+              this.alertmsg="Registeration sucessfull";
+              this.closeAlert=false;
+                setTimeout(() => {
+                  this.alert = false;
+                  this.closeAlert = true;
+                }, 3000);
           this.router.navigateByUrl("/login")
         }
       },

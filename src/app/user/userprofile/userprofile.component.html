@@ -1,44 +1,67 @@
-<!-- 
-<div class="container-fluid">
-    <div class="row mt-5 mb-5">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-3">
-            <img [src]=userObj.userImgLink alt="user image" class="rounded-circle" width="80%" >
+
+
+<div class="container border bg-light p-5"style="max-width: 800px;">
+
+    <div class="row">
+
+        <div class="col-md-6 p-5">
+
+            <img [src]=userObj.userImgLink alt="user image" width="100%" height="100%">
         </div>
-        <div class="col-sm-5">
-            <h3>Name:{{userObj.username}}</h3>
-            <h3>Email-Id:{{userObj.email}}</h3>
-            <h3>PhoneNumber:{{userObj.phonenumber}}</h3>
-            <h3>Address:{{userObj.address}}</h3>
-            <h3>City:{{userObj.city}}</h3>
-            <h3>State:{{userObj.state}}</h3>
-            <h3>Pincode:{{userObj.pincode}}</h3>
-            <button class="btn btn-success  me-2">Edit</button>
-        <button class="btn btn-primary" (click)="back()">Back</button>
+        <div class="col-md-6 pt-5">
+            <h1>{{userObj.username}}</h1>
+            <h5 class="mt-5 pt-2"><i class="fa fa-envelope pe-2" aria-hidden="true"></i>{{userObj.email}}</h5>
+            <h5 class="mt-2 pt-2 "><i class="fa fa-mobile pe-2 " aria-hidden="true"></i>{{userObj.phonenumber}}</h5>
+
+            <h5 class="mt-2 pt-2"><i class="fa fa-address-card pe-2" aria-hidden="true"></i>
+                <span class="">{{userObj.address}}</span><br>
+                <span class="ps-4">{{userObj.city}}</span><br>
+                <span class="ps-4">{{userObj.state}}</span><br>
+                <span class="ps-4">{{userObj.pincode}}</span>
+            </h5>
+
+
         </div>
-        <div class="col-sm-2"></div>
+
     </div>
-</div> -->
+    <button class="btn btn-success mx-auto d-block" (click)="edit()"><i class="fas fa-user-edit"></i></button>
 
 
 
-    <div class="card g-5 mx-auto mt-5" style="max-width: 800px;">
-        <div class="row">
-            <div class="col-md-5">
-                <img [src]=userObj.userImgLink alt="user image" class="rounded-circle" width="100%" height="100%">
-              </div>
-              <div class="col-md-7">
-                <div class="card-body">
-                  <h3>Name: {{userObj.username}}</h3>
-                  <p class="card-text">Email-Id:{{userObj.email}}</p>
-                  <p class="card-text">PhoneNumber:{{userObj.phonenumber}}</p>
-                  <p class="card-text">Address:{{userObj.address}}</p>
-                  <p class="card-text">City:{{userObj.city}}</p>
-                  <p class="card-text">State:{{userObj.state}}</p>
-                  <p class="card-text">Pincode:{{userObj.pincode}}</p>
-                  <button class="btn btn-success  me-2"(click)="edit()">Edit</button>
-                </div>
-        </div>
-      </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="card g-5 mx-auto mt-5" style="max-width: 800px;">
+    <div class="row">
+        <div class="col-md-5">
+            <img [src]=userObj.userImgLink alt="user image" class="rounded-circle" width="100%" height="100%">
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <h3>Name: {{userObj.username}}</h3>
+              <p class="card-text">Email-Id:{{userObj.email}}</p>
+              <p class="card-text">PhoneNumber:{{userObj.phonenumber}}</p>
+              <p class="card-text">Address:{{userObj.address}}</p>
+              <p class="card-text">City:{{userObj.city}}</p>
+              <p class="card-text">State:{{userObj.state}}</p>
+              <p class="card-text">Pincode:{{userObj.pincode}}</p>
+              <button class="btn btn-success  me-2" (click)="edit()"><i class="fas fa-user-edit"></i> Edit</button>
+            </div>
     </div>
- 
+  </div>
+</div>
+ -->

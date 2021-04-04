@@ -17,7 +17,7 @@ export class BookdetailsComponent implements OnInit {
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.bookdetails=localStorage.getItem("book")
-    //console.log("bookdetails are ",this.bookdetails)
+    console.log("bookdetails are ",this.bookdetails)
     this.getBookDetails();
     this.cartStatus();
   }
@@ -65,7 +65,8 @@ export class BookdetailsComponent implements OnInit {
       rating:this.book.rating,
       category:this.book.category,
       description:this.book.description,
-      bookImgLink:this.book.bookImgLink
+      bookImgLink:this.book.bookImgLink,
+      quantity:1,
       }
      
       console.log("this new obj is ",obj)
@@ -87,6 +88,10 @@ export class BookdetailsComponent implements OnInit {
         }
       )
      
+    }
+    else{
+      alert("Please sign in to add to cart");
+      this.router.navigateByUrl("/login");
     }
    
   }
@@ -125,6 +130,10 @@ export class BookdetailsComponent implements OnInit {
         }
       )
      
+    }
+    else{
+      alert("Please sign in to add to wishlist");
+      this.router.navigateByUrl("/login");
     }
 
   }

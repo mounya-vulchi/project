@@ -3,18 +3,17 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 
 @Component({
-  selector: 'app-books-in-category',
-  templateUrl: './books-in-category.component.html',
-  styleUrls: ['./books-in-category.component.css']
+  selector: 'app-category',
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.css']
 })
-export class BooksInCategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit {
 
+  @Input() searchTerm:String;
   username;
-  booksArray=[];
-  alert;
-  closeAlert;
-  @Input() searchTerm:string;  
-  constructor(private ds:DataService, private router:Router ) { }
+  booksArray;
+  @Input() category:String;
+  constructor(private ds:DataService, private router:Router) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -27,20 +26,16 @@ export class BooksInCategoryComponent implements OnInit {
         this.booksArray=res["booksarray"]
       },
       err=>{
-        this.alert=true;
-        this.closeAlert=false;
-                setTimeout(() => {
-                  this.alert = false;
-                  this.closeAlert = true;
-                }, 3000);
+        alert("Something went wrong")
         console.log("the error is ",err)
+
       }
     )
   }
-
   bookDetails(book){
     //console.log("the book is ",book)
     localStorage.setItem("book",book["booktitle"])
     this.router.navigateByUrl("/home/bookdetails")
   }
+
 }

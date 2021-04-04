@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mb-3" *ngFor="let b of booksArray | search : category | search: searchTerm">    
+            <div class="card mx-3" (click)="bookDetails(b)"  style="min-height:470px">
+                <img [src]=b.bookImgLink class="card-img-top"  style="height: 270px;" alt="...">
+                <div class="card-body">
+                    <strong class="card-title">{{b.booktitle}}</strong>
+                    <p class="card-title">{{b.author}}</p>
+                    <p class="card-title price">{{b.price | currency:"INR"}}</p>
+                    <ngb-rating [max]="5" [rate]="b.rating" [readonly]="true"></ngb-rating>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+

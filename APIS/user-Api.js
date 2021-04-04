@@ -12,7 +12,8 @@ const bcryptjs=require("bcryptjs");
 
 
 const jwt=require("jsonwebtoken")
-const verifyToken=require("./middlewares/verifyToken")
+const verifyToken=require("./middlewares/verifyToken");
+
 
 //import cloudinary
 const cloudinary = require("cloudinary").v2;
@@ -70,12 +71,12 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
         userObj.password = hashedpwd;
         userObj.userImgLink = req.file.path;
 
-        console.log(userObj)
+        //console.log(userObj)
 
         //create user
         let success=await userCollectionObj.insertOne(userObj);
         res.send({message:"user created"})
-        console.log("user created")
+        //console.log("user created")
        
        
     }
@@ -104,7 +105,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:100});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
             
             //send token
             res.send({message:"success",signedToken:token,username:user.username});
@@ -176,9 +177,16 @@ userApiObj.put("/updateprofile",upload.single('photo'),asyncHandler(async(req,re
     }
     
 }))
-
-
-
-
+//delete user
+userApiObj.post("/deleteuser",asyncHandler(async(req,res,next)=>{
+    //get user usercollection object
+    let userCollectionObject=req.app.get("userCollectionObj")
+    console.log("the user is ",req.body)
+    let userObj=await userCollectionObject.findOne({username:req.body.username})
+    if(userObj!=null){
+        await userCollectionObject.deleteOne({username:req.body.username});
+        res.send({message:true});
+    }
+}))
 //export
 module.exports = userApiObj;

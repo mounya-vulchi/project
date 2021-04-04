@@ -19,8 +19,5 @@ export class AppComponent implements OnInit{
       this.admin=true;
     }
   }
-  logout(){
-    localStorage.clear();
-    this.router.navigateByUrl("/home");
-  }
+  
 }

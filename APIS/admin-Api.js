@@ -120,5 +120,18 @@ adminApiObj.post("/deletebook",asyncHandler(async(req,res,next)=>{
 
 }))
 
+//get category wise books
+adminApiObj.get("/categorybooks/:cat",asyncHandler(async(req,res,next)=>{
+    let Books=req.app.get("booksCollectionObj")
+    
+    let BookDetails=await Books.find({category:req.params.cat})
+    if(BookDetails!==null){
+        res.send({Details:BookDetails})
+    }
+    else{
+        res.send({message:"Book not found"})
+    }
+}))
+
 //export
 module.exports= adminApiObj;

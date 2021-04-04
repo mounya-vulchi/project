@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   admin=false;
   booksArray=[];
   search;
+  category;
+  cat=false;
   constructor(private ds:DataService, private router:Router ) { }
 
   ngOnInit(): void {
@@ -22,28 +24,29 @@ export class HomeComponent implements OnInit {
     
     if(this.username=="Admin"){
       this.admin=true;
-      console.log(this.admin)
+      //console.log(this.admin)
     }
   }
 
   goto(n){
+    this.cat=true;
     if(n==0){
-      this.search="full stack developer";
+      this.category="full stack developer";
     }
     else if(n==1){
-      this.search="angularjs";
+      this.category="angularjs";
     }
     else if(n==2){
-      this.search="modern javascript";
+      this.category="modern javascript";
     }
     else if(n==3){
-      this.search="nodejs";
+      this.category="nodejs";
     }
     else if(n==4){
-      this.search="html, css & rwd";
+      this.category="html, css & rwd";
     }
     if(n==5){
-      this.search="mongodb";
+      this.category="mongodb";
     }
   }
 

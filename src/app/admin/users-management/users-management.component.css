@@ -1,3 +1,18 @@
 .container{
     font-family: poppins;
 }
+h1{
+    font-weight: bold;
+}
+.b{
+    font-weight: bold;
+    font-size: 20px;
+}
+img{
+    shape-image-threshold: inherit;
+    width: 150px;
+    height:150px;
+}
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
