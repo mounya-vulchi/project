@@ -10,6 +10,7 @@ import { DataService } from '../data.service';
 export class HomeComponent implements OnInit {
 
   username;
+  userObj;
   userCartSize;
   admin=false;
   booksArray=[];
@@ -25,6 +26,26 @@ export class HomeComponent implements OnInit {
     if(this.username=="Admin"){
       this.admin=true;
       //console.log(this.admin)
+    }
+    if(this.username!=null){
+      this.userObj=this.ds.getUser(this.username).subscribe(
+        res=>{
+          if(res.message=="success")
+          {
+            this.userObj=res.user;
+            console.log(this.userObj);
+          }
+          else{
+            alert(res.message)
+            //navigate login
+            this.router.navigateByUrl("/login")
+          }
+        },
+        err=>{
+          alert("something went wrong")
+          console.log(err)
+        }
+      )
     }
   }
 

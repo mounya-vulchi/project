@@ -8,9 +8,9 @@
     </button>
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 md-lg-0">
+      <ul class="navbar-nav ms-auto md-lg-0">
           <!-- search bar -->
-          <li class="nav-item">
+          <li class="nav-item mt-2">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search">
               <div class="input-group-append">
@@ -26,15 +26,11 @@
           </li>
           <!-- userprofile -->
           <li class="nav-item">
-            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"><i class="fas fa-user-circle"></i> {{username}}</a>
-          </li>
-          <!-- logout for user -->
-          <li class="nav-item">
-            <a class="nav-link" style="color:white" *ngIf="username!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
           </li>
           <!-- for admin -->
           <li class="nav-item">
-            <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Admin</a>
+            <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"> Admin <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
           </li>
       </ul>
     </div>
@@ -42,6 +38,12 @@
 
 <nav class="navbar navbar-expand-lg bg-dark" *ngIf="username!=null">
   <a class="navbar-brand" href="#"style="color:white;font-size: 20px;">Welcome {{username}}</a>
+  <ul class="navbar-nav ms-auto mb-2 md-lg-0">
+    <!-- logout for user -->
+    <li class="nav-item">
+      <a class="nav-link" style="color:white" *ngIf="username!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+    </li>
+  </ul>
 </nav>
 
 <!-- Carousel -->

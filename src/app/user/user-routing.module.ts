@@ -16,8 +16,10 @@ const routes: Routes = [
     { path:"wishlist",component:WishlistComponent,canActivate:[RouteGuard]},
     { path:"myorder", component:MyordersComponent,canActivate:[RouteGuard]},
     { path:"payment", component:PaymentComponent,canActivate:[RouteGuard]},
-    {path:"editprofile",component:EditprofileComponent,canActivate:[RouteGuard]}
+    {path:"editprofile",component:EditprofileComponent,canActivate:[RouteGuard]},
+    { path:"",redirectTo:"/user/userdashboard/userprofile"}
   ],canActivate:[RouteGuard]},
+  
 ];
 
 @NgModule({

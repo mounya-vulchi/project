@@ -65,7 +65,8 @@ export class WishlistComponent implements OnInit {
       rating:b.rating,
       category:b.category,
       description:b.description,
-      bookImgLink:b.bookImgLink
+      bookImgLink:b.bookImgLink,
+      quantity:1
       }
       console.log("the obj ",obj)
      

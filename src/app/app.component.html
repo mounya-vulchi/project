@@ -8,8 +8,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         
-        <li class="nav-item">
+        <li class="nav-item mt-1">
             <a class="nav-link" style="color:white" routerLink="/home" routerLinkActive="active"><i class="fas fa-home"></i> Home</a>
+        </li>
+        <!-- userprofile -->
+        <li class="nav-item">
+          <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
+          
+        </li>
+        <!-- for admin -->
+        <li class="nav-item">
+          <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"> Admin <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
         </li>
         
       </ul>

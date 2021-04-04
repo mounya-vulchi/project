@@ -18,13 +18,13 @@ export class UserComponent implements OnInit {
     let username=localStorage.getItem("username")
     this.userObj=this.ds.getUser(username).subscribe(
       res=>{
-        if(res["message"]=="success")
+        if(res.message=="success")
         {
-          this.userObj=res["user"]
-          console.log(this.userObj)
+          this.userObj=res.user;
+          console.log(this.userObj);
         }
         else{
-          alert(res["message"])
+          alert(res.message)
           //navigate login
           this.router.navigateByUrl("/login")
 

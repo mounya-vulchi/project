@@ -4,7 +4,7 @@ a{
     font-family:poppins;
     cursor: pointer;
 }
-.navbar .collapse .nav-link{
+.navbar .nav-link{
     font-size: 17px;
     font-weight: bold;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
