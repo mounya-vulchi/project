@@ -74,17 +74,18 @@ export class BookdetailsComponent implements OnInit {
         res=>{
           if(res.message=="book already existed"){
             alert("book is already there in cart")
-           
+           this.router.navigateByUrl("/user/userdashboard/usercart")
           }
           else{
             alert("book added to cart")
             this.cartStatus();
+            this.router.navigateByUrl("/user/userdashboard/usercart")
           }
          
         },
         err=>{
           alert("Something went wrong in Adding book")
-        console.log(err)
+          console.log(err)
         }
       )
      
@@ -116,11 +117,12 @@ export class BookdetailsComponent implements OnInit {
       this.ds.userwishlist(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            alert("book is already there in wishlist")
-           
+            alert("book is already there in wishlist");
+            this.router.navigateByUrl("/user/userdashboard/wishlist");
           }
           else{
-            alert("book added to wishlist")
+            alert("book added to wishlist");
+            this.router.navigateByUrl("/user/userdashboard/wishlist");
           }
          
         },

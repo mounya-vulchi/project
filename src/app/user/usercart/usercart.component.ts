@@ -14,28 +14,14 @@ export class UsercartComponent implements OnInit {
 
   username;
   cart=[];
-  userCartSize;
   bookdetails;
   total: any;
   amount
-  
-
-  
   constructor(private ds:DataService,private router:Router) { }
-
-
-
-
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.getCart();
-    this.cartStatus();
-
-    this.totalamount()
-    
-
-
-
+    this.totalamount();
   }
 
   logout(){
@@ -80,14 +66,8 @@ export class UsercartComponent implements OnInit {
       res=>{
         this.cart=res.message
         console.log("the cart items",this.cart)
-         this.amount=0;
-        for(let i=0;i<this.cart.length;i++){
-
-          this.amount+=this.cart[i].price*this.cart[i].quantity
-
-          //console.log("the cart items",this.cart[i].price)
-        }
-
+         this.totalamount();
+        //console.log("the cart items",this.cart[i].price)
       },
       err=>{
         alert("Something went wrong in Adding Course")
@@ -97,22 +77,6 @@ export class UsercartComponent implements OnInit {
   
   }
 
-
-  cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
-      res=>{
-        this.userCartSize=res.cartsize;
-        console.log("the cart size is ",this.userCartSize)
-
-      },
-      err=>{
-        alert("Something went wrong in getting all products")
-        console.log(err)
-      }
-    )
-
-
-  }
   back(){
     this.router.navigateByUrl("user/userdashboard");
 
@@ -136,7 +100,7 @@ export class UsercartComponent implements OnInit {
 
   }
   goto(){
-    this.router.navigateByUrl("/home/categorybooks")
+    this.router.navigateByUrl("/home/categorybooks");
   }
   payment(){
     alert("You order has been placed successfully")

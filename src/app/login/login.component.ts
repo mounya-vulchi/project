@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../data.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   alertmsg;
   closeAlert;
 
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
 
@@ -48,14 +49,8 @@ export class LoginComponent implements OnInit {
               }
             }
             else{
-              this.alert=true;
-              this.alertmsg=res.message;
-              this.closeAlert=false;
-                setTimeout(() => {
-                  this.alert = false;
-                  this.closeAlert = true;
-                }, 3000);
-              this.router.navigateByUrl("/login")
+              this.toastr.error(res.message);
+              this.router.navigateByUrl("/login");
             }
           },
           err=>{

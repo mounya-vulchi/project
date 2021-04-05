@@ -42,8 +42,8 @@ export class HomeComponent implements OnInit {
           }
         },
         err=>{
-          alert("something went wrong")
-          console.log(err)
+          alert("something went wrong");
+          console.log(err);
         }
       )
     }

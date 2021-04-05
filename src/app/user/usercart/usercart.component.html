@@ -18,9 +18,9 @@
                         <p class="card-title pb-4" *ngIf="b.rating>=4">Rating: <span class="bg-success text-light px-1 rounded-pill ">{{b.rating}}<i class="fas fa-star fa-xs"></i></span></p>
                         <div class="content">
                           <button class="btn btn-primary" id="button1" type="button"(click)="decrement(b)"><i class="fa fa-minus" aria-hidden="true"></i></button>
-                          <span [value]="cart.quantity" class="p-1">{{b.quantity}}</span>
+                          <span [value]="cart.quantity" class="p-1"> {{b.quantity}} </span>
                           <button class="btn btn-primary" id="button2" type="button" (click)="increment(b)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                      </div>
+                        </div>
                     
                         <button class="btn btn-danger mt-5 d-block mb-auto"(click)="delete(i)"><i class="fa fa-trash-o" aria-hidden="true"></i> Remove</button>
                     </div>
@@ -30,7 +30,7 @@
         </div>
     </div>    
     <div class="container-fluid text-center" *ngIf="cart.length!==0">
-        <h5 class="text-center">Total amount is : {{amount | currency:"INR"}}</h5>
+        <h5 class="text-center amount">Total amount is : {{amount | currency:"INR"}}</h5>
         <button class="btn btn-success mb-5"(click)="payment()">Checkout</button>
     </div>
  

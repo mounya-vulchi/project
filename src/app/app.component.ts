@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
       this.admin=true;
     }
     if(this.username!=null){
+      this.admin=false;
       this.userObj=this.ds.getUser(this.username).subscribe(
         res=>{
           if(res.message=="success")

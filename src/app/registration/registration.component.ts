@@ -18,10 +18,6 @@ export class RegistrationComponent implements OnInit {
   }
   registerForm:FormGroup;
 
-  alert;
-  alertmsg;
-  closeAlert;
-
   constructor(private router:Router,private ds:DataService) { }
 
   ngOnInit(): void {
@@ -42,7 +38,9 @@ export class RegistrationComponent implements OnInit {
       //state
       state:new FormControl(null,Validators.required),
       //pincode
-      pincode:new FormControl(null,Validators.required)
+      pincode:new FormControl(null,Validators.required),
+      //photo
+      photo:new FormControl(null,Validators.required),
 
     });
   }
@@ -57,30 +55,16 @@ export class RegistrationComponent implements OnInit {
     formData.append('photo',this.file,this.file.name);
  
     formData.append("userObj",JSON.stringify(userObj))
-    console.log("the form data",formData)
-    console.log("the user data",userObj);
+    console.log(userObj);
 
     this.ds.createUser(formData).subscribe(
       res=>{
         if(res.message==="user existed"){
-          this.alert=true;
-              this.alertmsg="Username is already existed...choose another name";
-              this.closeAlert=false;
-                setTimeout(() => {
-                  this.alert = false;
-                  this.closeAlert = true;
-                }, 3000);
-          
+          alert("Username is already existed...choose another name");
           this.router.navigateByUrl("/userdashboard")
         }
         else{
-          this.alert=true;
-              this.alertmsg="Registeration sucessfull";
-              this.closeAlert=false;
-                setTimeout(() => {
-                  this.alert = false;
-                  this.closeAlert = true;
-                }, 3000);
+          alert("Registeration sucessfull");
           this.router.navigateByUrl("/login")
         }
       },

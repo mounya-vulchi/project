@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto md-lg-0">
           <!-- search bar -->
-          <li class="nav-item mt-2">
+          <li class="nav-item px-4 mt-2">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search">
               <div class="input-group-append">
@@ -23,6 +23,14 @@
           <!-- login button -->
           <li class="nav-item">
             <a class="nav-link" style="color:white" *ngIf="!admin&&username==null" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+          </li>
+          <!-- cart icon -->
+          <li class="nav-item mt-2">
+            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
+              <h4 class="fas fa-cart-arrow-down text-white">
+                <sup class="text-white mx-1">{{userCartSize}}</sup>
+              </h4>
+            </a>
           </li>
           <!-- userprofile -->
           <li class="nav-item">
