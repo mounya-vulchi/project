@@ -105,12 +105,13 @@
         </div>
     
         <div class="col-sm-9">
-          <div *ngIf="!cat">
+          <div *ngIf="!cat" class="mb-5">
             <app-books-in-category [searchTerm]="search"></app-books-in-category>
+            <a href=""><button class="btn btn-primary px-5" id="buttonfix">back to top</button></a> 
           </div>
           <div *ngIf="cat">
             <app-category [category]="category" [searchTerm]="search"></app-category>
-          </div>
+          </div>      
         </div>
       </div>
 </div>

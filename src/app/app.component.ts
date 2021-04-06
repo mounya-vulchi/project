@@ -27,7 +27,7 @@ export class AppComponent implements OnInit{
           if(res.message=="success")
           {
             this.userObj=res.user;
-            console.log(this.userObj);
+            //console.log(this.userObj);
           }
           else{
             this.toastr.error(res.message)
