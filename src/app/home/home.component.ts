@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   search;
   category;
   cat=false;
-  constructor(private ds:DataService, private router:Router ) { }
+  constructor(private ds:DataService, private router:Router,private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -36,13 +36,16 @@ export class HomeComponent implements OnInit {
             console.log(this.userObj);
           }
           else{
-            alert(res.message)
+
+            this.toastr.success(res.message);
+            //alert(res.message)
             //navigate login
             this.router.navigateByUrl("/login")
           }
         },
         err=>{
-          alert("something went wrong")
+          this.toastr.error('something went wrong')
+          //alert("something went wrong")
           console.log(err)
         }
       )
@@ -77,7 +80,8 @@ export class HomeComponent implements OnInit {
         this.userCartSize=res["cartsize"];
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.toastr.error('Something went wrong in getting all products')
+        //alert("Something went wrong in getting all products")
         console.log(err)
       }
     )

@@ -1,9 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+import { ToastrService } from 'ngx-toastr';
 @Pipe({
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
+  constructor(private toastr:ToastrService){}
 
   transform(booksArray: any[], searchTerm: string): any[] {
     if(!searchTerm){
@@ -25,7 +26,7 @@ export class SearchPipe implements PipeTransform {
         return author;
       }
       else{
-        alert("No Data Found");
+        this.toastr.error('Data Not Found');
       }
       
     }

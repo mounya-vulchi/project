@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -34,7 +35,7 @@ export class EditbookComponent implements OnInit {
 
   currentRate;
 
-  constructor(private ds:DataService,private router:Router) { }
+  constructor(private ds:DataService,private router:Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.bookdetails=localStorage.getItem("book")
@@ -59,11 +60,11 @@ export class EditbookComponent implements OnInit {
           this.bookimg=res.Details.bookImgLink;
         }
         else{
-          alert("book not found")
+          this.toastr.warning('book not found');
         }
       },
       err=>{
-        alert("Something went Wrong in Book Details page")
+        this.toastr.warning('Something went wrong in Book Details Page');
         console.log(err);
       }
     )
@@ -73,13 +74,13 @@ export class EditbookComponent implements OnInit {
     let bookObj = this.registerForm.value;
     this.ds.editBook(bookObj).subscribe(
       res=>{
-        if(res["message"]){
-          alert("Book details are updated to BookStore")
+        if(res.message){
+          this.toastr.success('Book details are updated to BookStore');
           this.router.navigateByUrl("/admin/allbooks")
         }
       },
       err=>{
-        alert("Something went wrong")
+        this.toastr.error('Something went wrong');
         console.log(err)
       }
     )}
@@ -87,13 +88,13 @@ export class EditbookComponent implements OnInit {
 deletebook(){
   this.ds.deleteBook(this.registerForm.value).subscribe(
     res=>{
-      if(res["message"]){
-        alert("Book removed from BookStore")
+      if(res.message){
+        this.toastr.success('Book removed from BookStore');
         this.router.navigateByUrl("/admin/allbooks")
       }
     },
     err=>{
-      alert("Something went wrong in user creation");
+      this.toastr.error('Something went wrong in user creation');
       console.log(err);
     }
   )

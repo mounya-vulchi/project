@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
 
   selector: 'app-registration',
@@ -22,7 +22,7 @@ export class RegistrationComponent implements OnInit {
   alertmsg;
   closeAlert;
 
-  constructor(private router:Router,private ds:DataService) { }
+  constructor(private router:Router,private ds:DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.registerForm=new FormGroup({
@@ -42,7 +42,9 @@ export class RegistrationComponent implements OnInit {
       //state
       state:new FormControl(null,Validators.required),
       //pincode
-      pincode:new FormControl(null,Validators.required)
+      pincode:new FormControl(null,Validators.required),
+
+      //photo:new FormControl(null,Validators.required),
 
     });
   }
@@ -63,29 +65,17 @@ export class RegistrationComponent implements OnInit {
     this.ds.createUser(formData).subscribe(
       res=>{
         if(res.message==="user existed"){
-          this.alert=true;
-              this.alertmsg="Username is already existed...choose another name";
-              this.closeAlert=false;
-                setTimeout(() => {
-                  this.alert = false;
-                  this.closeAlert = true;
-                }, 3000);
-          
+
+          this.toastr.success('Username is already existed.....choose another name');
           this.router.navigateByUrl("/userdashboard")
         }
         else{
-          this.alert=true;
-              this.alertmsg="Registeration sucessfull";
-              this.closeAlert=false;
-                setTimeout(() => {
-                  this.alert = false;
-                  this.closeAlert = true;
-                }, 3000);
+          this.toastr.success('Registeration successfull');
           this.router.navigateByUrl("/login")
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.error('Something went wrong in  user creation');
         console.log(err)
       }
     

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class WishlistComponent implements OnInit {
   book;
   userCartSize;
   b: any;
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -32,7 +33,7 @@ export class WishlistComponent implements OnInit {
         console.log("the wishlist items",this.wishlist)
       },
       err=>{
-        alert("Something went wrong in Adding Course")
+        this.toastr.error('Something went wrong in Adding book');
         console.log(err)
       }
     )
@@ -44,7 +45,8 @@ export class WishlistComponent implements OnInit {
         this.userCartSize=res.cartsize;
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.toastr.error('Something went in getting all books');
+        //alert("Something went wrong in getting all products")
         console.log(err)
       }
     )
@@ -66,7 +68,8 @@ export class WishlistComponent implements OnInit {
       category:b.category,
       description:b.description,
       bookImgLink:b.bookImgLink,
-      quantity:1
+      quantity:1,
+      status:"available"
       }
       console.log("the obj ",obj)
      
@@ -74,17 +77,16 @@ export class WishlistComponent implements OnInit {
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            alert("book is already there in cart")
-           
+            this.toastr.warning('Book is already there in cart');          
           }
           else{
-            alert("book added to cart")
+            this.toastr.success('book added to cart');
             this.cartStatus();
           }
          
         },
         err=>{
-          alert("Something went wrong in Adding book")
+          this.toastr.error('Something went wrong in Adding book');
         console.log(err)
         }
       )
@@ -99,12 +101,12 @@ export class WishlistComponent implements OnInit {
     this.ds.deleteWishlistProduct(obj).subscribe(
       res=>{
         if(res.message){
-          alert("Product removed from usercart")
+          this.toastr.success('Product removed from usercart');
           window. location. reload ();
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.error('Something went wrong in removing product');
         console.log(err);
       }
     )

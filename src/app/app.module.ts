@@ -10,7 +10,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchPipe } from './search.pipe';
 import { AuthorizationService } from './authorization.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -26,7 +28,13 @@ import { AuthorizationService } from './authorization.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    ToastrModule.forRoot({
+      timeOut:5000,
+      positionClass:'toast-top-center',
+      closeButton:true
+    }),
+    BrowserAnimationsModule,
   ],
   providers: [
     {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-available-books',
   templateUrl: './available-books.component.html',
@@ -12,7 +12,7 @@ export class AvailableBooksComponent implements OnInit {
   username;
   booksArray=[];
   numofbooks;
-  constructor(private ds:DataService, private router:Router ) { }
+  constructor(private ds:DataService, private router:Router,private toastr: ToastrService ) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -23,11 +23,11 @@ export class AvailableBooksComponent implements OnInit {
   getBooks(){
     this.ds.getAllBooks().subscribe(
       res=>{
-        this.booksArray=res["booksarray"]
+        this.booksArray=res.booksarray
         this.numofbooks=this.booksArray.length;
       },
       err=>{
-        alert("Something went wrong")
+        this.toastr.error('Something went wrong');
         console.log("the error is ",err)
 
       }
@@ -36,7 +36,7 @@ export class AvailableBooksComponent implements OnInit {
 
   bookDetails(book){
     //console.log("the book is ",book)
-    localStorage.setItem("book",book["booktitle"])
+    localStorage.setItem("book",book.booktitle)
     this.router.navigateByUrl("/admin/editbook")
   }
 

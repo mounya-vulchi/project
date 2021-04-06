@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   alertmsg;
   closeAlert;
 
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -40,10 +41,13 @@ export class LoginComponent implements OnInit {
               localStorage.setItem("token",res.signedToken)
               localStorage.setItem("username",res.username)
               if(res.username=="Admin"){
+
+                this.toastr.success('Admin login success');
                 this.router.navigateByUrl("/admin");
               }
               else{
               //navigate to user component
+              this.toastr.success('User login success');
               this.router.navigateByUrl("/home")
               }
             }

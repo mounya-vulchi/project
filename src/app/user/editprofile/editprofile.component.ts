@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 @Component({
   selector: 'app-editprofile',
@@ -40,7 +41,7 @@ export class EditprofileComponent implements OnInit {
     this.file= event.target.files[0];
   }
 
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
 
  
 
@@ -75,14 +76,15 @@ export class EditprofileComponent implements OnInit {
           //console.log("the userprofile is ",res.user)
         }
         else{
-          alert(res.message)
+          this.toastr.warning(res.message);
+          //alert(res.message)
     
           this.router.navigateByUrl("/login")
 
         }
       },
       err=>{
-        alert("something went wrong")
+        this.toastr.error('Something went wrong');
         console.log(err)
       }
     )
@@ -103,16 +105,16 @@ export class EditprofileComponent implements OnInit {
     this.ds.editprofile(formData).subscribe(
       res=>{
         if(res.message){
-          alert("User details are updated");
+          this.toastr.success('User details are updated');
           this.router.navigateByUrl("/user/userdashboard")
         }
-        // else{
-        //   alert("Registeration sucessfull");
-        //   this.router.navigateByUrl("/login")
-        // }
+        else{
+          this.toastr.warning('Cannot update profile check');
+        }
+        
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.error('Something went wrong in user creation');
         console.log(err)
       }
     

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -11,7 +12,7 @@ export class UserComponent implements OnInit {
   username;
   userObj;
 
-  constructor(private router:Router,private ds:DataService) { }
+  constructor(private router:Router,private ds:DataService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     //this.username=localStorage.getItem("username")
@@ -24,6 +25,7 @@ export class UserComponent implements OnInit {
           console.log(this.userObj);
         }
         else{
+          this.toastr.info(res.message);
           alert(res.message)
           //navigate login
           this.router.navigateByUrl("/login")
@@ -31,7 +33,7 @@ export class UserComponent implements OnInit {
         }
       },
       err=>{
-        alert("something went wrong")
+        this.toastr.error('Something went wrong');
         console.log(err)
       }
     )

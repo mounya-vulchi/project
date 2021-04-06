@@ -59,8 +59,12 @@ export class DataService {
   }
 
   editprofile(userObj):Observable<any>{
-    console.log("obj in data sevice",userObj)
+    //console.log("obj in data sevice",userObj)
     return this.hc.put("/user/updateprofile",userObj)
+  }
+  userorder(order):Observable<any>{
+    console.log("the order is",order)
+    return this.hc.post("/myorders/add",order)
   }
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-bookdetails',
   templateUrl: './bookdetails.component.html',
@@ -12,7 +12,7 @@ export class BookdetailsComponent implements OnInit {
   bookdetails;
   username
   userCartSize;
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -30,11 +30,11 @@ export class BookdetailsComponent implements OnInit {
           console.log(this.book)
         }
         else{
-          alert("book not found")
+          this.toastr.error('Book not found')
         }
       },
       err=>{
-        alert("Something went Wrong in Book Details page")
+        this.toastr.error('Something went Wrong in Book Details page')
         console.log(err);
       }
     )
@@ -45,7 +45,7 @@ export class BookdetailsComponent implements OnInit {
         this.userCartSize=res.cartsize;
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.toastr.error('Something went wrong in getting all products')
         console.log(err)
       }
     )
@@ -73,24 +73,25 @@ export class BookdetailsComponent implements OnInit {
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            alert("book is already there in cart")
+            this.toastr.info('books already there in cart')
+           
            
           }
           else{
-            alert("book added to cart")
+            this.toastr.success('book added to cart')        
             this.cartStatus();
           }
          
         },
         err=>{
-          alert("Something went wrong in Adding book")
+          this.toastr.error('Something went wrong in Adding Book')         
         console.log(err)
         }
       )
      
     }
     else{
-      alert("Please sign in to add to cart");
+      this.toastr.warning('Please signin to add to cart')
       this.router.navigateByUrl("/login");
     }
    
@@ -116,23 +117,23 @@ export class BookdetailsComponent implements OnInit {
       this.ds.userwishlist(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            alert("book is already there in wishlist")
+            this.toastr.info('book is already there in wishlist')
            
           }
           else{
-            alert("book added to wishlist")
+            this.toastr.success('book added to wishlist')
           }
          
         },
         err=>{
-          alert("Something went wrong in Adding book")
+          this.toastr.error('Something went wrong in Adding book')
         console.log(err)
         }
       )
      
     }
     else{
-      alert("Please sign in to add to wishlist");
+      this.toastr.warning('Please sign in to add to wishlist');
       this.router.navigateByUrl("/login");
     }
 

@@ -25,14 +25,27 @@ userCartApiObj.post("/addto",errHandler( async(req,res,next)=>{
    
     //console.log("product is ", obj)
 }))
+// userCartApiObj.get("/getcartitems/:username",errHandler(async(req,res,next)=>{
+//     //console.log("printing from get activity")
+//     let cartCollectionObj=req.app.get("cartCollectionObj");
+//     let products=await cartCollectionObj.find({username:req.params.username}).toArray();
+//     //console.log(products)
+
+//     res.send({message:products})
+// }))
+
+
 userCartApiObj.get("/getcartitems/:username",errHandler(async(req,res,next)=>{
     //console.log("printing from get activity")
     let cartCollectionObj=req.app.get("cartCollectionObj");
+    let booksCollectionObj=req.app.get("booksCollectionObj");
+    let books=await booksCollectionObj.find().toArray();
     let products=await cartCollectionObj.find({username:req.params.username}).toArray();
     //console.log(products)
 
-    res.send({message:products})
+    res.send({message:products,booksArray:books})
 }))
+
 
 
 userCartApiObj.get("/getsize/:username",errHandler(async(req,res,next)=>{
