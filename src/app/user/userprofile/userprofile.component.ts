@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 @Component({
   selector: 'app-userprofile',
@@ -8,7 +9,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class UserprofileComponent implements OnInit {
 
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   userObj;
 
@@ -16,20 +17,20 @@ export class UserprofileComponent implements OnInit {
     let username=localStorage.getItem("username")
     this.userObj=this.ds.getUser(username).subscribe(
       res=>{
-        if(res["message"]=="success")
+        if(res.message=="success")
         {
-          this.userObj=res["user"]
-          console.log(this.userObj)
+          this.userObj=res.user;
+          //console.log(this.userObj)
         }
         else{
-          alert(res["message"])
+          this.toastr.error(res.message)
           //navigate login
           this.router.navigateByUrl("/login")
 
         }
       },
       err=>{
-        alert("something went wrong")
+        this.toastr.error("something went wrong in user profile")
         console.log(err)
       }
     )

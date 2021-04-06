@@ -16,10 +16,9 @@ export class LoginComponent implements OnInit {
   alertmsg;
   closeAlert;
 
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
+  constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
-
     this.loginForm=new FormGroup({
 
       //username
@@ -49,18 +48,18 @@ export class LoginComponent implements OnInit {
               }
             }
             else{
-              this.toastr.error(res.message);
-              this.router.navigateByUrl("/login");
-            }
-          },
-          err=>{
-            this.alert=true;
-              this.alertmsg="Something went wrong in user login";
+              this.alert=true;
+              this.alertmsg=res.message;
               this.closeAlert=false;
                 setTimeout(() => {
                   this.alert = false;
                   this.closeAlert = true;
                 }, 3000);
+              this.router.navigateByUrl("/login")
+            }
+          },
+          err=>{
+            this.toastr.warning("Something went wrong in user login");
             console.log(err)
           }
         )

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -9,11 +10,11 @@ import { DataService } from 'src/app/data.service';
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() searchTerm:String;
   username;
   booksArray;
+  @Input() searchTerm:String;
   @Input() category:String;
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -23,10 +24,10 @@ export class CategoryComponent implements OnInit {
   getBooks(){
     this.ds.getAllBooks().subscribe(
       res=>{
-        this.booksArray=res["booksarray"]
+        this.booksArray=res.booksarray;
       },
       err=>{
-        alert("Something went wrong")
+        this.toastr.error("Something went wrong")
         console.log("the error is ",err)
 
       }

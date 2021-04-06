@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class AvailableBooksComponent implements OnInit {
   username;
   booksArray=[];
   numofbooks;
-  constructor(private ds:DataService, private router:Router ) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -27,8 +28,8 @@ export class AvailableBooksComponent implements OnInit {
         this.numofbooks=this.booksArray.length;
       },
       err=>{
-        alert("Something went wrong")
-        console.log("the error is ",err)
+        this.toastr.warning("Something went wrong");
+        console.log("the error is ",err);
 
       }
     )

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../data.service';
 
 @Component({
@@ -13,11 +14,10 @@ export class HomeComponent implements OnInit {
   userObj;
   userCartSize;
   admin=false;
-  booksArray=[];
   search;
   category;
   cat=false;
-  constructor(private ds:DataService, private router:Router ) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -36,14 +36,14 @@ export class HomeComponent implements OnInit {
             console.log(this.userObj);
           }
           else{
-            alert(res.message)
+            this.toastr.error(res.message)
             //navigate login
             this.router.navigateByUrl("/login")
           }
         },
         err=>{
-          alert("something went wrong");
-          console.log(err);
+          this.toastr.error("something went wrong")
+          console.log(err)
         }
       )
     }
@@ -74,10 +74,10 @@ export class HomeComponent implements OnInit {
   cartStatus(){
     this.ds.getCartSize(this.username).subscribe(
       res=>{
-        this.userCartSize=res["cartsize"];
+        this.userCartSize=res.cartsize;
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.toastr.error("Something went wrong in getting all products")
         console.log(err)
       }
     )

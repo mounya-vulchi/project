@@ -31,7 +31,7 @@ export class DataService {
     return this.hc.post("/user/deleteuser",user)
   }
   getCartItems(username):Observable<any>{
-    console.log("the username is ",username)
+    //console.log("the username is ",username)
     return this.hc.get("/cart/getcartitems/"+username);
   }
 
@@ -59,7 +59,7 @@ export class DataService {
   }
 
   editprofile(userObj):Observable<any>{
-    console.log("obj in data sevice",userObj)
+    //console.log("obj in data sevice",userObj)
     return this.hc.put("/user/updateprofile",userObj)
   }
 

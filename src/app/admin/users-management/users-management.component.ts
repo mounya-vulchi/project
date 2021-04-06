@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { DataService } from 'src/app/data.service';
 export class UsersManagementComponent implements OnInit {
 
   Users=[];
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -32,7 +33,7 @@ export class UsersManagementComponent implements OnInit {
         }
       },
       err=>{
-        alert("Something went wrong")
+        this.toastr.error("Something went wrong")
         console.log(err)
       }
     )
@@ -43,12 +44,12 @@ export class UsersManagementComponent implements OnInit {
     this.ds.deleteUser(user).subscribe(
       res=>{
         if(res.message){
-          alert("User removed successfully");
+          this.toastr.info("User removed successfully");
           this.router.navigateByUrl("/admin/usermanagement");
         }
       },
       err=>{
-        alert("Something went wrong")
+        this.toastr.error("Something went wrong")
         console.log(err)
       }
     )

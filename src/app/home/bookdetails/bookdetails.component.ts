@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -12,12 +13,12 @@ export class BookdetailsComponent implements OnInit {
   bookdetails;
   username
   userCartSize;
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
-    this.bookdetails=localStorage.getItem("book")
-    console.log("bookdetails are ",this.bookdetails)
+    this.username=localStorage.getItem("username");
+    this.bookdetails=localStorage.getItem("book");
+    console.log("bookdetails are ",this.bookdetails);
     this.getBookDetails();
     this.cartStatus();
   }
@@ -25,16 +26,16 @@ export class BookdetailsComponent implements OnInit {
   getBookDetails(){
     this.ds.getBookDetails(this.bookdetails).subscribe(
       res=>{
-        if(["Details"]){
-          this.book=res.Details
-          console.log(this.book)
+        if(res.Details){
+          this.book=res.Details;
+          //console.log(this.book);
         }
         else{
-          alert("book not found")
+          this.toastr.error(res.message);
         }
       },
       err=>{
-        alert("Something went Wrong in Book Details page")
+        this.toastr.error("Something went Wrong in Book Details page");
         console.log(err);
       }
     )
@@ -45,8 +46,8 @@ export class BookdetailsComponent implements OnInit {
         this.userCartSize=res.cartsize;
       },
       err=>{
-        alert("Something went wrong in getting all products")
-        console.log(err)
+        this.toastr.error("Something went wrong in getting all products");
+        console.log(err);
       }
     )
 
@@ -57,11 +58,11 @@ export class BookdetailsComponent implements OnInit {
       let obj={
       username:this.username,
       booktitle:this.book.booktitle,
-     author:this.book.author,
+      author:this.book.author,
       paperback:this.book.paperback,
-     price:this.book.price,
+      price:this.book.price,
       publisher:this.book.publisher,
-     publicationdate:this.book.publicationdate,
+      publicationdate:this.book.publicationdate,
       rating:this.book.rating,
       category:this.book.category,
       description:this.book.description,
@@ -69,29 +70,28 @@ export class BookdetailsComponent implements OnInit {
       quantity:1,
       }
      
-      console.log("this new obj is ",obj)
+      //console.log("this new obj is ",obj);
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            alert("book is already there in cart")
-           this.router.navigateByUrl("/user/userdashboard/usercart")
+            this.toastr.warning("book is already there in cart");
+           
           }
           else{
-            alert("book added to cart")
+            this.toastr.success("book added to cart");
             this.cartStatus();
-            this.router.navigateByUrl("/user/userdashboard/usercart")
           }
          
         },
         err=>{
-          alert("Something went wrong in Adding book")
-          console.log(err)
+          this.toastr.error("Something went wrong in Adding book");
+          console.log(err);
         }
       )
      
     }
     else{
-      alert("Please sign in to add to cart");
+      this.toastr.warning("Please sign in to add to cart");
       this.router.navigateByUrl("/login");
     }
    
@@ -102,11 +102,11 @@ export class BookdetailsComponent implements OnInit {
       let obj={
       username:this.username,
       booktitle:this.book.booktitle,
-     author:this.book.author,
+      author:this.book.author,
       paperback:this.book.paperback,
-     price:this.book.price,
+      price:this.book.price,
       publisher:this.book.publisher,
-     publicationdate:this.book.publicationdate,
+      publicationdate:this.book.publicationdate,
       rating:this.book.rating,
       category:this.book.category,
       description:this.book.description,
@@ -117,24 +117,23 @@ export class BookdetailsComponent implements OnInit {
       this.ds.userwishlist(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            alert("book is already there in wishlist");
-            this.router.navigateByUrl("/user/userdashboard/wishlist");
+            this.toastr.warning("book is already there in wishlist");
+           
           }
           else{
-            alert("book added to wishlist");
-            this.router.navigateByUrl("/user/userdashboard/wishlist");
+            this.toastr.success("book added to wishlist");
           }
          
         },
         err=>{
-          alert("Something went wrong in Adding book")
-        console.log(err)
+          this.toastr.error("Something went wrong in Adding book");
+          console.log(err);
         }
       )
      
     }
     else{
-      alert("Please sign in to add to wishlist");
+      this.toastr.warning("Please sign in to add to wishlist");
       this.router.navigateByUrl("/login");
     }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class AddNewbookComponent implements OnInit {
 
   currentRate=0;
 
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.registerForm=new FormGroup({
@@ -62,17 +63,16 @@ export class AddNewbookComponent implements OnInit {
    this.ds.addNewBook(formData).subscribe(
     res=>{
       if(res.message == "Book already Existed"){
-        alert("Product is already existed..choose another");
+        this.toastr.warning("Product is already existed..choose another");
       }
       else{
-        alert(res.message);
-
+        this.toastr.success(res.message)
         //navigate to allbooks component
         this.router.navigateByUrl("/admin/allbooks");
       }
     },
     err=>{
-      alert("Something went wrong in user creation");
+      this.toastr.error("Something went wrong in user creation");
       console.log(err);
     }  
   )

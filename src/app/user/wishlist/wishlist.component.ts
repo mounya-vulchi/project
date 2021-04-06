@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class WishlistComponent implements OnInit {
   book;
   userCartSize;
   b: any;
-  constructor(private ds:DataService, private router:Router) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
 
@@ -29,10 +30,10 @@ export class WishlistComponent implements OnInit {
     this.ds.getWishlistItems(this.username).subscribe(
       res=>{
         this.wishlist=res.message
-        console.log("the wishlist items",this.wishlist)
+        //console.log("the wishlist items",this.wishlist)
       },
       err=>{
-        alert("Something went wrong in Adding Course")
+        this.toastr.error("Something went wrong in Adding Course")
         console.log(err)
       }
     )
@@ -44,7 +45,7 @@ export class WishlistComponent implements OnInit {
         this.userCartSize=res.cartsize;
       },
       err=>{
-        alert("Something went wrong in getting all products")
+        this.toastr.error("Something went wrong in getting all products")
         console.log(err)
       }
     )
@@ -57,34 +58,34 @@ export class WishlistComponent implements OnInit {
       let obj={
       username:this.username,
       booktitle:b.booktitle,
-     author:b.author,
+      author:b.author,
       paperback:b.paperback,
-     price:b.price,
+      price:b.price,
       publisher:b.publisher,
-     publicationdate:b.publicationdate,
+      publicationdate:b.publicationdate,
       rating:b.rating,
       category:b.category,
       description:b.description,
       bookImgLink:b.bookImgLink,
       quantity:1
       }
-      console.log("the obj ",obj)
+      //console.log("the obj ",obj)
      
       //console.log("this new obj is ",obj)
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            alert("book is already there in cart")
+            this.toastr.warning("book is already there in cart")
            
           }
           else{
-            alert("book added to cart")
+            this.toastr.success("book added to cart")
             this.cartStatus();
           }
          
         },
         err=>{
-          alert("Something went wrong in Adding book")
+          this.toastr.error("Something went wrong in Adding book")
         console.log(err)
         }
       )
@@ -99,12 +100,12 @@ export class WishlistComponent implements OnInit {
     this.ds.deleteWishlistProduct(obj).subscribe(
       res=>{
         if(res.message){
-          alert("Product removed from usercart")
+          this.toastr.success("Product removed from usercart")
           window. location. reload ();
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.error("Something went wrong in user creation");
         console.log(err);
       }
     )

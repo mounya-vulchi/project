@@ -25,10 +25,6 @@ export class AvailableCategoriesComponent implements OnInit {
       }
     )
   }
-  
-  categoryBooks(c){
-
-  }
 
   bookDetails(book){
     //console.log("the book is ",book)

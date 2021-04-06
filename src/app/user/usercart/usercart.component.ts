@@ -1,6 +1,7 @@
 
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { DataService } from 'src/app/data.service';
 
@@ -15,13 +16,15 @@ export class UsercartComponent implements OnInit {
   username;
   cart=[];
   bookdetails;
+  userCartSize;
   total: any;
   amount
-  constructor(private ds:DataService,private router:Router) { }
+  constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
     this.getCart();
     this.totalamount();
+    this.cartStatus();
   }
 
   logout(){
@@ -70,40 +73,54 @@ export class UsercartComponent implements OnInit {
         //console.log("the cart items",this.cart[i].price)
       },
       err=>{
-        alert("Something went wrong in Adding Course")
+        this.toastr.error("Something went wrong in Adding Course")
         console.log(err)
       }
     )
   
   }
 
+  cartStatus(){
+    this.ds.getCartSize(this.username).subscribe(
+      res=>{
+        this.userCartSize=res.cartsize;
+        console.log("the cart size is ",this.userCartSize)
+
+      },
+      err=>{
+        this.toastr.error("Something went wrong in getting all products")
+        console.log(err)
+      }
+    )
+
+
+  }
   back(){
     this.router.navigateByUrl("user/userdashboard");
 
   }
   delete(n:number){
     let obj=this.cart[n];
-    console.log("the deleted obj is ",obj)
+    //console.log("the deleted obj is ",obj)
 
     this.ds.deleteCartProduct(obj).subscribe(
       res=>{
         if(res.message){
-          alert("Product removed from usercart")
+          this.toastr.success("Product removed from usercart")
           window. location. reload ();
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.error("Something went wrong in user creation");
         console.log(err);
       }
     )
 
   }
   goto(){
-    this.router.navigateByUrl("/home/categorybooks");
+    this.router.navigateByUrl("/home/categorybooks")
   }
   payment(){
-    alert("You order has been placed successfully")
+    this.toastr.success("You order has been placed successfully")
   }
-
 }

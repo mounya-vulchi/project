@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../data.service';
 
 @Component({
@@ -17,8 +18,9 @@ export class RegistrationComponent implements OnInit {
     this.file= event.target.files[0];
   }
   registerForm:FormGroup;
+  closeAlert;
 
-  constructor(private router:Router,private ds:DataService) { }
+  constructor(private router:Router,private ds:DataService, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.registerForm=new FormGroup({
@@ -38,9 +40,7 @@ export class RegistrationComponent implements OnInit {
       //state
       state:new FormControl(null,Validators.required),
       //pincode
-      pincode:new FormControl(null,Validators.required),
-      //photo
-      photo:new FormControl(null,Validators.required),
+      pincode:new FormControl(null,Validators.required)
 
     });
   }
@@ -55,21 +55,22 @@ export class RegistrationComponent implements OnInit {
     formData.append('photo',this.file,this.file.name);
  
     formData.append("userObj",JSON.stringify(userObj))
-    console.log(userObj);
+    console.log("the form data",formData)
+    console.log("the user data",userObj);
 
     this.ds.createUser(formData).subscribe(
       res=>{
         if(res.message==="user existed"){
-          alert("Username is already existed...choose another name");
+          this.toastr.warning("Username is already existed...choose another name");
           this.router.navigateByUrl("/userdashboard")
         }
         else{
-          alert("Registeration sucessfull");
+          this.toastr.success("Registeration sucessfull");
           this.router.navigateByUrl("/login")
         }
       },
       err=>{
-        alert("Something went wrong in user creation");
+        this.toastr.error("Something went wrong in user creation");
         console.log(err)
       }
     

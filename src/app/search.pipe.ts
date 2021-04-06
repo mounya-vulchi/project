@@ -28,7 +28,8 @@ export class SearchPipe implements PipeTransform {
         return author;
       }
       else{
-        this.toastr.error('Data Not Found');
+        this.toastr.warning("No Data Found With this Search");
+        return booksArray;
       }
       
     }
