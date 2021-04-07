@@ -105,7 +105,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:10000});
             
             //send token
             res.send({message:"success",signedToken:token,username:user.username});

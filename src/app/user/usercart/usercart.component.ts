@@ -15,15 +15,18 @@ export class UsercartComponent implements OnInit {
 
   username;
   cart=[];
+  booksArray=[];
   bookdetails;
+  status;
   userCartSize;
   total: any;
   amount
   constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
+    this.username=localStorage.getItem("username");
     this.getCart();
     this.totalamount();
+    this.checkCart();
     this.cartStatus();
   }
 
@@ -62,14 +65,14 @@ export class UsercartComponent implements OnInit {
         }
   }
 
-
- 
   getCart(){
     this.ds.getCartItems(this.username).subscribe(
       res=>{
-        this.cart=res.message
-        console.log("the cart items",this.cart)
+        this.cart=res.message;
+        this.booksArray=res.booksArray;
+        //console.log("the cart items",this.cart)
          this.totalamount();
+          this.checkCart();
         //console.log("the cart items",this.cart[i].price)
       },
       err=>{
@@ -80,11 +83,26 @@ export class UsercartComponent implements OnInit {
   
   }
 
+  checkCart(){
+    for(let i=0;i<this.cart.length;i++){
+      for(let j=0;j<this.booksArray.length;j++){
+        if(this.cart[i].booktitle==this.booksArray[j].booktitle){
+          this.status=true;
+          console.log("available");
+          break;
+        }
+      }
+      if(!this.status){
+        console.log("unavailable");
+      }
+    }
+  }
+
   cartStatus(){
     this.ds.getCartSize(this.username).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
-        console.log("the cart size is ",this.userCartSize)
+        //console.log("the cart size is ",this.userCartSize)
 
       },
       err=>{
