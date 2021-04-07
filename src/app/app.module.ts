@@ -30,7 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     NgbModule,
     ToastrModule.forRoot({
-      timeOut:5000,
+      timeOut:1000,
       positionClass:'toast-top-center',
       closeButton:true
     }),

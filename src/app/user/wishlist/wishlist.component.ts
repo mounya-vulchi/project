@@ -69,7 +69,6 @@ export class WishlistComponent implements OnInit {
       description:b.description,
       bookImgLink:b.bookImgLink,
       quantity:1,
-      status:"available"
       }
       console.log("the obj ",obj)
      
