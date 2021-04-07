@@ -87,7 +87,7 @@ export class HomeComponent implements OnInit {
   logout(){
     localStorage.clear();
     this.router.navigateByUrl("/home");
-    window. location. reload ();
+    window.location.reload ();
   } 
 
 }

@@ -36,7 +36,7 @@
 
 
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Checkout</button>
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="payment()">Checkout</button>
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static">
@@ -50,7 +50,7 @@
           <table class="table table-borderless">
             <thead>
               <tr>
-                <th scope="col">Bokname</th>
+                <th scope="col">Bookname</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
               </tr>
@@ -75,7 +75,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-warning d-block mx-auto"><i class="fa fa-download" aria-hidden="true"></i> Download slip</button>
-            <button type="button" class="btn btn-primary d-block mx-auto" data-bs-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-primary d-block mx-auto" data-bs-dismiss="modal">Close</button>
           </div>
           <!-- <button type="button" class="btn btn-secondary d-block float-end" data-bs-dismiss="modal">Close</button> -->
 

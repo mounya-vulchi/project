@@ -36,24 +36,6 @@
           <li class="nav-item">
             <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
           </li>
-          <!--usercart-->
-
-          <li class="nav-item">
-            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active"> 
-            
-              <h5 class="fas fa-cart-arrow-down  text-light float-end mt-3">
-                <sup class="text-light float-end">
-                    {{userCartSize}}
-                </sup>
-            </h5>
-            
-            </a>
-            
-          </li>
-
-
-
-
           <!-- for admin -->
           <li class="nav-item">
             <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"> Admin <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
