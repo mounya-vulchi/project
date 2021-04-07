@@ -85,21 +85,24 @@ export class EditbookComponent implements OnInit {
       }
     )}
 
-deletebook(){
-  this.ds.deleteBook(this.registerForm.value).subscribe(
-    res=>{
-      if(res.message){
-        this.toastr.info("Book removed from BookStore")
-        this.router.navigateByUrl("/admin/allbooks")
+  deletebook(){
+    this.ds.deleteBook(this.registerForm.value).subscribe(
+      res=>{
+        if(res.message){
+          this.toastr.info("Book removed from BookStore")
+          this.router.navigateByUrl("/admin/allbooks")
+        }
+      },
+      err=>{
+        this.toastr.error("Something went wrong in user creation");
+        console.log(err);
       }
-    },
-    err=>{
-      this.toastr.error("Something went wrong in user creation");
-      console.log(err);
-    }
-  )
-}
-getcontrol(){
-  return this.registerForm.controls;
-}
+    )
+  }
+  getcontrol(){
+    return this.registerForm.controls;
+  }
+  cancel(){
+    this.router.navigateByUrl('/admin/allbooks')
+  }
 }

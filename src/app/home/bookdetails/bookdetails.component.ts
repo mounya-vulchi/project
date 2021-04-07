@@ -74,12 +74,13 @@ export class BookdetailsComponent implements OnInit {
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
-            this.toastr.warning("book is already there in cart");
-           
+            this.toastr.warning("Book is already there in cart");
+            this.router.navigateByUrl("/user/userdashboard/usercart")
           }
           else{
-            this.toastr.success("book added to cart");
+            this.toastr.success("Book added to cart");
             this.cartStatus();
+            this.router.navigateByUrl("/user/userdashboard/usercart")
           }
          
         },

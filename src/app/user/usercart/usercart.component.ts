@@ -17,7 +17,7 @@ export class UsercartComponent implements OnInit {
   cart=[];
   booksArray=[];
   bookdetails;
-  status;
+  status=false;
   userCartSize;
   total: any;
   amount
@@ -25,7 +25,6 @@ export class UsercartComponent implements OnInit {
   ngOnInit(): void {
     this.username=localStorage.getItem("username");
     this.getCart();
-    this.totalamount();
     this.checkCart();
     this.cartStatus();
   }
@@ -58,9 +57,11 @@ export class UsercartComponent implements OnInit {
   totalamount(){
     this.amount=0;
         for(let i=0;i<this.cart.length;i++){
-          let price=this.cart[i].price/this.cart[i].quantity;
-          this.amount+=price*this.cart[i].quantity
-
+          //console.log("status is ",this.cart[i].status);
+          if(this.cart[i].status!="Unavailable"){
+            let price=this.cart[i].price/this.cart[i].quantity;
+            this.amount+=price*this.cart[i].quantity
+          }
          //console.log("the cart price",this.cart[i].price)
         }
   }
@@ -71,8 +72,7 @@ export class UsercartComponent implements OnInit {
         this.cart=res.message;
         this.booksArray=res.booksArray;
         //console.log("the cart items",this.cart)
-         this.totalamount();
-          this.checkCart();
+        this.checkCart();
         //console.log("the cart items",this.cart[i].price)
       },
       err=>{
@@ -88,14 +88,18 @@ export class UsercartComponent implements OnInit {
       for(let j=0;j<this.booksArray.length;j++){
         if(this.cart[i].booktitle==this.booksArray[j].booktitle){
           this.status=true;
+          this.cart[i].status="Available";//adds status as available to the cart element
           console.log("available");
           break;
         }
       }
-      if(!this.status){
+      if(this.cart[i].status!="Available"){
+        this.cart[i].status="Unavailable";
         console.log("unavailable");
       }
+      //console.log(this.cart[i])
     }
+    this.totalamount();
   }
 
   cartStatus(){
@@ -125,7 +129,7 @@ export class UsercartComponent implements OnInit {
       res=>{
         if(res.message){
           this.toastr.success("Product removed from usercart")
-          window. location. reload ();
+          window.location.reload ();
         }
       },
       err=>{
@@ -139,6 +143,22 @@ export class UsercartComponent implements OnInit {
     this.router.navigateByUrl("/home/categorybooks")
   }
   payment(){
-    this.toastr.success("You order has been placed successfully")
+    this.toastr.success("You order has been placed successfully");
+    for(let i=0;i<this.cart.length;i++){
+      if(this.cart[i].status=="Available"){
+        this.ds.addOrder(this.cart[i]).subscribe(
+          res=>{
+            console.log(res.message);
+          }
+        )
+        this.ds.deleteCartProduct(this.cart[i]).subscribe(
+          res=>{
+            console.log(res.message);
+          }
+        )
+      }
+    }
+
   }
+  
 }
