@@ -35,7 +35,7 @@ export class EditbookComponent implements OnInit {
 
   currentRate;
 
-  constructor(private ds:DataService,private router:Router,private toastr: ToastrService) { }
+  constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.bookdetails=localStorage.getItem("book")
@@ -60,11 +60,11 @@ export class EditbookComponent implements OnInit {
           this.bookimg=res.Details.bookImgLink;
         }
         else{
-          this.toastr.warning('book not found');
+          this.toastr.warning(res.message)
         }
       },
       err=>{
-        this.toastr.warning('Something went wrong in Book Details Page');
+        this.toastr.error("Something went Wrong in Book Details page")
         console.log(err);
       }
     )
@@ -75,31 +75,34 @@ export class EditbookComponent implements OnInit {
     this.ds.editBook(bookObj).subscribe(
       res=>{
         if(res.message){
-          this.toastr.success('Book details are updated to BookStore');
+          this.toastr.success("Book details are updated to BookStore")
           this.router.navigateByUrl("/admin/allbooks")
         }
       },
       err=>{
-        this.toastr.error('Something went wrong');
+        this.toastr.error("Something went wrong")
         console.log(err)
       }
     )}
 
-deletebook(){
-  this.ds.deleteBook(this.registerForm.value).subscribe(
-    res=>{
-      if(res.message){
-        this.toastr.success('Book removed from BookStore');
-        this.router.navigateByUrl("/admin/allbooks")
+  deletebook(){
+    this.ds.deleteBook(this.registerForm.value).subscribe(
+      res=>{
+        if(res.message){
+          this.toastr.info("Book removed from BookStore")
+          this.router.navigateByUrl("/admin/allbooks")
+        }
+      },
+      err=>{
+        this.toastr.error("Something went wrong in user creation");
+        console.log(err);
       }
-    },
-    err=>{
-      this.toastr.error('Something went wrong in user creation');
-      console.log(err);
-    }
-  )
-}
-getcontrol(){
-  return this.registerForm.controls;
-}
+    )
+  }
+  getcontrol(){
+    return this.registerForm.controls;
+  }
+  cancel(){
+    this.router.navigateByUrl('/admin/allbooks')
+  }
 }

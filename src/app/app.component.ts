@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   username;
   userObj;
   admin=false;
-  constructor(private router:Router,private ds:DataService,private toastr: ToastrService){}
+  constructor(private router:Router,private ds:DataService, private toastr:ToastrService){}
 
   ngOnInit(){
     this.username=localStorage.getItem("username")
@@ -21,22 +21,22 @@ export class AppComponent implements OnInit{
       this.admin=true;
     }
     if(this.username!=null){
+      this.admin=false;
       this.userObj=this.ds.getUser(this.username).subscribe(
         res=>{
           if(res.message=="success")
           {
             this.userObj=res.user;
-            console.log(this.userObj);
+            //console.log(this.userObj);
           }
           else{
-            this.toastr.warning(res.message);
-            alert(res.message)
+            this.toastr.error(res.message)
             //navigate login
             this.router.navigateByUrl("/login")
           }
         },
         err=>{
-          this.toastr.error('something went wrong');
+          this.toastr.error("something went wrong")
           console.log(err)
         }
       )

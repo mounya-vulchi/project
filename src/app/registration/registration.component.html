@@ -1,14 +1,7 @@
 <body class="p-5">
 <div class="container border p-5 bg-light mb-5 " >
   <h1 class="text-center">Signup</h1>
-  <!-- alert messages -->
-  <!-- <div *ngIf="alert" class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>{{alertmsg}}!</strong>
-    <button *ngIf="closeAlert" type="button" class="close" data-dismiss="alert" aria-label="close alert">
-        <span aria-hidden="true">&times;</span>
-    </button>
-  </div> -->
- 
+  
   <form id="form" class="row g-3 p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <!--email  -->
       <div class="col-md-6">
@@ -117,7 +110,10 @@
           <label>Profile photo</label>
           <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload profile photo here">    
         </div>
+<<<<<<< HEAD
+=======
        
+>>>>>>> url/mounya
       </div>
       <div class="col-md-12">
         <div class="form-group text-center">

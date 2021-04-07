@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +16,9 @@ export class LoginComponent implements OnInit {
   alertmsg;
   closeAlert;
 
-  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
+  constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
-
     this.loginForm=new FormGroup({
 
       //username
@@ -63,13 +62,7 @@ export class LoginComponent implements OnInit {
             }
           },
           err=>{
-            this.alert=true;
-              this.alertmsg="Something went wrong in user login";
-              this.closeAlert=false;
-                setTimeout(() => {
-                  this.alert = false;
-                  this.closeAlert = true;
-                }, 3000);
+            this.toastr.warning("Something went wrong in user login");
             console.log(err)
           }
         )

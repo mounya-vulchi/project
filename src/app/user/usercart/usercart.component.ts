@@ -15,34 +15,18 @@ export class UsercartComponent implements OnInit {
 
   username;
   cart=[];
-  userCartSize;
+  booksArray=[];
   bookdetails;
+  status=false;
+  userCartSize;
   total: any;
   amount
-
-//order=[]
-booksArray=[]
-status;
-
-  //order=[]
-  
-
-  
-  constructor(private ds:DataService,private router:Router,private toastr: ToastrService) { }
-
-
-
-
+  constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
+    this.username=localStorage.getItem("username");
     this.getCart();
+    this.checkCart();
     this.cartStatus();
-
-    ///this.totalamount()
-    
-
-
-
   }
 
   logout(){
@@ -73,17 +57,14 @@ status;
   totalamount(){
     this.amount=0;
         for(let i=0;i<this.cart.length;i++){
-          let price=this.cart[i].price/this.cart[i].quantity;
-          this.amount+=price*this.cart[i].quantity
-
+          //console.log("status is ",this.cart[i].status);
+          if(this.cart[i].status!="Unavailable"){
+            let price=this.cart[i].price/this.cart[i].quantity;
+            this.amount+=price*this.cart[i].quantity
+          }
          //console.log("the cart price",this.cart[i].price)
         }
   }
-
-
- 
-  
-
 
   getCart(){
     this.ds.getCartItems(this.username).subscribe(
@@ -91,8 +72,7 @@ status;
         this.cart=res.message;
         this.booksArray=res.booksArray;
         //console.log("the cart items",this.cart)
-         this.totalamount();
-          this.checkCart();
+        this.checkCart();
         //console.log("the cart items",this.cart[i].price)
       },
       err=>{
@@ -103,6 +83,24 @@ status;
   
   }
 
+  checkCart(){
+    for(let i=0;i<this.cart.length;i++){
+      for(let j=0;j<this.booksArray.length;j++){
+        if(this.cart[i].booktitle==this.booksArray[j].booktitle){
+          this.status=true;
+          this.cart[i].status="Available";//adds status as available to the cart element
+          console.log("available");
+          break;
+        }
+      }
+      if(this.cart[i].status!="Available"){
+        this.cart[i].status="Unavailable";
+        console.log("unavailable");
+      }
+      //console.log(this.cart[i])
+    }
+    this.totalamount();
+  }
 
   cartStatus(){
     this.ds.getCartSize(this.username).subscribe(
@@ -112,7 +110,7 @@ status;
 
       },
       err=>{
-        this.toastr.error('Something went wrong in getting all products');
+        this.toastr.error("Something went wrong in getting all products")
         console.log(err)
       }
     )
@@ -130,14 +128,12 @@ status;
     this.ds.deleteCartProduct(obj).subscribe(
       res=>{
         if(res.message){
-
-          this.toastr.success('Product removed from usercart');
-          window. location. reload ();
+          this.toastr.success("Product removed from usercart")
+          window.location.reload ();
         }
       },
       err=>{
-        this.toastr.error('Something went wrong in user creation');
-        //alert("Something went wrong in user creation");
+        this.toastr.error("Something went wrong in user creation");
         console.log(err);
       }
     )
@@ -146,95 +142,23 @@ status;
   goto(){
     this.router.navigateByUrl("/home/categorybooks")
   }
-
-  additem(){
-    this.router.navigateByUrl("/user/userdashboard/myorder")
-  }
-
-
-
-
-  checkCart(){
+  payment(){
+    this.toastr.success("You order has been placed successfully");
     for(let i=0;i<this.cart.length;i++){
-      for(let j=0;j<this.booksArray.length;j++){
-        if(this.cart[i].booktitle==this.booksArray[j].booktitle){
-          this.status=true;
-          console.log("available");
-          break;
-        }
-      }
-      if(!this.status){
-        console.log("unavailable");
+      if(this.cart[i].status=="Available"){
+        this.ds.addOrder(this.cart[i]).subscribe(
+          res=>{
+            console.log(res.message);
+          }
+        )
+        this.ds.deleteCartProduct(this.cart[i]).subscribe(
+          res=>{
+            console.log(res.message);
+          }
+        )
       }
     }
+
   }
-
-
-
-
-
-
-
-
-
-
-  // additem(n){
-  //   let i=0
-  //   if(this.username!==null){
-
-  //     for( i;i<this.cart.length;i++){
-
-  //        this.order[i]=[{
-
-  //           username:this.cart[i].username,
-  //           booktitle:this.cart[i].booktitle,
-  //          author:this.cart[i].author,
-  //           paperback:this.cart[i].paperback,
-  //          price:this.cart[i].price,
-  //           publisher:this.cart[i].publisher,
-  //          publicationdate:this.cart[i].publicationdate,
-  //           rating:this.cart[i].rating,
-  //           category:this.cart[i].category,
-  //           description:this.cart[i].description,
-  //           bookImgLink:this.cart[i].bookImgLink,
-  //           quantity:this.cart[i].quantity
-  //         }],
-
-
-        
-  //       console.log("the new order of i is",this.order[i])
-
-  //       this.ds.userorder(this.order[i]).subscribe(
-  //         res=>{
-  //           if(res.message=="book already existed"){
-  //             alert("book is already there in cart")
-             
-  //           }
-  //           else{
-  //             //this.toastr.success('book aded to my orders');
-  //           }
-           
-  //         },
-  //         err=>{
-  //           this.toastr.error('Something went wrong in Adding book');
-  //           //alert("Something went wrong in Adding book")
-  //         console.log(err)
-  //         }
-  //       )
-
-
-       
-  //     }
-      
-  //   }
-
-    
-
-
-
-  //   this.toastr.success('Thanks for shopping!!', 'Payment done successfully');
-  //   //alert("Thanks for shopping....Your order has been placed successfully!!")
-  //   this.router.navigateByUrl("/user/userdashboard/myorder")
-  // }
- 
+  
 }

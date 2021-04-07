@@ -12,10 +12,9 @@ export class BooksInCategoryComponent implements OnInit {
 
   username;
   booksArray=[];
-  alert;
-  closeAlert;
+  
   @Input() searchTerm:string;  
-  constructor(private ds:DataService, private router:Router,private toastr: ToastrService ) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.username=localStorage.getItem("username")
@@ -25,17 +24,10 @@ export class BooksInCategoryComponent implements OnInit {
   getBooks(){
     this.ds.getAllBooks().subscribe(
       res=>{
-        this.booksArray=res.booksarray
+        this.booksArray=res.booksarray;
       },
       err=>{
-
-        this.toastr.error('Something went wrong !!')
-        // this.alert=true;
-        // this.closeAlert=false;
-        //         setTimeout(() => {
-        //           this.alert = false;
-        //           this.closeAlert = true;
-        //         }, 3000);
+        this.toastr.error("Error! Something went wrong...!")
         console.log("the error is ",err)
       }
     )

@@ -25,15 +25,6 @@ userCartApiObj.post("/addto",errHandler( async(req,res,next)=>{
    
     //console.log("product is ", obj)
 }))
-// userCartApiObj.get("/getcartitems/:username",errHandler(async(req,res,next)=>{
-//     //console.log("printing from get activity")
-//     let cartCollectionObj=req.app.get("cartCollectionObj");
-//     let products=await cartCollectionObj.find({username:req.params.username}).toArray();
-//     //console.log(products)
-
-//     res.send({message:products})
-// }))
-
 
 userCartApiObj.get("/getcartitems/:username",errHandler(async(req,res,next)=>{
     //console.log("printing from get activity")
@@ -50,7 +41,6 @@ userCartApiObj.get("/getcartitems/:username",errHandler(async(req,res,next)=>{
 
 userCartApiObj.get("/getsize/:username",errHandler(async(req,res,next)=>{
     let cartCollectionObj= req.app.get("cartCollectionObj");
-   
     let cart=await cartCollectionObj.find({username:req.params.username}).toArray();
     let cartlength=cart.length;
     res.send({cartsize:cartlength});
@@ -69,7 +59,10 @@ userCartApiObj.post("/deleteproduct",errHandler(async(req,res,next)=>{
     //product is there
     if(product!==null){
         let remove=await cartCollectionObj.deleteOne({booktitle:cartObj.booktitle});
-        res.send({message:true});
+        res.send({message:"Book removed from cart successfully"});
+    }
+    else{
+        res.send({message:"book not found in usercart"})
     }
 
 }))

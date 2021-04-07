@@ -1,8 +1,16 @@
+.container{
+    font-family: poppins;
+}
 #button1, #button2{
     /* background:#aaa9a6;; */
     border-radius: 0%;
-    font-size:7px;
+    font-size:10px;
 }
-.container{
-    font-family: poppins;
+span{
+    font-size: 18px;
+    font-weight: bold;
+}
+.price,.amount{
+    font-family: Arial,sans-serif;
+    font-size: 21px;
 }

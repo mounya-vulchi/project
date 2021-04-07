@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
 import { ToastrService } from 'ngx-toastr';
+import { DataService } from '../data.service';
+
 @Component({
 
   selector: 'app-registration',
@@ -17,12 +18,9 @@ export class RegistrationComponent implements OnInit {
     this.file= event.target.files[0];
   }
   registerForm:FormGroup;
-
-  alert;
-  alertmsg;
   closeAlert;
 
-  constructor(private router:Router,private ds:DataService,private toastr: ToastrService) { }
+  constructor(private router:Router,private ds:DataService, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.registerForm=new FormGroup({
@@ -65,17 +63,16 @@ export class RegistrationComponent implements OnInit {
     this.ds.createUser(formData).subscribe(
       res=>{
         if(res.message==="user existed"){
-
-          this.toastr.success('Username is already existed.....choose another name');
+          this.toastr.warning("Username is already existed...choose another name");
           this.router.navigateByUrl("/userdashboard")
         }
         else{
-          this.toastr.success('Registeration successfull');
+          this.toastr.success("Registeration sucessfull");
           this.router.navigateByUrl("/login")
         }
       },
       err=>{
-        this.toastr.error('Something went wrong in  user creation');
+        this.toastr.error("Something went wrong in user creation");
         console.log(err)
       }
     

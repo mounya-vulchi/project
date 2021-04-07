@@ -11,7 +11,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchPipe } from './search.pipe';
 import { AuthorizationService } from './authorization.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ToastrModule } from 'ngx-toastr';
 
 
@@ -30,7 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     NgbModule,
     ToastrModule.forRoot({
-      timeOut:1000,
+      timeOut:2000,
       positionClass:'toast-top-center',
       closeButton:true
     }),

@@ -11,7 +11,7 @@ import { DataService } from 'src/app/data.service';
 export class UsersManagementComponent implements OnInit {
 
   Users=[];
-  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
     this.getAllUsers();
@@ -44,7 +44,7 @@ export class UsersManagementComponent implements OnInit {
     this.ds.deleteUser(user).subscribe(
       res=>{
         if(res.message){
-          this.toastr.success('User removed successfully');
+          this.toastr.info("User removed successfully");
           this.router.navigateByUrl("/admin/usermanagement");
         }
       },

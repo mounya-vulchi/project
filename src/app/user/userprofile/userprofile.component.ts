@@ -9,7 +9,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class UserprofileComponent implements OnInit {
 
-  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   userObj;
 
@@ -19,19 +19,18 @@ export class UserprofileComponent implements OnInit {
       res=>{
         if(res.message=="success")
         {
-          this.userObj=res.user
-          console.log(this.userObj)
+          this.userObj=res.user;
+          //console.log(this.userObj)
         }
         else{
-          this.toastr.error(res.message);
-          //alert(res["message"])
+          this.toastr.error(res.message)
           //navigate login
           this.router.navigateByUrl("/login")
 
         }
       },
       err=>{
-        this.toastr.error('Something went wrong');
+        this.toastr.error("something went wrong in user profile")
         console.log(err)
       }
     )

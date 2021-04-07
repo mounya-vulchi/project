@@ -4,6 +4,8 @@ import { ToastrService } from 'ngx-toastr';
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
+  
+
   constructor(private toastr:ToastrService){}
 
   transform(booksArray: any[], searchTerm: string): any[] {
@@ -26,7 +28,8 @@ export class SearchPipe implements PipeTransform {
         return author;
       }
       else{
-        this.toastr.error('Data Not Found');
+        this.toastr.warning("No Data Found With this Search");
+        return booksArray;
       }
       
     }

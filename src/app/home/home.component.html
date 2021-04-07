@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto md-lg-0">
           <!-- search bar -->
-          <li class="nav-item mt-2">
+          <li class="nav-item px-4 mt-2">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search" [(ngModel)]="search">
               <div class="input-group-append">
@@ -24,28 +24,18 @@
           <li class="nav-item">
             <a class="nav-link" style="color:white" *ngIf="!admin&&username==null" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
           </li>
+          <!-- cart icon -->
+          <li class="nav-item mt-2">
+            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
+              <h4 class="fas fa-cart-arrow-down text-white">
+                <sup class="text-white mx-1">{{userCartSize}}</sup>
+              </h4>
+            </a>
+          </li>
           <!-- userprofile -->
           <li class="nav-item">
             <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
           </li>
-          <!--usercart-->
-
-          <li class="nav-item">
-            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active"> 
-            
-              <h5 class="fas fa-cart-arrow-down  text-light float-end mt-3">
-                <sup class="text-light float-end">
-                    {{userCartSize}}
-                </sup>
-            </h5>
-            
-            </a>
-            
-          </li>
-
-
-
-
           <!-- for admin -->
           <li class="nav-item">
             <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"> Admin <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
@@ -115,12 +105,13 @@
         </div>
     
         <div class="col-sm-9">
-          <div *ngIf="!cat">
+          <div *ngIf="!cat" class="mb-5">
             <app-books-in-category [searchTerm]="search"></app-books-in-category>
+            <a href=""><button class="btn btn-primary px-5" id="buttonfix">back to top</button></a> 
           </div>
           <div *ngIf="cat">
             <app-category [category]="category" [searchTerm]="search"></app-category>
-          </div>
+          </div>      
         </div>
       </div>
 </div>

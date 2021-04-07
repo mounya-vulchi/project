@@ -41,7 +41,7 @@ export class EditprofileComponent implements OnInit {
     this.file= event.target.files[0];
   }
 
-  constructor(private ds:DataService, private router:Router,private toastr: ToastrService) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
  
 
@@ -69,22 +69,21 @@ export class EditprofileComponent implements OnInit {
           })
 
           this.photo=res.user.userImgLink
-          console.log("the image link is",res.user.userImgLink)
+          //console.log("the image link is",res.user.userImgLink)
 
 
           //this.userObj=res.user
           //console.log("the userprofile is ",res.user)
         }
         else{
-          this.toastr.warning(res.message);
-          //alert(res.message)
+          this.toastr.error(res.message)
     
           this.router.navigateByUrl("/login")
 
         }
       },
       err=>{
-        this.toastr.error('Something went wrong');
+        this.toastr.error("something went wrong")
         console.log(err)
       }
     )
