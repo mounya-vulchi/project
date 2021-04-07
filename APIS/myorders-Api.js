@@ -15,5 +15,15 @@ myordersApiObj.post("/addorder",asyncHandler( async(req,res,next)=>{
 
 }))
 
+
+
+myordersApiObj.get("/getorderitems/:username",asyncHandler(async(req,res,next)=>{
+    let myOrdersCollectionObj=req.app.get("myOrdersCollectionObj");
+    let orders=await myOrdersCollectionObj.find({username:req.params.username}).toArray();
+    //console.log("the orders are",orders)
+
+    res.send({message:orders})
+}))
+
 //export
 module.exports= myordersApiObj;

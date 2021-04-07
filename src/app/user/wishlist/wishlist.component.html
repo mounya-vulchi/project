@@ -17,8 +17,8 @@
                         <p class="card-title pb-4" *ngIf="b.rating<4">Rating: <span class="bg-warning text-light px-1 rounded-pill ">{{b.rating}}<i class="fas fa-star fa-xs"></i></span></p>
                         <p class="card-title pb-4" *ngIf="b.rating>=4">Rating: <span class="bg-success text-light px-1 rounded-pill ">{{b.rating}}<i class="fas fa-star fa-xs"></i></span></p>
                     
-                        <button class="btn btn-danger mb-auto d-block float-start"(click)="delete(i)"><i class="fa fa-trash-o" aria-hidden="true"></i>Remove</button>
-                        <button class="btn btn-warning mb-auto text-light d-block float-end"(click)="additem(b)"><i class="fas fa-shopping-cart"></i>Addtocart</button>
+                        <button class="btn btn-danger btn-sm mb-auto d-block float-start"(click)="delete(i)"><i class="fa fa-trash-o" aria-hidden="true"></i>Remove</button>
+                        <button class="btn btn-primary btn-sm mb-auto text-light d-block float-end"(click)="additem(b)"><i class="fas fa-shopping-cart"></i>Addtocart</button>
                     </div>
                   </div>
                 </div>

@@ -67,6 +67,9 @@ export class DataService {
      //console.log("in ds the book is ",book)
     return this.hc.post("/myorders/addorder",book)
   }
+  getOrder(username):Observable<any>{
+    return this.hc.get("/myorders/getorderitems/"+username)
+  }
 
 
   //admin services-----------------------------------------------
