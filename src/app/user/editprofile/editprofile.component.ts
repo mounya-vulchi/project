@@ -104,12 +104,16 @@ export class EditprofileComponent implements OnInit {
     this.ds.editprofile(formData).subscribe(
       res=>{
         if(res.message){
-          this.toastr.success("User details are updated");
+          this.toastr.success('User details are updated');
           this.router.navigateByUrl("/user/userdashboard")
         }
+        else{
+          this.toastr.warning('Cannot update profile check');
+        }
+        
       },
       err=>{
-        this.toastr.error("Something went wrong in user creation");
+        this.toastr.error('Something went wrong in user creation');
         console.log(err)
       }
     

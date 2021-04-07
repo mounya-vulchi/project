@@ -40,7 +40,9 @@ export class RegistrationComponent implements OnInit {
       //state
       state:new FormControl(null,Validators.required),
       //pincode
-      pincode:new FormControl(null,Validators.required)
+      pincode:new FormControl(null,Validators.required),
+
+      //photo:new FormControl(null,Validators.required),
 
     });
   }

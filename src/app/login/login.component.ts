@@ -40,10 +40,13 @@ export class LoginComponent implements OnInit {
               localStorage.setItem("token",res.signedToken)
               localStorage.setItem("username",res.username)
               if(res.username=="Admin"){
+
+                this.toastr.success('Admin login success');
                 this.router.navigateByUrl("/admin");
               }
               else{
               //navigate to user component
+              this.toastr.success('User login success');
               this.router.navigateByUrl("/home")
               }
             }

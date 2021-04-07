@@ -24,7 +24,7 @@ export class AvailableBooksComponent implements OnInit {
   getBooks(){
     this.ds.getAllBooks().subscribe(
       res=>{
-        this.booksArray=res["booksarray"]
+        this.booksArray=res.booksarray
         this.numofbooks=this.booksArray.length;
       },
       err=>{
@@ -37,7 +37,7 @@ export class AvailableBooksComponent implements OnInit {
 
   bookDetails(book){
     //console.log("the book is ",book)
-    localStorage.setItem("book",book["booktitle"])
+    localStorage.setItem("book",book.booktitle)
     this.router.navigateByUrl("/admin/editbook")
   }
 

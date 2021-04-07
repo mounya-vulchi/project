@@ -33,7 +33,7 @@ export class UsersManagementComponent implements OnInit {
         }
       },
       err=>{
-        this.toastr.error("Something went wrong")
+        this.toastr.error('Something went wrong in getting user details');
         console.log(err)
       }
     )
@@ -49,7 +49,7 @@ export class UsersManagementComponent implements OnInit {
         }
       },
       err=>{
-        this.toastr.error("Something went wrong")
+        this.toastr.error('Something went wrong in removing users');
         console.log(err)
       }
     )
