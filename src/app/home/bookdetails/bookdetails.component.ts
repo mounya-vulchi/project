@@ -59,7 +59,7 @@ export class BookdetailsComponent implements OnInit {
   }
 
   additem(book){
-    if(this.username!==null){
+    if(this.username!==null&&this.username!=="Admin"){
       let obj={
       username:this.username,
       booktitle:this.book.booktitle,
@@ -102,7 +102,7 @@ export class BookdetailsComponent implements OnInit {
   }
 
   wishlist(book){
-    if(this.username!==null){
+    if(this.username!==null&&this.username!=="Admin"){
       let obj={
       username:this.username,
       booktitle:this.book.booktitle,

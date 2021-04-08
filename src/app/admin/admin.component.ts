@@ -20,7 +20,10 @@ export class AdminComponent implements OnInit {
   }
   logout(){
     localStorage.clear();
-    this.router.navigateByUrl("/home");
+    this.router.navigateByUrl("/login")
+    .then(()=>{
+      window.location.reload ();
+     })
     
   }
   

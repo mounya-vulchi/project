@@ -29,12 +29,8 @@ export class UsercartComponent implements OnInit {
     this.cartStatus();
   }
 
-  logout(){
-    localStorage.clear();
-    this.router.navigateByUrl("/home");
-  }
   increment(b){
-    if(b.quantity){
+    if(b.quantity&&b.status=="Available"){
       let price=b.price/b.quantity;
     b.quantity+=1;
 

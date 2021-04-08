@@ -21,7 +21,6 @@ export class WishlistComponent implements OnInit {
   ngOnInit(): void {
 
     this.username=localStorage.getItem("username")
-    
     this.getWishlist();
     this.cartStatus();
   }
@@ -111,5 +110,8 @@ export class WishlistComponent implements OnInit {
     )
   }
 
+  goto(){
+    this.router.navigateByUrl("/home")
+  }
 
 }

@@ -41,13 +41,19 @@ export class LoginComponent implements OnInit {
               localStorage.setItem("username",res.username)
               if(res.username=="Admin"){
 
-                this.toastr.success('Admin login success');
-                this.router.navigateByUrl("/admin");
-              }
+                this.toastr.success(res.username,' Login success');
+                this.router.navigateByUrl("/admin")
+                .then(()=>{
+                  window.location.reload ();
+                 })
+                }
               else{
               //navigate to user component
-              this.toastr.success('User login success');
+              this.toastr.success(res.username,' Login success');
               this.router.navigateByUrl("/home")
+              .then(()=>{
+                window.location.reload ();
+               })
               }
             }
             else{

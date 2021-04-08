@@ -45,7 +45,10 @@ export class UserComponent implements OnInit {
    //clear local storage
    localStorage.clear();
    //navigate to home
-   this.router.navigateByUrl("/home")
+   this.router.navigateByUrl("/login")
+   .then(()=>{
+    window.location.reload ();
+   })
   }
 
 }
