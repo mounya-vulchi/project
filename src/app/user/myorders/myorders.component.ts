@@ -30,20 +30,4 @@ order=[]
     )
   
   }
-  clear(){
-    // console.log("the order",order)
-
-    for(let i=0;i<this.order.length;i++){
-        this.ds.clearmyorder(this.order[i]).subscribe(
-          res=>{
-            //this.toastr.success(res.message);
-            console.log(res.message);
-            window.location.reload ();
-          }
-        )
-    }
-  }
-
-
-  
 }

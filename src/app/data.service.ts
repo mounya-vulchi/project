@@ -71,10 +71,6 @@ export class DataService {
     return this.hc.get("/myorders/getorderitems/"+username)
   }
 
-  clearmyorder(obj):Observable<any>{
-    return this.hc.post("/myorders/clear",obj);
-  }
-
 
   //admin services-----------------------------------------------
  
