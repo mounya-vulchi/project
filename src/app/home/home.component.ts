@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../data.service';
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,9 +17,11 @@ export class HomeComponent implements OnInit {
   search;
   category;
   cat=false;
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService,private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+
+    
     this.username=localStorage.getItem("username")
     this.cartStatus();
     
@@ -32,6 +34,10 @@ export class HomeComponent implements OnInit {
         res=>{
           if(res.message=="success")
           {
+            this.spinner.show();
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 1000);
             this.userObj=res.user;
             //console.log(this.userObj);
           }

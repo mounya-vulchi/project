@@ -90,14 +90,7 @@ export class EditprofileComponent implements OnInit {
   onSubmit(){
     let userObj=this.registerForm.value;
 
-    //console.log("updated userprofile",userObj)
-
-    let formData = new FormData();
- 
-    formData.append("userObj",JSON.stringify(userObj))
-    console.log(userObj);
-
-    this.ds.editprofile(formData).subscribe(
+    this.ds.editprofile(userObj).subscribe(
       res=>{
         if(res.message){
           this.toastr.success('User details are updated');
