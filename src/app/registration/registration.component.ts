@@ -19,6 +19,8 @@ export class RegistrationComponent implements OnInit {
   }
   registerForm:FormGroup;
   closeAlert;
+  userId
+  id;
 
   constructor(private router:Router,private ds:DataService, private toastr:ToastrService) { }
 
@@ -42,7 +44,7 @@ export class RegistrationComponent implements OnInit {
       //pincode
       pincode:new FormControl(null,Validators.required),
 
-      //photo:new FormControl(null,Validators.required),
+      userImgLink:new FormControl(null,Validators.required),
 
     });
   }
@@ -52,6 +54,12 @@ export class RegistrationComponent implements OnInit {
     //console.log(userObj)
 
     let formData = new FormData();
+
+
+    this.userId = (Math.floor(Math.random() * 301))+3000;
+    console.log(this.userId)
+    userObj.userId=this.userId
+    console.log(userObj)
 
     //adding image and other data to ForData object
     formData.append('photo',this.file,this.file.name);
@@ -68,7 +76,9 @@ export class RegistrationComponent implements OnInit {
         }
         else{
           this.toastr.success("Registeration sucessfull");
-          this.router.navigateByUrl("/login")
+          this.id=this.userId
+          console.log(this.id)
+          //this.router.navigateByUrl("/login")
         }
       },
       err=>{

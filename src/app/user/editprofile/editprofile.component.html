@@ -114,12 +114,12 @@
          <p *ngIf="registerForm.get('pincode').touched&&registerForm.get('pincode').errors?.required" class="text-danger">Pincode is required</p>
       </div>
       <div class="col-md-12">
-        <div class="form-group ">
+        <!-- <div class="form-group ">
           <label>Profile photo</label>
           <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload profile photo here" formControlName="userImgLink">    
-        </div>
+        </div> -->
         <!--validation for photo-->
-        <p *ngIf="registerForm.get('userImgLink').touched&&registerForm.get('userImgLink').errors?.required" class="text-danger">Photo required</p>
+        <!-- <p *ngIf="registerForm.get('userImgLink').touched&&registerForm.get('userImgLink').errors?.required" class="text-danger">Photo required</p> -->
       </div>
       </div>
       </div>

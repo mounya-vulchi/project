@@ -29,7 +29,7 @@ export class EditprofileComponent implements OnInit {
       //pincode
       pincode:new FormControl(''), 
       //photo
-      userImgLink:new FormControl('')
+      //userImgLink:new FormControl('')
 
   });
   submitted=false;
@@ -64,7 +64,7 @@ export class EditprofileComponent implements OnInit {
             city:new FormControl(res.user.city),
             state:new FormControl(res.user.state),
             pincode:new FormControl(res.user.pincode), 
-            userImgLink:new FormControl(res.user.userImgLink)
+            //userImgLink:new FormControl(res.user.userImgLink)
 
           })
 
@@ -96,12 +96,12 @@ export class EditprofileComponent implements OnInit {
     let formData = new FormData();
 
     //adding image and other data to ForData object
-    formData.append('photo',this.file,this.file.name);
+    //formData.append('photo',this.file,this.file.name);
  
-    formData.append("userObj",JSON.stringify(userObj))
+    //formData.append("userObj",JSON.stringify(userObj))
     //console.log(userObj);
 
-    this.ds.editprofile(formData).subscribe(
+    this.ds.editprofile(userObj).subscribe(
       res=>{
         if(res.message){
           this.toastr.success('User details are updated');

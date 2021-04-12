@@ -108,17 +108,44 @@
       <div class="col-md-12">
         <div class="form-group ">
           <label>Profile photo</label>
-          <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload profile photo here">    
+          <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload profile photo here" formControlName="userImgLink">    
+
         </div>
+        <p *ngIf="registerForm.get('userImgLink').touched&&registerForm.get('userImgLink').errors?.required" class="text-danger">Photo required</p>
        
       </div>
       <div class="col-md-12">
         <div class="form-group text-center">
-          <button type="submit" class="btn btn-success  px-5" [disabled]="registerForm.invalid">Register</button> 
+          <button type="submit" class="btn btn-success px-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop" [disabled]="registerForm.invalid">Register</button>
+          <!-- <button type="submit" class="btn btn-success  px-5" [disabled]="registerForm.invalid">Register</button>  -->
           <span> Already existed user? <a routerLink="login" class="text-primary" (click)="login()"> Signin</a> here</span>
         </div>
 
       </div>
   </form>
+</div>
+
+
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">User registered successfully</h5>
+        <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         UserId is :{{userId}}
+      </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary d-block mx-auto" data-bs-dismiss="modal" (click)="login()">Close</button>
+          </div>
+          <!-- <button type="button" class="btn btn-secondary d-block float-end" data-bs-dismiss="modal">Close</button> -->
+
+    </div>
+  </div>
 </div>
 </body>
