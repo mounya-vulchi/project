@@ -13,7 +13,7 @@ const routes: Routes = [
     { path:'allbooks',component:AvailableBooksComponent},
     { path:'categories', component:AvailableCategoriesComponent},
     { path:"usermanagement",component:UsersManagementComponent},
-    { path:"editbook",component:EditbookComponent},
+    { path:"editbook/:book",component:EditbookComponent},
     { path:"",redirectTo:"/admin/addbook",pathMatch:"full"}
   ]},
   

@@ -3,7 +3,11 @@
     <p class="display-6 text-center pt-3" style="color: black;">Edit Book Details</p>
 
     <form class="row g-3 mt-3 mb-5 bg-light p-5" [formGroup]="registerForm" (ngSubmit)="onSubmit() ">
-        
+        <!-- book id -->
+        <div class="col-md-12" hidden>
+            <input type="number" class="form-control" id="bookid" name="bookid" formControlName="bookid">
+            <label for="bookid" class="form-label">BookId</label>
+        </div>
         <!--cover photo -->
         <div class="col-md-4">
             <img [src]=bookimg alt="cover photo" width="100%">

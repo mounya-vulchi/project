@@ -86,17 +86,17 @@ export class DataService {
   }
 
   getBookDetails(book):Observable<any>{
-    console.log("the book is ",book)
+    //console.log("the book is ",book)
     return this.hc.get("/admin/bookdetails/"+book)
   }
 
   editBook(obj):Observable<any>{
     //console.log(obj," in ds")
-    return this.hc.put("/admin/updatebook",obj)
+    return this.hc.put("/admin/updatebook/"+obj,obj)
   }
   
   deleteBook(obj):Observable<any>{
-    console.log(obj," in ds")
+    //console.log(obj," in ds")
     return this.hc.post("/admin/deletebook",obj);
   }
 

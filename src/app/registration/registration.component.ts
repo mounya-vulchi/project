@@ -57,7 +57,7 @@ export class RegistrationComponent implements OnInit {
     formData.append('photo',this.file,this.file.name);
  
     formData.append("userObj",JSON.stringify(userObj))
-    console.log("the form data",formData)
+    //console.log("the form data",formData)
     console.log("the user data",userObj);
 
     this.ds.createUser(formData).subscribe(

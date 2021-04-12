@@ -12,9 +12,10 @@ import { DataService } from 'src/app/data.service';
 export class EditbookComponent implements OnInit {
 
   bookimg;
-  bookdetails;
+  bookid;
 
   registerForm=new FormGroup({
+    bookid:new FormControl({value:'',disabled:true}),
     booktitle:new FormControl({value:'',disabled:true}),
     author: new FormControl(''),
     paperback: new FormControl(''),
@@ -38,15 +39,16 @@ export class EditbookComponent implements OnInit {
   constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.bookdetails=localStorage.getItem("book")
+    this.bookid=localStorage.getItem("book")
     this.getBookDetails();
   }
 
   getBookDetails(){
-    this.ds.getBookDetails(this.bookdetails).subscribe(
+    this.ds.getBookDetails(this.bookid).subscribe(
       res=>{
         if(res.Details){
           this.registerForm=new FormGroup({
+            bookid:new FormControl(res.Details.bookid),
             booktitle:new FormControl(res.Details.booktitle),
             author: new FormControl(res.Details.author),
             paperback: new FormControl(res.Details.paperback),

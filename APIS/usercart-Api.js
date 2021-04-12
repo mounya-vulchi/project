@@ -4,6 +4,7 @@ const errHandler=require("express-async-handler");
 const bcryptjs=require("bcryptjs");
 //const { isJSDocUnknownTag } = require("typescript");
 const jwt=require("jsonwebtoken");
+const verifyToken = require("./middlewares/verifyToken");
 
 userCartApiObj.use(exp.json())
 
@@ -26,7 +27,7 @@ userCartApiObj.post("/addto",errHandler( async(req,res,next)=>{
     //console.log("product is ", obj)
 }))
 
-userCartApiObj.get("/getcartitems/:username",errHandler(async(req,res,next)=>{
+userCartApiObj.get("/getcartitems/:username",verifyToken,errHandler(async(req,res,next)=>{
     //console.log("printing from get activity")
     let cartCollectionObj=req.app.get("cartCollectionObj");
     let booksCollectionObj=req.app.get("booksCollectionObj");
@@ -39,7 +40,7 @@ userCartApiObj.get("/getcartitems/:username",errHandler(async(req,res,next)=>{
 
 
 
-userCartApiObj.get("/getsize/:username",errHandler(async(req,res,next)=>{
+userCartApiObj.get("/getsize/:username",verifyToken,errHandler(async(req,res,next)=>{
     let cartCollectionObj= req.app.get("cartCollectionObj");
     let cart=await cartCollectionObj.find({username:req.params.username}).toArray();
     let cartlength=cart.length;
@@ -47,7 +48,7 @@ userCartApiObj.get("/getsize/:username",errHandler(async(req,res,next)=>{
     //console.log("the size is ",cartlength);
 }))
 
-userCartApiObj.post("/deleteproduct",errHandler(async(req,res,next)=>{
+userCartApiObj.post("/deleteproduct",verifyToken,errHandler(async(req,res,next)=>{
    
     let cartCollectionObj = req.app.get("cartCollectionObj");
     let cartObj =  req.body;

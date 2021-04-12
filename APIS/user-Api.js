@@ -75,7 +75,7 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
 
         //create user
         let success=await userCollectionObj.insertOne(userObj);
-        res.send({message:"user created"})
+        res.send({message:"user created"});
         //console.log("user created")
        
        
@@ -105,7 +105,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:10000});
+            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
             
             //send token
             res.send({message:"success",signedToken:token,username:user.username});
@@ -117,7 +117,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
 }))
 
 //get all users
-userApiObj.get("/getusers",asyncHandler(async(req,res,next)=>{
+userApiObj.get("/getusers",verifyToken,asyncHandler(async(req,res,next)=>{
     let userCollectionObject=req.app.get("userCollectionObj");
     let allUsers=await userCollectionObject.find().toArray();
     res.send({users:allUsers})
@@ -132,56 +132,65 @@ userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)
 }))
 
 //update userprofile
-userApiObj.put("/updateprofile",upload.single('photo'),asyncHandler(async(req,res,next)=>{
-    let userCollectionObject=req.app.get("userCollectionObj")
+userApiObj.put("/updateprofile",upload.single('photo'),verifyToken,asyncHandler(async(req,res,next)=>{
+    let userCollectionObject=req.app.get("userCollectionObj");
 
     let userObj =  JSON.parse(req.body.userObj)
     // let hashedpwd = await bcryptjs.hash(userObj.password,6);
+    //console.log(userObj.username)
+    let user=await userCollectionObject.findOne({username:userObj.username});
 
-    //    userObj.password = hashedpwd;
-       userObj.userImgLink = req.file.path;
-       console.log("the hashed password is",userObj)
-
-    let user=await userCollectionObject.findOne({username:userObj.username})
-
-    if(user.password!==userObj.password){
-        console.log("the password is different")
-        let hashedpwd = await bcryptjs.hash(userObj.password,6);
-          userObj.password = hashedpwd;
-    }
-    else{
-        console.log("the password is same")    
-    }
-
-    console.log("the userobj status",user)
+    //console.log("the userobj status",user);
     if(user!==null){
+        if(user.password!==userObj.password){
+            console.log("the password is different");
+            let hashedpwd = await bcryptjs.hash(userObj.password,6);
+            userObj.password = hashedpwd;
+        }
+        else{
+            //console.log("the password is same");   
+        }
          let edit=await userCollectionObject.updateOne({username:userObj.username},{$set:{
+            userId:userObj.userId,
             email:userObj.email,
             password:userObj.password,
             phonenumber:userObj.phonenumber,
             address:userObj.address,
             city:userObj.city,
             state:userObj.state,
-            pincode:userObj.pincode, 
-            //photo: new userObj.userImgLink,
-            userImgLink:userObj.userImgLink 
+            pincode:userObj.pincode
         }});
      
         res.send({message:true});
     }
     else{
-        res.send({message:"user not found"})
+        res.send({message:"user not found"});
     }
     
 }))
 //delete user
 userApiObj.post("/deleteuser",asyncHandler(async(req,res,next)=>{
     //get user usercollection object
-    let userCollectionObject=req.app.get("userCollectionObj")
+    let userCollectionObject=req.app.get("userCollectionObj");
+    let cartCollectionObject=req.app.get("cartCollectionObj");
+    let wishlistCollectionObj=req.get("wishlistCollectionObj");
+    let myOrdersCollectionObj=req.get("myOrdersCollectionObj");
     console.log("the user is ",req.body)
-    let userObj=await userCollectionObject.findOne({username:req.body.username})
+    let userObj=await userCollectionObject.findOne({username:req.body.username});
+    let cartObj=await cartCollectionObject.find({username:req.body.username}).toArray();
+    let wishObj=await wishlistCollectionObj.find({username:req.body.username}).toArray();
+    let myorderObj=await myOrdersCollectionObj.find({username:req.body.username}).toArray();
     if(userObj!=null){
         await userCollectionObject.deleteOne({username:req.body.username});
+        if(cartObj!=null){
+            await cartCollectionObject.delete({username:req.body.username});
+        }
+        if(wishObj!=null){
+            await wishlistCollectionObj.delete({username:req.body.username});
+        }
+        if(myorderObj!=null){
+            await myOrdersCollectionObj.delete({username:req.body.username});
+        }
         res.send({message:true});
     }
 }))

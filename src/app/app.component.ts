@@ -11,6 +11,7 @@ import { DataService } from './data.service';
 export class AppComponent implements OnInit{
   title = 'BookStore';
   username;
+  userCartSize;
   userObj;
   admin=false;
   constructor(private router:Router,private ds:DataService, private toastr:ToastrService){}
@@ -40,6 +41,20 @@ export class AppComponent implements OnInit{
         }
       )
     }
+    this.cartStatus();
+  }
+
+  cartStatus(){
+    this.ds.getCartSize(this.username).subscribe(
+      res=>{
+        this.userCartSize=res.cartsize;
+      },
+      err=>{
+        this.toastr.error("Something went wrong in getting all products")
+        console.log(err)
+      }
+    )
+
   }
   
 }

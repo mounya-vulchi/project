@@ -10,7 +10,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class BookdetailsComponent implements OnInit {
   book;
-  bookdetails;
+  bookid;
   username;
   admin=false;
   userCartSize;
@@ -22,14 +22,14 @@ export class BookdetailsComponent implements OnInit {
       this.admin=true;
       //console.log(this.admin)
     }
-    this.bookdetails=localStorage.getItem("book");
-    console.log("bookdetails are ",this.bookdetails);
+    this.bookid=localStorage.getItem("book");
+    //console.log("bookdetails are ",this.bookid);
     this.getBookDetails();
     this.cartStatus();
   }
 
   getBookDetails(){
-    this.ds.getBookDetails(this.bookdetails).subscribe(
+    this.ds.getBookDetails(this.bookid).subscribe(
       res=>{
         if(res.Details){
           this.book=res.Details;

@@ -28,8 +28,8 @@ export class AvailableCategoriesComponent implements OnInit {
 
   bookDetails(book){
     //console.log("the book is ",book)
-    localStorage.setItem("book",book["booktitle"])
-    this.router.navigateByUrl("/admin/editbook")
+    localStorage.setItem("book",book.bookid);
+    this.router.navigateByUrl("/admin/editbook/"+book.bookid);
   }
 
 
