@@ -14,8 +14,8 @@ export class UserprofileComponent implements OnInit {
   userObj;
 
   ngOnInit(): void {
-    let username=localStorage.getItem("username")
-    this.userObj=this.ds.getUser(username).subscribe(
+    let userId=localStorage.getItem("userId")
+    this.userObj=this.ds.getUser(userId).subscribe(
       res=>{
         if(res.message=="success")
         {

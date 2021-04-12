@@ -12,7 +12,7 @@ userCartApiObj.post("/addto",errHandler( async(req,res,next)=>{
     let cartCollectionObj=req.app.get("cartCollectionObj")
     let cartObj=req.body;
     //console.log(cartObj)
-    let cart = await cartCollectionObj.findOne({booktitle:cartObj.booktitle,username:cartObj.username})
+    let cart = await cartCollectionObj.findOne({booktitle:cartObj.booktitle,userId:cartObj.userId})
     //console.log("the cart is ",cart)
    // console.log("product")
     if(cart!==null){
@@ -27,12 +27,12 @@ userCartApiObj.post("/addto",errHandler( async(req,res,next)=>{
     //console.log("product is ", obj)
 }))
 
-userCartApiObj.get("/getcartitems/:username",verifyToken,errHandler(async(req,res,next)=>{
+userCartApiObj.get("/getcartitems/:userId",verifyToken,errHandler(async(req,res,next)=>{
     //console.log("printing from get activity")
     let cartCollectionObj=req.app.get("cartCollectionObj");
     let booksCollectionObj=req.app.get("booksCollectionObj");
     let books=await booksCollectionObj.find().toArray();
-    let products=await cartCollectionObj.find({username:req.params.username}).toArray();
+    let products=await cartCollectionObj.find({userId:req.params.userId}).toArray();
     //console.log(products)
 
     res.send({message:products,booksArray:books})
@@ -40,9 +40,9 @@ userCartApiObj.get("/getcartitems/:username",verifyToken,errHandler(async(req,re
 
 
 
-userCartApiObj.get("/getsize/:username",verifyToken,errHandler(async(req,res,next)=>{
+userCartApiObj.get("/getsize/:userId",verifyToken,errHandler(async(req,res,next)=>{
     let cartCollectionObj= req.app.get("cartCollectionObj");
-    let cart=await cartCollectionObj.find({username:req.params.username}).toArray();
+    let cart=await cartCollectionObj.find({userId:req.params.userId}).toArray();
     let cartlength=cart.length;
     res.send({cartsize:cartlength});
     //console.log("the size is ",cartlength);
@@ -55,11 +55,11 @@ userCartApiObj.post("/deleteproduct",verifyToken,errHandler(async(req,res,next)=
    
     //console.log("user object is",cartObj);
     //check for user in db
-    let product = await cartCollectionObj.findOne({booktitle:cartObj.booktitle});
+    let product = await cartCollectionObj.findOne({booktitle:cartObj.booktitle,userId:cartObj.userId});
 
     //product is there
     if(product!==null){
-        let remove=await cartCollectionObj.deleteOne({booktitle:cartObj.booktitle});
+        let remove=await cartCollectionObj.deleteOne({booktitle:cartObj.booktitle,userId:cartObj.userId});
         res.send({message:"Book removed from cart successfully"});
     }
     else{

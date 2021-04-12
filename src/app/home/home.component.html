@@ -22,11 +22,11 @@
           </li>
           <!-- login button -->
           <li class="nav-item">
-            <a class="nav-link" style="color:white" *ngIf="!admin&&username==null" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+            <a class="nav-link" style="color:white" *ngIf="!admin&&userId==null" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
           </li>
           <!-- cart icon -->
           <li class="nav-item mt-2">
-            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
+            <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
               <h4 class="fas fa-cart-arrow-down text-white">
                 <sup class="text-white mx-1">{{userCartSize}}</sup>
               </h4>
@@ -34,7 +34,7 @@
           </li>
           <!-- userprofile -->
           <li class="nav-item">
-            <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
+            <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{userObj.username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
           </li>
           <!-- for admin -->
           <li class="nav-item">
@@ -44,12 +44,12 @@
     </div>
 </nav>
 
-<nav class="navbar navbar-expand-lg bg-dark" *ngIf="username!=null">
-  <a class="navbar-brand" href="#"style="color:white;font-size: 20px;">Welcome {{username}}</a>
+<nav class="navbar navbar-expand-lg bg-dark" *ngIf="userId!=null">
+  <a class="navbar-brand" href="#"style="color:white;font-size: 20px;">Welcome {{userObj.username}}</a>
   <ul class="navbar-nav ms-auto mb-2 md-lg-0">
     <!-- logout for user -->
     <li class="nav-item">
-      <a class="nav-link" style="color:white" *ngIf="username!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+      <a class="nav-link" style="color:white" *ngIf="userId!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
     </li>
   </ul>
 </nav>

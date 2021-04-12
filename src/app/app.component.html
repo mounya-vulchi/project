@@ -16,7 +16,7 @@
 
         <!-- cart icon -->
         <li class="nav-item mt-2">
-          <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
+          <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
             <h4 class="fas fa-cart-arrow-down text-white">
               <sup class="text-white mx-1">{{userCartSize}}</sup>
             </h4>
@@ -25,7 +25,7 @@
         
         <!-- userprofile -->
         <li class="nav-item">
-          <a class="nav-link" style="color:white" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
+          <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{userObj.username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
         </li>
 
         <!-- for admin -->

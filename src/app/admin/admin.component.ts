@@ -8,13 +8,14 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-  username;
+  userId;
   admin=false;
   constructor(private router:Router){}
 
   ngOnInit(){
-    this.username=localStorage.getItem("username")
-    if(this.username=="Admin"){
+    this.userId=localStorage.getItem("userId");
+    console.log(this.userId);
+    if(this.userId=="3008"){
       this.admin=true;
     }
   }

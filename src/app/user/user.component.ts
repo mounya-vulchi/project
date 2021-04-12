@@ -10,15 +10,15 @@ import { DataService } from '../data.service';
 })
 export class UserComponent implements OnInit {
 
-  username;
+  userId;
   userObj;
 
   constructor(private router:Router,private ds:DataService, private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    //this.username=localStorage.getItem("username")
-    let username=localStorage.getItem("username")
-    this.userObj=this.ds.getUser(username).subscribe(
+    //this.userId=localStorage.getItem("userId")
+    let userId=localStorage.getItem("userId")
+    this.userObj=this.ds.getUser(userId).subscribe(
       res=>{
         if(res.message=="success")
         {

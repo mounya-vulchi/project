@@ -11,14 +11,14 @@ import { DataService } from 'src/app/data.service';
 export class BookdetailsComponent implements OnInit {
   book;
   bookid;
-  username;
+  userId;
   admin=false;
   userCartSize;
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username");
-    if(this.username=="Admin"){
+    this.userId=localStorage.getItem("userId");
+    if(this.userId=="3008"){
       this.admin=true;
       //console.log(this.admin)
     }
@@ -46,7 +46,7 @@ export class BookdetailsComponent implements OnInit {
     )
   }
   cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
+    this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
       },
@@ -59,9 +59,9 @@ export class BookdetailsComponent implements OnInit {
   }
 
   additem(book){
-    if(this.username!==null&&this.username!=="Admin"){
+    if(this.userId!==null&&this.userId!=="Admin"){
       let obj={
-      username:this.username,
+      userId:this.userId,
       booktitle:this.book.booktitle,
       author:this.book.author,
       paperback:this.book.paperback,
@@ -102,9 +102,9 @@ export class BookdetailsComponent implements OnInit {
   }
 
   wishlist(book){
-    if(this.username!==null&&this.username!=="Admin"){
+    if(this.userId!==null&&this.userId!=="Admin"){
       let obj={
-      username:this.username,
+      userId:this.userId,
       booktitle:this.book.booktitle,
       author:this.book.author,
       paperback:this.book.paperback,

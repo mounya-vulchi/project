@@ -123,7 +123,7 @@ adminApiObj.post("/deletebook",verifyToken,asyncHandler(async(req,res,next)=>{
 }))
 
 //get category wise books
-adminApiObj.get("/categorybooks/:cat",asyncHandler(async(req,res,next)=>{
+adminApiObj.get("/categorybooks/:cat",verifyToken,asyncHandler(async(req,res,next)=>{
     let Books=req.app.get("booksCollectionObj")
     
     let BookDetails=await Books.find({category:req.params.cat})

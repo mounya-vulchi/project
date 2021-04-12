@@ -10,14 +10,12 @@ import { DataService } from 'src/app/data.service';
 })
 export class CategoryComponent implements OnInit {
 
-  username;
   booksArray;
   @Input() searchTerm:String;
   @Input() category:String;
   constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
     this.getBooks();
   }
 
@@ -35,7 +33,7 @@ export class CategoryComponent implements OnInit {
   }
   bookDetails(book){
     //console.log("the book is ",book)
-    localStorage.setItem("book",book["booktitle"])
+    localStorage.setItem("book",book.booktitle)
     this.router.navigateByUrl("/home/bookdetails")
   }
 

@@ -10,13 +10,11 @@ import { DataService } from 'src/app/data.service';
 })
 export class AvailableBooksComponent implements OnInit {
 
-  username;
   booksArray=[];
   numofbooks;
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
     this.getBooks();
   }
 

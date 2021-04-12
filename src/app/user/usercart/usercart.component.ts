@@ -13,6 +13,7 @@ import { DataService } from 'src/app/data.service';
 export class UsercartComponent implements OnInit {
 
 
+  userId;
   username;
   cart=[];
   booksArray=[];
@@ -23,7 +24,12 @@ export class UsercartComponent implements OnInit {
   amount
   constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
   ngOnInit(): void {
-    this.username=localStorage.getItem("username");
+    this.userId=localStorage.getItem("userId");
+    this.ds.getUser(this.userId).subscribe(
+      res=>{
+        this.username=res.user.username;
+      }
+    )
     this.getCart();
     this.checkCart();
     this.cartStatus();
@@ -63,7 +69,7 @@ export class UsercartComponent implements OnInit {
   }
 
   getCart(){
-    this.ds.getCartItems(this.username).subscribe(
+    this.ds.getCartItems(this.userId).subscribe(
       res=>{
         this.cart=res.message;
         this.booksArray=res.booksArray;
@@ -99,7 +105,7 @@ export class UsercartComponent implements OnInit {
   }
 
   cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
+    this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
         //console.log("the cart size is ",this.userCartSize)

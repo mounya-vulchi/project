@@ -20,8 +20,8 @@ export class DataService {
     return this.hc.post("/user/login",userCredObj)
 
   }
-  getUser(username):Observable<any>{
-    return this.hc.get("/user/getuser/"+username)
+  getUser(userId):Observable<any>{
+    return this.hc.get("/user/getuser/"+userId)
   }
   getAllUsers():Observable<any>{
     return this.hc.get("/user/getusers")

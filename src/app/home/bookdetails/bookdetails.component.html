@@ -4,7 +4,7 @@
         <ul class="navbar-nav ms-auto md-lg-0">
           <!-- cart icon -->
           <li class="nav-item mt-2">
-            <a class="nav-link btn btn-sm btn-warning" *ngIf="!admin&&username!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
+            <a class="nav-link btn btn-sm btn-warning" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
               <h4 class="fas fa-cart-arrow-down">
                 <sup class="mx-1">{{userCartSize}}</sup>
               </h4>
@@ -25,8 +25,8 @@
             <p>{{book.paperback}} pages</p>
             <h5>Description:</h5>
             <p>{{book.description}}</p>
-            <button class="btn btn-primary mx-2" (click)="wishlist(book)" *ngIf="username!='Admin'"><i class="fas fa-bookmark"></i> Add to WishList</button>
-            <button class="btn btn-success" (click)="additem(book)" *ngIf="username!='Admin'"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+            <button class="btn btn-primary mx-2" (click)="wishlist(book)" *ngIf="userId!='3008'"><i class="fas fa-bookmark"></i> Add to WishList</button>
+            <button class="btn btn-success" (click)="additem(book)" *ngIf="userId!='3008'"><i class="fas fa-cart-plus"></i> Add to Cart</button>
         </div>
     </div>
 </div>

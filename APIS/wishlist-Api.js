@@ -12,7 +12,7 @@ wishlistApiObj.post("/addto",errHandler( async(req,res,next)=>{
     let cartObj=req.body;
     //console.log(cartObj)
    
-    let cart = await wishlistCollectionObj.findOne({booktitle:cartObj.booktitle,username:cartObj.username})
+    let cart = await wishlistCollectionObj.findOne({booktitle:cartObj.booktitle,userId:cartObj.userId})
     
     if(cart!==null){
         res.send({message:"book already existed"})
@@ -23,10 +23,10 @@ wishlistApiObj.post("/addto",errHandler( async(req,res,next)=>{
     }
    
 }))
-wishlistApiObj.get("/getwishlistitems/:username",errHandler(async(req,res,next)=>{
+wishlistApiObj.get("/getwishlistitems/:userId",errHandler(async(req,res,next)=>{
 
     let wishlistCollectionObj=req.app.get("wishlistCollectionObj");
-    let products=await wishlistCollectionObj.find({username:req.params.username}).toArray();
+    let products=await wishlistCollectionObj.find({userId:req.params.userId}).toArray();
     //console.log(products)
 
     res.send({message:products})
@@ -38,11 +38,11 @@ wishlistApiObj.post("/deleteproduct",errHandler(async(req,res,next)=>{
     let wishlistCollectionObj = req.app.get("wishlistCollectionObj");
     let cartObj =  req.body;
  
-    let product = await wishlistCollectionObj.findOne({booktitle:cartObj.booktitle});
+    let product = await wishlistCollectionObj.findOne({booktitle:cartObj.booktitle,userId:cartObj.userId});
 
     //product is there
     if(product!==null){
-        let remove=await wishlistCollectionObj.deleteOne({booktitle:cartObj.booktitle});
+        let remove=await wishlistCollectionObj.deleteOne({booktitle:cartObj.booktitle,userId:cartObj.userId});
         res.send({message:true});
     }
 

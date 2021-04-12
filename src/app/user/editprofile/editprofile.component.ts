@@ -16,7 +16,7 @@ export class EditprofileComponent implements OnInit {
       //userId
       userId:new FormControl({value:'',disabled:true}),
       //username
-      username:new FormControl({value:'',disabled:true}),
+      username:new FormControl(''),
       //email
       email:new FormControl(''),
       //password
@@ -36,7 +36,7 @@ export class EditprofileComponent implements OnInit {
   submitted=false;
 
   file!:File;
-  username: any;
+  userId;
 
   incomingfile(event:any) {
     this.file= event.target.files[0];
@@ -45,13 +45,13 @@ export class EditprofileComponent implements OnInit {
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
-    this.getUserDetails()
+    this.userId=localStorage.getItem("userId");
+    this.getUserDetails();
     
   }
 
   getUserDetails(){
-    this.ds.getUser(this.username).subscribe(
+    this.ds.getUser(this.userId).subscribe(
       res=>{
         if(res.message=="success"){
           this.registerForm=new FormGroup({

@@ -105,10 +105,10 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:1000});
+            let token = await jwt.sign({userId:user.userId},"abcd",{expiresIn:1000});
             
             //send token
-            res.send({message:"success",signedToken:token,username:user.username});
+            res.send({message:"success",signedToken:token,userId:user.userId});
         }
         else{
             res.send({message:"Invalid password"});
@@ -123,10 +123,10 @@ userApiObj.get("/getusers",verifyToken,asyncHandler(async(req,res,next)=>{
     res.send({users:allUsers})
 }))
 //get user
-userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)=>{
+userApiObj.get("/getuser/:userId",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object
     let userCollectionObject=req.app.get("userCollectionObj")
-    let userObj=await userCollectionObject.findOne({username:req.params.username})
+    let userObj=await userCollectionObject.findOne({userId:parseInt(req.params.userId)});
     res.send({message:"success",user:userObj})
     
 }))
@@ -138,7 +138,7 @@ userApiObj.put("/updateprofile",upload.single('photo'),verifyToken,asyncHandler(
     let userObj =  JSON.parse(req.body.userObj)
     // let hashedpwd = await bcryptjs.hash(userObj.password,6);
     //console.log(userObj.username)
-    let user=await userCollectionObject.findOne({username:userObj.username});
+    let user=await userCollectionObject.findOne({userId:userObj.userId});
 
     //console.log("the userobj status",user);
     if(user!==null){
@@ -150,8 +150,8 @@ userApiObj.put("/updateprofile",upload.single('photo'),verifyToken,asyncHandler(
         else{
             //console.log("the password is same");   
         }
-         let edit=await userCollectionObject.updateOne({username:userObj.username},{$set:{
-            userId:userObj.userId,
+         let edit=await userCollectionObject.updateOne({userId:userObj.userId},{$set:{
+            username:userObj.username,
             email:userObj.email,
             password:userObj.password,
             phonenumber:userObj.phonenumber,
@@ -176,20 +176,20 @@ userApiObj.post("/deleteuser",asyncHandler(async(req,res,next)=>{
     let wishlistCollectionObj=req.get("wishlistCollectionObj");
     let myOrdersCollectionObj=req.get("myOrdersCollectionObj");
     console.log("the user is ",req.body)
-    let userObj=await userCollectionObject.findOne({username:req.body.username});
-    let cartObj=await cartCollectionObject.find({username:req.body.username}).toArray();
-    let wishObj=await wishlistCollectionObj.find({username:req.body.username}).toArray();
-    let myorderObj=await myOrdersCollectionObj.find({username:req.body.username}).toArray();
+    let userObj=await userCollectionObject.findOne({userId:req.body.userId});
+    let cartObj=await cartCollectionObject.find({userId:req.body.userId}).toArray();
+    let wishObj=await wishlistCollectionObj.find({userId:req.body.userId}).toArray();
+    let myorderObj=await myOrdersCollectionObj.find({userId:req.body.userId}).toArray();
     if(userObj!=null){
-        await userCollectionObject.deleteOne({username:req.body.username});
+        await userCollectionObject.deleteOne({userId:req.body.userId});
         if(cartObj!=null){
-            await cartCollectionObject.delete({username:req.body.username});
+            await cartCollectionObject.delete({userId:req.body.userId});
         }
         if(wishObj!=null){
-            await wishlistCollectionObj.delete({username:req.body.username});
+            await wishlistCollectionObj.delete({userId:req.body.userId});
         }
         if(myorderObj!=null){
-            await myOrdersCollectionObj.delete({username:req.body.username});
+            await myOrdersCollectionObj.delete({userId:req.body.userId});
         }
         res.send({message:true});
     }

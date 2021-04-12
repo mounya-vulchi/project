@@ -10,7 +10,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class HomeComponent implements OnInit {
 
-  username;
+  userId;
   userObj;
   userCartSize;
   admin=false;
@@ -22,15 +22,15 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.username=localStorage.getItem("username")
+    this.userId=localStorage.getItem("userId")
     this.cartStatus();
     
-    if(this.username=="Admin"){
+    if(this.userId=="3008"){
       this.admin=true;
       //console.log(this.admin)
     }
-    if(this.username!=null){
-      this.userObj=this.ds.getUser(this.username).subscribe(
+    if(this.userId!=null){
+      this.userObj=this.ds.getUser(this.userId).subscribe(
         res=>{
           if(res.message=="success")
           {
@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
   }
 
   cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
+    this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
       },

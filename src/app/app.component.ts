@@ -11,7 +11,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class AppComponent implements OnInit{
   title = 'BookStore';
-  username;
+  userId;
   userCartSize;
   userObj;
   admin=false;
@@ -25,17 +25,17 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     
-    this.username=localStorage.getItem("username")
-    if(this.username=="Admin"){
+    this.userId=localStorage.getItem("userId")
+    console.log(this.userId);
+    if(this.userId=='3008'){
       this.admin=true;
     }
-    if(this.username!=null){
-      this.userObj=this.ds.getUser(this.username).subscribe(
+    if(this.userId!=null){
+      this.userObj=this.ds.getUser(this.userId).subscribe(
         res=>{
           if(res.message=="success")
           {
             this.userObj=res.user;
-            //console.log(this.userObj);
           }
           else{
             this.toastr.error(res.message)
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit{
   }
 
   cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
+    this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
       },
