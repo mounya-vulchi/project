@@ -57,7 +57,7 @@ export class RegistrationComponent implements OnInit {
 
 
     this.userId = (Math.floor(Math.random() * 301))+3000;
-    userObj.userId=this.userId
+    userObj.userId=this.userId;
     
 
     //adding image and other data to ForData object

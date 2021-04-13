@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
 
     
     this.userId=localStorage.getItem("userId")
-    this.cartStatus();
     
     if(this.userId=="3008"){
       this.admin=true;
@@ -77,23 +76,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  cartStatus(){
-    this.ds.getCartSize(this.userId).subscribe(
-      res=>{
-        this.userCartSize=res.cartsize;
-      },
-      err=>{
-        this.toastr.error("Something went wrong in getting all products")
-        console.log(err)
-      }
-    )
-
-  }
-
-  logout(){
-    localStorage.clear();
-    this.router.navigateByUrl("/home");
-    window.location.reload ();
-  } 
+ 
 
 }

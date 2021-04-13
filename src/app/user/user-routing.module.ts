@@ -17,7 +17,7 @@ const routes: Routes = [
     { path:"myorder", component:MyordersComponent,canActivate:[RouteGuard]},
     { path:"payment", component:PaymentComponent,canActivate:[RouteGuard]},
     {path:"editprofile",component:EditprofileComponent,canActivate:[RouteGuard]},
-    { path:"",redirectTo:"/user/userdashboard/userprofile"}
+    { path:"",redirectTo:"/user/userdashboard/usercart"}
   ],canActivate:[RouteGuard]},
   
 ];

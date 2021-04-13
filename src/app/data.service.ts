@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class DataService {
 
   constructor(private hc:HttpClient) { }
 
-
+  x=0;
   //user services
   
   createUser(userObj):Observable<any>{
@@ -104,5 +104,16 @@ export class DataService {
     return this.hc.get("/admin/categorybooks/"+cat)
   }
 
- 
+  //usercartsize-------------------------
+  cartsize=0;
+  //create Object to BehaviourSubject with initial value of cartsize
+  private cartSubject: BehaviorSubject<any> = new BehaviorSubject(this.cartsize);
+
+    getCartSubjectSize(): Observable<any> {
+        return this.cartSubject.asObservable();
+    }
+
+    setCartSubjectSize(cartsize: any) {
+        this.cartSubject.next(cartsize);
+    }
 }

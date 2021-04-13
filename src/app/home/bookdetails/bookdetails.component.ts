@@ -20,10 +20,8 @@ export class BookdetailsComponent implements OnInit {
     this.userId=localStorage.getItem("userId");
     if(this.userId=="3008"){
       this.admin=true;
-      //console.log(this.admin)
     }
     this.bookid=localStorage.getItem("book");
-    //console.log("bookdetails are ",this.bookid);
     this.getBookDetails();
     this.cartStatus();
   }
@@ -33,7 +31,6 @@ export class BookdetailsComponent implements OnInit {
       res=>{
         if(res.Details){
           this.book=res.Details;
-          //console.log(this.book);
         }
         else{
           this.toastr.error(res.message);
@@ -49,6 +46,7 @@ export class BookdetailsComponent implements OnInit {
     this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
+        this.ds.setCartSubjectSize(res.cartsize);
       },
       err=>{
         this.toastr.error("Something went wrong in getting all products");

@@ -26,7 +26,7 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     
     this.userId=localStorage.getItem("userId")
-    console.log(this.userId);
+    this.cartStatus();
     if(this.userId=='3008'){
       this.admin=true;
     }
@@ -49,13 +49,17 @@ export class AppComponent implements OnInit{
         }
       )
     }
-    this.cartStatus();
   }
 
   cartStatus(){
     this.ds.getCartSize(this.userId).subscribe(
       res=>{
+        this.ds.setCartSubjectSize(res.cartsize);
         this.userCartSize=res.cartsize;
+        this.ds.getCartSubjectSize().subscribe(
+          c=>{
+            this.userCartSize=c;
+        });
       },
       err=>{
         this.toastr.error("Something went wrong in getting all products")
@@ -64,5 +68,10 @@ export class AppComponent implements OnInit{
     )
 
   }
+  logout(){
+    localStorage.clear();
+    this.router.navigateByUrl("/home");
+    window.location.reload ();
+  } 
   
 }

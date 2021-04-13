@@ -47,6 +47,7 @@ export class WishlistComponent implements OnInit {
     this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
+        this.ds.setCartSubjectSize(res.cartsize);
       },
       err=>{
         this.toastr.error("Something went wrong in getting all products")

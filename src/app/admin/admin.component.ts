@@ -18,6 +18,9 @@ export class AdminComponent implements OnInit {
     if(this.userId=="3008"){
       this.admin=true;
     }
+    else{
+      this.router.navigateByUrl("/home");
+    }
   }
   logout(){
     localStorage.clear();

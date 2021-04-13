@@ -33,8 +33,8 @@ export class CategoryComponent implements OnInit {
   }
   bookDetails(book){
     //console.log("the book is ",book)
-    localStorage.setItem("book",book.booktitle)
-    this.router.navigateByUrl("/home/bookdetails")
+    localStorage.setItem("book",book.booktitle);
+    this.router.navigateByUrl("/home/bookdetails");
   }
 
 }

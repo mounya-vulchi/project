@@ -108,6 +108,7 @@ export class UsercartComponent implements OnInit {
     this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
+        this.ds.setCartSubjectSize(res.cartsize);
         //console.log("the cart size is ",this.userCartSize)
 
       },
