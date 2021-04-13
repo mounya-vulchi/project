@@ -53,7 +53,6 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
    
    
     let userObj =  JSON.parse(req.body.userObj)
-    //let userObj = req.body;
     
     //check for user in db
     let user = await userCollectionObj.findOne({username:userObj.username});
@@ -71,16 +70,11 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
         userObj.password = hashedpwd;
         userObj.userImgLink = req.file.path;
 
-        //console.log(userObj)
-
         //create user
         let success=await userCollectionObj.insertOne(userObj);
         res.send({message:"user created"});
-        //console.log("user created")
-       
-       
+          
     }
-   //console.log("user obj is",req.body);
 }))
 
 
@@ -100,7 +94,6 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
     else{
         //verify password
         let status = await bcryptjs.compare(userCredObj.password,user.password);
-        //console.log(status)
 
         //if pswd matched
         if(status == true){
@@ -136,20 +129,16 @@ userApiObj.put("/updateprofile",upload.single('photo'),verifyToken,asyncHandler(
     let userCollectionObject=req.app.get("userCollectionObj");
 
     let userObj =  JSON.parse(req.body.userObj)
-    // let hashedpwd = await bcryptjs.hash(userObj.password,6);
-    //console.log(userObj.username)
+
     let user=await userCollectionObject.findOne({userId:userObj.userId});
 
-    //console.log("the userobj status",user);
     if(user!==null){
         if(user.password!==userObj.password){
             console.log("the password is different");
             let hashedpwd = await bcryptjs.hash(userObj.password,6);
             userObj.password = hashedpwd;
         }
-        else{
-            //console.log("the password is same");   
-        }
+       
          let edit=await userCollectionObject.updateOne({userId:userObj.userId},{$set:{
             username:userObj.username,
             email:userObj.email,
@@ -169,7 +158,7 @@ userApiObj.put("/updateprofile",upload.single('photo'),verifyToken,asyncHandler(
     
 }))
 //delete user
-userApiObj.post("/deleteuser",asyncHandler(async(req,res,next)=>{
+userApiObj.post("/deleteuser",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object
     let userCollectionObject=req.app.get("userCollectionObj");
     let cartCollectionObject=req.app.get("cartCollectionObj");

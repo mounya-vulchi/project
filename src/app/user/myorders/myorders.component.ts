@@ -11,7 +11,7 @@ export class MyordersComponent implements OnInit {
 userId;
 username;
 order=[]
-  constructor(private ds:DataService,private router:Router,private toastr:ToastrService) { }
+  constructor(private ds:DataService,private router:Router,private toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.userId=localStorage.getItem("userId");

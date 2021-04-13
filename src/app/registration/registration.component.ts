@@ -60,11 +60,11 @@ export class RegistrationComponent implements OnInit {
     userObj.userId=this.userId;
     
 
-    //adding image and other data to ForData object
+    //adding image and other data to FormData object
     formData.append('photo',this.file,this.file.name);
  
     formData.append("userObj",JSON.stringify(userObj))
-    //console.log("the form data",formData)
+
     console.log("the user data",userObj);
 
     this.ds.createUser(formData).subscribe(
@@ -77,7 +77,6 @@ export class RegistrationComponent implements OnInit {
           this.toastr.success("Registeration sucessfull");
           this.id=this.userId
           console.log(this.id)
-          //this.router.navigateByUrl("/login")
         }
       },
       err=>{

@@ -73,7 +73,7 @@ export class BookdetailsComponent implements OnInit {
       quantity:1,
       }
      
-      //console.log("this new obj is ",obj);
+
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){

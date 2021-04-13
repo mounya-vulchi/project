@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     
     if(this.userId=="3008"){
       this.admin=true;
-      //console.log(this.admin)
+
     }
     if(this.userId!=null){
       this.userObj=this.ds.getUser(this.userId).subscribe(
@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
               this.spinner.hide();
             }, 1000);
             this.userObj=res.user;
-            //console.log(this.userObj);
           }
           else{
             this.toastr.error(res.message)

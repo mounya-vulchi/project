@@ -38,14 +38,9 @@ var upload = multer({ storage: storage });
 
 //create a newbook
 adminApiObj.post("/addnewbook",upload.single('photo'),verifyToken,asyncHandler(async(req,res,next)=>{
-    //console.log("hi ",req.body)
     let NewBook=req.app.get("booksCollectionObj")
-
     let bookObj=JSON.parse(req.body.bookObj)
-    //console.log("the book details are ",bookObj)
-
     let book=await NewBook.findOne({booktitle:bookObj.booktitle})
-
     //if book is existed
     if(book!=null){
         res.send({message:"Book already Existed"})
@@ -56,7 +51,6 @@ adminApiObj.post("/addnewbook",upload.single('photo'),verifyToken,asyncHandler(a
 
         //create product
         let success=await NewBook.insertOne(bookObj);
-        //console.log("the img link is ",bookObj)
         res.send({message:"New Book Added"})
     }
 }))
@@ -86,7 +80,6 @@ adminApiObj.get("/bookdetails/:book",asyncHandler(async(req,res,next)=>{
 
 //update book details
 adminApiObj.put("/updatebook/:book",verifyToken,asyncHandler(async(req,res,next)=>{
-    //console.log(req.body)
     let AllBooks=req.app.get("booksCollectionObj")
     let BookDetails=await AllBooks.findOne({bookid:req.body.bookid})
     if(BookDetails!==null){
@@ -110,7 +103,6 @@ adminApiObj.put("/updatebook/:book",verifyToken,asyncHandler(async(req,res,next)
 
 //delete the book
 adminApiObj.post("/deletebook",verifyToken,asyncHandler(async(req,res,next)=>{
-    //console.log(req.body)
     let AllBooks=req.app.get("booksCollectionObj")
     let BookDetails=await AllBooks.findOne({bookid:req.body.bookid})
 

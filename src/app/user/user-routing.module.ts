@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RouteGuard } from '../route.guard';
 import { MyordersComponent } from './myorders/myorders.component';
-import { PaymentComponent } from './payment/payment.component';
 import { UserComponent } from './user.component';
 import { UsercartComponent } from './usercart/usercart.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
@@ -15,7 +14,6 @@ const routes: Routes = [
     { path:"userprofile",component:UserprofileComponent,canActivate:[RouteGuard]},
     { path:"wishlist",component:WishlistComponent,canActivate:[RouteGuard]},
     { path:"myorder", component:MyordersComponent,canActivate:[RouteGuard]},
-    { path:"payment", component:PaymentComponent,canActivate:[RouteGuard]},
     {path:"editprofile",component:EditprofileComponent,canActivate:[RouteGuard]},
     { path:"",redirectTo:"/user/userdashboard/usercart"}
   ],canActivate:[RouteGuard]},
