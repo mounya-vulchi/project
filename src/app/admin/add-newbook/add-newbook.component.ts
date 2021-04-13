@@ -26,7 +26,7 @@ export class AddNewbookComponent implements OnInit {
   constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
-    //toget length of bookscollectionsarray
+    //to get length of bookscollectionsarray
     this.ds.getAllBooks().subscribe(
       res=>{this.length=res.booksarray.length;}
     )
@@ -63,7 +63,7 @@ export class AddNewbookComponent implements OnInit {
     
     let formData = new FormData();
     
-   //adding image and other data to ForData object
+   //adding image and other data to Form Data object
    formData.append('photo',this.file,this.file.name);
  
    formData.append("bookObj",JSON.stringify(bookObj))

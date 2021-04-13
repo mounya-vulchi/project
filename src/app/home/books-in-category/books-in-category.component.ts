@@ -34,7 +34,6 @@ export class BooksInCategoryComponent implements OnInit {
   }
 
   bookDetails(book){
-    //console.log("the book is ",book)
     localStorage.setItem("book",book.bookid);
     this.router.navigateByUrl("/home/bookdetails/"+book.bookid);
   }

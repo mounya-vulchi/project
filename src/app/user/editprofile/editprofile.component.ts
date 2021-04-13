@@ -68,11 +68,7 @@ export class EditprofileComponent implements OnInit {
           })
 
           this.photo1=res.user.userImgLink
-          //console.log("the image link is",res.user.userImgLink)
-
-
-          //this.userObj=res.user
-          //console.log("the userprofile is ",res.user)
+          
         }
         else{
           this.toastr.error(res.message)

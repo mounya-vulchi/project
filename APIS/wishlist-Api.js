@@ -1,16 +1,14 @@
 const exp=require("express")
 const wishlistApiObj=exp.Router()
 const errHandler=require("express-async-handler");
-const bcryptjs=require("bcryptjs");
 
-const jwt=require("jsonwebtoken");
 
 wishlistApiObj.use(exp.json())
 
 wishlistApiObj.post("/addto",errHandler( async(req,res,next)=>{
     let wishlistCollectionObj=req.app.get("wishlistCollectionObj")
     let cartObj=req.body;
-    //console.log(cartObj)
+
    
     let cart = await wishlistCollectionObj.findOne({booktitle:cartObj.booktitle,userId:cartObj.userId})
     
@@ -27,7 +25,7 @@ wishlistApiObj.get("/getwishlistitems/:userId",errHandler(async(req,res,next)=>{
 
     let wishlistCollectionObj=req.app.get("wishlistCollectionObj");
     let products=await wishlistCollectionObj.find({userId:req.params.userId}).toArray();
-    //console.log(products)
+
 
     res.send({message:products})
 }))
