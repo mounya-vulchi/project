@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from '../data.service';
 
@@ -10,20 +11,26 @@ import { DataService } from '../data.service';
 })
 export class UserComponent implements OnInit {
 
-  username;
+  userId;
   userObj;
 
-  constructor(private router:Router,private ds:DataService, private toastr:ToastrService) { }
+  constructor(private router:Router,private ds:DataService, private toastr:ToastrService,private spinner: NgxSpinnerService) { 
+
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000);
+  }
 
   ngOnInit(): void {
-    //this.username=localStorage.getItem("username")
-    let username=localStorage.getItem("username")
-    this.userObj=this.ds.getUser(username).subscribe(
+    let userId=localStorage.getItem("userId")
+    this.userObj=this.ds.getUser(userId).subscribe(
       res=>{
         if(res.message=="success")
         {
+          
           this.userObj=res.user;
-          //console.log(this.userObj);
         }
         else{
           this.toastr.error(res.message)
@@ -44,7 +51,6 @@ export class UserComponent implements OnInit {
   logout(){
    //clear local storage
    localStorage.clear();
-   //navigate to home
    this.router.navigateByUrl("/login")
    .then(()=>{
     window.location.reload ();

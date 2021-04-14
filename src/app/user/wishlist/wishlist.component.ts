@@ -11,25 +11,29 @@ import { DataService } from 'src/app/data.service';
 export class WishlistComponent implements OnInit {
 
 
+  userId;
   username;
   wishlist=[];
   book;
   userCartSize;
   b: any;
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) {}
 
   ngOnInit(): void {
-
-    this.username=localStorage.getItem("username")
+    this.userId=localStorage.getItem("userId");
+    this.ds.getUser(this.userId).subscribe(
+      res=>{
+        this.username=res.user.username;
+      }
+    );
     this.getWishlist();
     this.cartStatus();
   }
 
   getWishlist(){
-    this.ds.getWishlistItems(this.username).subscribe(
+    this.ds.getWishlistItems(this.userId).subscribe(
       res=>{
         this.wishlist=res.message
-        //console.log("the wishlist items",this.wishlist)
       },
       err=>{
         this.toastr.error("Something went wrong in Adding Course")
@@ -39,9 +43,10 @@ export class WishlistComponent implements OnInit {
   }
 
   cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
+    this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
+        this.ds.setCartSubjectSize(res.cartsize);
       },
       err=>{
         this.toastr.error("Something went wrong in getting all products")
@@ -53,9 +58,9 @@ export class WishlistComponent implements OnInit {
 
   additem(b){
     console.log("books is ",b.booktitle)
-    if(this.username!==null){
+    if(this.userId!==null){
       let obj={
-      username:this.username,
+      userId:this.userId,
       booktitle:b.booktitle,
       author:b.author,
       paperback:b.paperback,
@@ -68,9 +73,7 @@ export class WishlistComponent implements OnInit {
       bookImgLink:b.bookImgLink,
       quantity:1
       }
-      //console.log("the obj ",obj)
-     
-      //console.log("this new obj is ",obj)
+
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){

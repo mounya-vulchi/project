@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class DataService {
 
   constructor(private hc:HttpClient) { }
 
-
+  x=0;
   //user services
   
   createUser(userObj):Observable<any>{
@@ -20,18 +20,16 @@ export class DataService {
     return this.hc.post("/user/login",userCredObj)
 
   }
-  getUser(username):Observable<any>{
-    return this.hc.get("/user/getuser/"+username)
+  getUser(userId):Observable<any>{
+    return this.hc.get("/user/getuser/"+userId)
   }
   getAllUsers():Observable<any>{
     return this.hc.get("/user/getusers")
   }
   deleteUser(user):Observable<any>{
-    //console.log(user)
     return this.hc.post("/user/deleteuser",user)
   }
   getCartItems(username):Observable<any>{
-    //console.log("the username is ",username)
     return this.hc.get("/cart/getcartitems/"+username);
   }
 
@@ -40,7 +38,6 @@ export class DataService {
   }
 
   getCartSize(username):Observable<any>{
-    //console.log("the us is ",username);
     return this.hc.get("/cart/getsize/"+username);
   }
 
@@ -59,12 +56,10 @@ export class DataService {
   }
 
   editprofile(userObj):Observable<any>{
-    //console.log("obj in data sevice",userObj)
     return this.hc.put("/user/updateprofile",userObj)
   }
    //myorders services--------------------
    addOrder(book):Observable<any>{
-     //console.log("in ds the book is ",book)
     return this.hc.post("/myorders/addorder",book)
   }
   getOrder(username):Observable<any>{
@@ -76,7 +71,6 @@ export class DataService {
  
   //create new book
   addNewBook(obj):Observable<any>{
-    //console.log("the data in ds is ",obj)
     return this.hc.post("/admin/addnewbook",obj)
   }
 
@@ -86,17 +80,14 @@ export class DataService {
   }
 
   getBookDetails(book):Observable<any>{
-    console.log("the book is ",book)
     return this.hc.get("/admin/bookdetails/"+book)
   }
 
   editBook(obj):Observable<any>{
-    //console.log(obj," in ds")
-    return this.hc.put("/admin/updatebook",obj)
+    return this.hc.put("/admin/updatebook/"+obj,obj)
   }
   
   deleteBook(obj):Observable<any>{
-    console.log(obj," in ds")
     return this.hc.post("/admin/deletebook",obj);
   }
 
@@ -104,5 +95,16 @@ export class DataService {
     return this.hc.get("/admin/categorybooks/"+cat)
   }
 
- 
+  //usercartsize-------------------------
+  cartsize=0;
+  //create Object to BehaviourSubject with initial value of cartsize
+  private cartSubject: BehaviorSubject<any> = new BehaviorSubject(this.cartsize);
+
+    getCartSubjectSize(): Observable<any> {
+        return this.cartSubject.asObservable();
+    }
+
+    setCartSubjectSize(cartsize: any) {
+        this.cartSubject.next(cartsize);
+    }
 }

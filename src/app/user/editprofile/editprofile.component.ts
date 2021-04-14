@@ -11,9 +11,12 @@ import { DataService } from 'src/app/data.service';
 export class EditprofileComponent implements OnInit {
 
   userObj;
-  photo;
+  photo1;
   registerForm=new FormGroup({
-    username:new FormControl({value:'',disabled:true}),
+      //userId
+      userId:new FormControl({value:'',disabled:true}),
+      //username
+      username:new FormControl(''),
       //email
       email:new FormControl(''),
       //password
@@ -27,15 +30,13 @@ export class EditprofileComponent implements OnInit {
       //state
       state:new FormControl(''),
       //pincode
-      pincode:new FormControl(''), 
-      //photo
-      //userImgLink:new FormControl('')
+      pincode:new FormControl('')
 
   });
   submitted=false;
 
   file!:File;
-  username: any;
+  userId;
 
   incomingfile(event:any) {
     this.file= event.target.files[0];
@@ -43,19 +44,18 @@ export class EditprofileComponent implements OnInit {
 
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
 
- 
-
   ngOnInit(): void {
-    this.username=localStorage.getItem("username")
-    this.getUserDetails()
+    this.userId=localStorage.getItem("userId");
+    this.getUserDetails();
     
   }
 
   getUserDetails(){
-    this.ds.getUser(this.username).subscribe(
+    this.ds.getUser(this.userId).subscribe(
       res=>{
         if(res.message=="success"){
           this.registerForm=new FormGroup({
+            userId:new FormControl(res.user.userId),
             username:new FormControl(res.user.username),          
             email:new FormControl(res.user.email),
             password:new FormControl(res.user.password),
@@ -63,17 +63,12 @@ export class EditprofileComponent implements OnInit {
             address:new FormControl(res.user.address),
             city:new FormControl(res.user.city),
             state:new FormControl(res.user.state),
-            pincode:new FormControl(res.user.pincode), 
-            //userImgLink:new FormControl(res.user.userImgLink)
+            pincode:new FormControl(res.user.pincode)
 
           })
 
-          this.photo=res.user.userImgLink
-          //console.log("the image link is",res.user.userImgLink)
-
-
-          //this.userObj=res.user
-          //console.log("the userprofile is ",res.user)
+          this.photo1=res.user.userImgLink
+          
         }
         else{
           this.toastr.error(res.message)
@@ -89,17 +84,7 @@ export class EditprofileComponent implements OnInit {
     )
   }
   onSubmit(){
-    let userObj=this.registerForm.value
-
-    //console.log("updated userprofile",userObj)
-
-    let formData = new FormData();
-
-    //adding image and other data to ForData object
-    //formData.append('photo',this.file,this.file.name);
- 
-    //formData.append("userObj",JSON.stringify(userObj))
-    //console.log(userObj);
+    let userObj=this.registerForm.value;
 
     this.ds.editprofile(userObj).subscribe(
       res=>{

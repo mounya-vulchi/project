@@ -10,7 +10,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class HomeComponent implements OnInit {
 
-  username;
+  userId;
   userObj;
   userCartSize;
   admin=false;
@@ -22,15 +22,14 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     
-    this.username=localStorage.getItem("username")
-    this.cartStatus();
+    this.userId=localStorage.getItem("userId")
     
-    if(this.username=="Admin"){
+    if(this.userId=="3008"){
       this.admin=true;
-      //console.log(this.admin)
+
     }
-    if(this.username!=null){
-      this.userObj=this.ds.getUser(this.username).subscribe(
+    if(this.userId!=null){
+      this.userObj=this.ds.getUser(this.userId).subscribe(
         res=>{
           if(res.message=="success")
           {
@@ -39,7 +38,6 @@ export class HomeComponent implements OnInit {
               this.spinner.hide();
             }, 1000);
             this.userObj=res.user;
-            //console.log(this.userObj);
           }
           else{
             this.toastr.error(res.message)
@@ -77,23 +75,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
-      res=>{
-        this.userCartSize=res.cartsize;
-      },
-      err=>{
-        this.toastr.error("Something went wrong in getting all products")
-        console.log(err)
-      }
-    )
-
-  }
-
-  logout(){
-    localStorage.clear();
-    this.router.navigateByUrl("/home");
-    window.location.reload ();
-  } 
+ 
 
 }

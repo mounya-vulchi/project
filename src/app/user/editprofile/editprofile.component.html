@@ -1,29 +1,49 @@
-<body class="p-5">
-  <div class="container border mb-5 " >
-    <h1 class="text-center">Signup</h1>
+<body class="px-5">
+  <div class="container border mb-5" >
+    <h1 class="text-center p-3">Signup</h1>
    
     <form id="form" class="row g-3 p-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
+      <!-- Profile pic -->
       <div class="col-md-4">
-
-        <img [src]=photo alt="cover photo" class="border rounded-circle" width="100%">
+        <img [src]=photo1 alt="cover photo" class="border rounded-circle" width="100%">
       </div>
       <div class="col-md-8">
 
-        <div class="row">
-        <!--email  -->
-        <div class="col-md-6">
-          <!--email-->
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control " id="email" placeholder="name@example.com"  name="email" formControlName="email">
-          <label for="email">Email address</label>
-        </div>
-        <!-- validation for email-->
-        <div *ngIf="registerForm.get('email').invalid&&registerForm.get('email').touched" class="text-danger">
-            <span *ngIf="registerForm.get('email').errors?.required" class="text-danger">Email is required</span>
-            <span *ngIf="registerForm.get('email').errors?.pattern" class="text-danger">*email should end with .com</span>
+      <div class="row">
+        
+       <!-- User id -->
+       <div class="col-md-6">
+        <div class="form-floating mb-3 ">
+          <input type="number" class="form-control" id="userId" name="userId" formControlName="userId">
+          <label for="userId" class="form-label">UserId</label>
         </div>
       </div>
+
+      <!-- username -->
+      <div class="col-md-6">
+        <div class="form-floating mb-3 ">
+          <input type="text" class="form-control" id="username" placeholder="Username" name="username" formControlName="username">
+          <label for="username">Username</label>
+        </div>
+        
+       <!--validation for username-->
+        <p *ngIf="registerForm.get('username').touched&&registerForm.get('username').errors?.required" class="text-danger">Username required</p>
+      </div>
+
+      <!--email  -->
+      <div class="col-md-12">
+        <!--email-->
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control " id="email" placeholder="name@example.com"  name="email" formControlName="email">
+        <label for="email">Email address</label>
+      </div>
+      <!-- validation for email-->
+      <div *ngIf="registerForm.get('email').invalid&&registerForm.get('email').touched" class="text-danger">
+          <span *ngIf="registerForm.get('email').errors?.required" class="text-danger">Email is required</span>
+          <span *ngIf="registerForm.get('email').errors?.pattern" class="text-danger">*email should end with .com</span>
+      </div>
+    </div>
+
 
       <!-- password -->
       <div class="col-md-6">
@@ -40,16 +60,6 @@
       
       </div>
 
-      <!-- username -->
-      <div class="col-md-6">
-        <div class="form-floating mb-3 ">
-          <input type="text" class="form-control" id="username" placeholder="Username" name="username" formControlName="username">
-          <label for="username">Username</label>
-        </div>
-        
-       <!--validation for username-->
-        <p *ngIf="registerForm.get('username').touched&&registerForm.get('username').errors?.required" class="text-danger">Username required</p>
-      </div>
        <!-- phone number -->
        <div class="col-md-6">
         <div class="form-floating mb-3 ">
@@ -113,16 +123,8 @@
          <!-- validation for pincode -->
          <p *ngIf="registerForm.get('pincode').touched&&registerForm.get('pincode').errors?.required" class="text-danger">Pincode is required</p>
       </div>
-      <div class="col-md-12">
-        <!-- <div class="form-group ">
-          <label>Profile photo</label>
-          <input type="file" class="form-control" (change)="incomingfile($event)" name="photo" accept='image/*' placeholder="Upload profile photo here" formControlName="userImgLink">    
-        </div> -->
-        <!--validation for photo-->
-        <!-- <p *ngIf="registerForm.get('userImgLink').touched&&registerForm.get('userImgLink').errors?.required" class="text-danger">Photo required</p> -->
-      </div>
-      </div>
-      </div>
+    </div>
+    </div>
       
         <div class="text-center">
           <button type="submit" class="btn btn-success mx-5" [disabled]="registerForm.invalid">Update</button>

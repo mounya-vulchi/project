@@ -8,17 +8,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./myorders.component.css']
 })
 export class MyordersComponent implements OnInit {
+userId;
 username;
 order=[]
-  constructor(private ds:DataService,private router:Router,private toastr:ToastrService) { }
+  constructor(private ds:DataService,private router:Router,private toastr:ToastrService) {}
 
   ngOnInit(): void {
-    this.username=localStorage.getItem("username");
-    this.getOrder()
+    this.userId=localStorage.getItem("userId");
+    this.ds.getUser(this.userId).subscribe(
+      res=>{
+        this.username=res.user.username;
+      }
+    )
+    this.getOrder();
   }
 
   getOrder(){
-    this.ds.getOrder(this.username).subscribe(
+    this.ds.getOrder(this.userId).subscribe(
       res=>{
         this.order=res.message;
 

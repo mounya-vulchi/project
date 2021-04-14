@@ -1,5 +1,5 @@
 
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -13,6 +13,7 @@ import { DataService } from 'src/app/data.service';
 export class UsercartComponent implements OnInit {
 
 
+  userId;
   username;
   cart=[];
   booksArray=[];
@@ -21,9 +22,14 @@ export class UsercartComponent implements OnInit {
   userCartSize;
   total: any;
   amount
-  constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
+  constructor(private ds:DataService,private router:Router, private toastr:ToastrService) {}
   ngOnInit(): void {
-    this.username=localStorage.getItem("username");
+    this.userId=localStorage.getItem("userId");
+    this.ds.getUser(this.userId).subscribe(
+      res=>{
+        this.username=res.user.username;
+      }
+    )
     this.getCart();
     this.checkCart();
     this.cartStatus();
@@ -53,23 +59,20 @@ export class UsercartComponent implements OnInit {
   totalamount(){
     this.amount=0;
         for(let i=0;i<this.cart.length;i++){
-          //console.log("status is ",this.cart[i].status);
           if(this.cart[i].status!="Unavailable"){
             let price=this.cart[i].price/this.cart[i].quantity;
             this.amount+=price*this.cart[i].quantity
           }
-         //console.log("the cart price",this.cart[i].price)
+
         }
   }
 
   getCart(){
-    this.ds.getCartItems(this.username).subscribe(
+    this.ds.getCartItems(this.userId).subscribe(
       res=>{
         this.cart=res.message;
         this.booksArray=res.booksArray;
-        //console.log("the cart items",this.cart)
         this.checkCart();
-        //console.log("the cart items",this.cart[i].price)
       },
       err=>{
         this.toastr.error("Something went wrong in Adding Course")
@@ -93,16 +96,15 @@ export class UsercartComponent implements OnInit {
         this.cart[i].status="Unavailable";
         console.log("unavailable");
       }
-      //console.log(this.cart[i])
     }
     this.totalamount();
   }
 
   cartStatus(){
-    this.ds.getCartSize(this.username).subscribe(
+    this.ds.getCartSize(this.userId).subscribe(
       res=>{
         this.userCartSize=res.cartsize;
-        //console.log("the cart size is ",this.userCartSize)
+        this.ds.setCartSubjectSize(res.cartsize);
 
       },
       err=>{
@@ -119,7 +121,6 @@ export class UsercartComponent implements OnInit {
   }
   delete(n:number){
     let obj=this.cart[n];
-    //console.log("the deleted obj is ",obj)
 
     this.ds.deleteCartProduct(obj).subscribe(
       res=>{

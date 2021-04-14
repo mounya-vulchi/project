@@ -15,6 +15,7 @@ export class AddNewbookComponent implements OnInit {
   registerForm:FormGroup;
   submitted=false;
   file :File; 
+  length;
 
   incomingfile(event:any) {
     this.file= event.target.files[0]; 
@@ -25,7 +26,15 @@ export class AddNewbookComponent implements OnInit {
   constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 
   ngOnInit(): void {
+    //to get length of bookscollectionsarray
+    this.ds.getAllBooks().subscribe(
+      res=>{this.length=res.booksarray.length;}
+    )
+    
     this.registerForm=new FormGroup({
+      
+      //bookid
+      bookid:new FormControl(null),
       //boottitle
       booktitle:new FormControl(null,Validators.required),
       //author
@@ -34,7 +43,7 @@ export class AddNewbookComponent implements OnInit {
       paperback: new FormControl(null,Validators.required),
       //price
       price: new FormControl(null,Validators.required),
-      //publisher'
+      //publisher
       publisher: new FormControl(null,Validators.required),
       //publicationdate
       publicationdate: new FormControl(null,Validators.required),
@@ -44,18 +53,17 @@ export class AddNewbookComponent implements OnInit {
       category: new FormControl(null,Validators.required),
       //description yourself
       description: new FormControl(null,[Validators.required,Validators.minLength(20)])
-      
+
     });
   }
 
   onSubmit(){  
     let bookObj = this.registerForm.value;
-    console.log(bookObj);
+    bookObj.bookid = this.length+1;
+    
     let formData = new FormData();
-
-    //console.log("file ",this.file)
-
-   //adding image and other data to ForData object
+    
+   //adding image and other data to Form Data object
    formData.append('photo',this.file,this.file.name);
  
    formData.append("bookObj",JSON.stringify(bookObj))

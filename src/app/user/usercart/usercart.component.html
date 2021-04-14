@@ -35,7 +35,7 @@
     </div>    
     <div class="container-fluid text-center" *ngIf="cart.length!==0">
         <h5 class="text-center amount">Total amount is : {{amount | currency:"INR"}}</h5>
-        <!-- <a *ngIf="cart.length"class="btn btn-success mb-5"(click)="additem(cart)">Checkout</a> -->
+
 
 
         <!-- Button trigger modal -->
@@ -80,7 +80,6 @@
             <button type="button" class="btn btn-warning d-block mx-auto"><i class="fa fa-download" aria-hidden="true"></i> Download slip</button>
             <button type="button" class="btn btn-primary d-block mx-auto" data-bs-dismiss="modal" (click)="back()">Close</button>
           </div>
-          <!-- <button type="button" class="btn btn-secondary d-block float-end" data-bs-dismiss="modal">Close</button> -->
 
 
     </div>
