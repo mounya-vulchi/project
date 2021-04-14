@@ -12,9 +12,9 @@ import { DataService } from '../data.service';
 export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
-  alert;
-  alertmsg;
-  closeAlert;
+  alert:boolean;
+  alertmsg:string;
+  closeAlert:boolean;
 
   constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
 

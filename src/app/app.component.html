@@ -11,15 +11,15 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <!-- home icon -->
         <li class="nav-item mt-1">
-            <a class="nav-link" style="color:white" routerLink="/home" routerLinkActive="active"><i class="fas fa-home"></i> Home</a>
+            <a class="nav-link" style="color:white" routerLink="/home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"><i class="fas fa-home"></i> Home</a>
         </li>
         <!-- login button -->
         <li class="nav-item mt-1">
-          <a class="nav-link" style="color:white" *ngIf="!admin&&userId==null" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Sign in</a>
+          <a class="nav-link" style="color:white" *ngIf="!admin&&userId==null" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"><i class="fas fa-sign-in-alt"></i> Sign in</a>
         </li>
         <!-- cart icon -->
         <li class="nav-item mt-2">
-          <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard/usercart" routerLinkActive="active">
+          <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard/usercart" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">
             <h4 class="fas fa-cart-arrow-down text-white">
               <sup class="text-white mx-1">{{userCartSize}}</sup>
             </h4>
@@ -28,16 +28,16 @@
         
         <!-- userprofile -->
         <li class="nav-item">
-          <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard" routerLinkActive="active"> {{userObj.username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
+          <a class="nav-link" style="color:white" *ngIf="!admin&&userId!=null" routerLink="/user/userdashboard" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"> {{userObj.username}} <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
         </li>
 
         <!-- for admin -->
         <li class="nav-item">
-          <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" routerLinkActive="active"> Admin <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
+          <a class="nav-link" style="color:white" *ngIf="admin" routerLink="/admin" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"> Admin <img [src]=userObj.userImgLink class="card-img-top rounded-circle" alt="" style="width: 40px;; height:40px"></a>
         </li>
         <!-- logout for user -->
         <li class="nav-item mt-1">
-          <a class="nav-link" style="color:white" *ngIf="userId!=null" (click)="logout()" routerLink="/home" routerLinkActive="active"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+          <a class="nav-link" style="color:white" *ngIf="userId!=null" (click)="logout()" routerLink="/home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
         </li>
       </ul>
       

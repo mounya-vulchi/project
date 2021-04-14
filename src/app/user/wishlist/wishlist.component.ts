@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
@@ -11,19 +12,20 @@ import { DataService } from 'src/app/data.service';
 export class WishlistComponent implements OnInit {
 
 
-  userId;
-  username;
-  wishlist=[];
-  book;
-  userCartSize;
-  b: any;
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) {}
+  userId:string;
+  username:string;
+  wishlist:any=[];
+  userCartSize:number;
+  
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.userId=localStorage.getItem("userId");
+    this.spinner.show();
     this.ds.getUser(this.userId).subscribe(
       res=>{
         this.username=res.user.username;
+        this.spinner.hide();
       }
     );
     this.getWishlist();
@@ -31,9 +33,11 @@ export class WishlistComponent implements OnInit {
   }
 
   getWishlist(){
+    this.spinner.show();
     this.ds.getWishlistItems(this.userId).subscribe(
       res=>{
-        this.wishlist=res.message
+        this.wishlist=res.message;
+        this.spinner.hide();
       },
       err=>{
         this.toastr.error("Something went wrong in Adding Course")
@@ -98,7 +102,6 @@ export class WishlistComponent implements OnInit {
   delete(n:number){
     let obj=this.wishlist[n];
     console.log("the deleted obj is ",obj)
-
     this.ds.deleteWishlistProduct(obj).subscribe(
       res=>{
         if(res.message){

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 @Component({
@@ -10,8 +11,9 @@ import { DataService } from 'src/app/data.service';
 })
 export class EditprofileComponent implements OnInit {
 
-  userObj;
-  photo1;
+  userObj:string;
+  userId:string;
+  photo1:string;
   registerForm=new FormGroup({
       //userId
       userId:new FormControl({value:'',disabled:true}),
@@ -33,24 +35,25 @@ export class EditprofileComponent implements OnInit {
       pincode:new FormControl('')
 
   });
-  submitted=false;
+  submitted:boolean;
 
   file!:File;
-  userId;
 
   incomingfile(event:any) {
     this.file= event.target.files[0];
   }
 
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) {
+    this.submitted=false;
+   }
 
   ngOnInit(): void {
     this.userId=localStorage.getItem("userId");
     this.getUserDetails();
-    
   }
 
   getUserDetails(){
+    this.spinner.show();
     this.ds.getUser(this.userId).subscribe(
       res=>{
         if(res.message=="success"){
@@ -64,18 +67,13 @@ export class EditprofileComponent implements OnInit {
             city:new FormControl(res.user.city),
             state:new FormControl(res.user.state),
             pincode:new FormControl(res.user.pincode)
-
-          })
-
-          this.photo1=res.user.userImgLink
-          
+          });
+          this.photo1=res.user.userImgLink;
         }
         else{
-          this.toastr.error(res.message)
-    
-          this.router.navigateByUrl("/login")
-
-        }
+          this.toastr.error(res.message);
+          this.router.navigateByUrl("/login");
+        }this.spinner.hide();
       },
       err=>{
         this.toastr.error("something went wrong")
@@ -85,7 +83,7 @@ export class EditprofileComponent implements OnInit {
   }
   onSubmit(){
     let userObj=this.registerForm.value;
-
+    this.spinner.show();
     this.ds.editprofile(userObj).subscribe(
       res=>{
         if(res.message){
@@ -95,7 +93,7 @@ export class EditprofileComponent implements OnInit {
         else{
           this.toastr.warning('Cannot update profile check');
         }
-        
+        this.spinner.hide();
       },
       err=>{
         this.toastr.error('Something went wrong in user creation');

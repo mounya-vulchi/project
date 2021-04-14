@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 @Component({
@@ -9,12 +10,13 @@ import { DataService } from 'src/app/data.service';
 })
 export class UserprofileComponent implements OnInit {
 
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) {}
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) {}
 
-  userObj;
+  userObj:any;
 
   ngOnInit(): void {
-    let userId=localStorage.getItem("userId")
+    let userId=localStorage.getItem("userId");
+    this.spinner.show();
     this.userObj=this.ds.getUser(userId).subscribe(
       res=>{
         if(res.message=="success")
@@ -26,7 +28,7 @@ export class UserprofileComponent implements OnInit {
           //navigate login
           this.router.navigateByUrl("/login")
 
-        }
+        }this.spinner.hide();
       },
       err=>{
         this.toastr.error("something went wrong in user profile")

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
@@ -9,12 +10,14 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./bookdetails.component.css']
 })
 export class BookdetailsComponent implements OnInit {
-  book;
-  bookid;
-  userId;
-  admin=false;
-  userCartSize;
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
+  book:any=[];
+  bookid:string;
+  userId:string;
+  admin:boolean;
+  userCartSize:number;
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) { 
+    this.admin=false;
+  }
 
   ngOnInit(): void {
     this.userId=localStorage.getItem("userId");
@@ -27,6 +30,7 @@ export class BookdetailsComponent implements OnInit {
   }
 
   getBookDetails(){
+    this.spinner.show();
     this.ds.getBookDetails(this.bookid).subscribe(
       res=>{
         if(res.Details){
@@ -34,7 +38,7 @@ export class BookdetailsComponent implements OnInit {
         }
         else{
           this.toastr.error(res.message);
-        }
+        }this.spinner.hide();
       },
       err=>{
         this.toastr.error("Something went Wrong in Book Details page");
@@ -73,7 +77,7 @@ export class BookdetailsComponent implements OnInit {
       quantity:1,
       }
      
-
+      this.spinner.show();
       this.ds.usercart(obj).subscribe(
         res=>{
           if(res.message=="book already existed"){
@@ -83,7 +87,7 @@ export class BookdetailsComponent implements OnInit {
             this.toastr.success("Book added to cart");
             this.cartStatus();
           }
-         
+          this.spinner.hide();
         },
         err=>{
           this.toastr.error("Something went wrong in Adding book");
@@ -100,6 +104,7 @@ export class BookdetailsComponent implements OnInit {
   }
 
   wishlist(book){
+    this.spinner.show();
     if(this.userId!==null&&this.userId!=="Admin"){
       let obj={
       userId:this.userId,
@@ -125,7 +130,7 @@ export class BookdetailsComponent implements OnInit {
           else{
             this.toastr.success("book added to wishlist");
           }
-         
+          this.spinner.hide();
         },
         err=>{
           this.toastr.error("Something went wrong in Adding book");

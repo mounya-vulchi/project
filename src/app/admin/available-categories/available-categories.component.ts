@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -9,18 +11,22 @@ import { DataService } from 'src/app/data.service';
 })
 export class AvailableCategoriesComponent implements OnInit {
 
-  searchTerm;
-  categories=[];
-  numofcat;
-  books;
-  constructor(private ds:DataService, private router:Router) { }
+  searchTerm:String;
+  categories:any=[];
+  books:any;
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.ds.getAllBooks().subscribe(
       res=>{
         this.books=res.booksarray;
         this.categories=[...new Set(this.books.map(x=>x.category))];
-        this.numofcat=this.categories.length;
+        this.spinner.hide();
+      },
+      err=>{
+        this.toastr.error("something went wrong");
+          console.log(err);
       }
     )
   }
@@ -29,7 +35,4 @@ export class AvailableCategoriesComponent implements OnInit {
     localStorage.setItem("book",book.bookid);
     this.router.navigateByUrl("/admin/editbook/"+book.bookid);
   }
-
-
-
 }
