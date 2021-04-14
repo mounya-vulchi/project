@@ -4,11 +4,11 @@ a{
     font-family:poppins;
     cursor: pointer;
 }
-.navbar .nav-link{
-    font-size: 17px;
-    font-weight: bold;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    
+nav a:hover{
+    color: darkcyan;
+}
+.second-nav{
+    top: 55px;
 }
 .navbar-brand{
     font-size: 20px;
@@ -23,6 +23,8 @@ a{
 .carousel{
     padding-left: 5%;
     padding-right: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 #buttonfix{
     position: absolute;
