@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="text-center mb-5">Books in Stock ({{numofbooks}})</h1>
+    <h1 class="text-center mb-5">Books in Stock ({{booksArray.length}})</h1>
     <div class="row">
         <div class="col-md-3 mb-3" *ngFor="let b of booksArray">    
             <div class="card mx-3" (click)="bookDetails(b)">

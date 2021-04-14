@@ -18,9 +18,9 @@ export class RegistrationComponent implements OnInit {
     this.file= event.target.files[0];
   }
   registerForm:FormGroup;
-  closeAlert;
-  userId
-  id;
+  closeAlert:string;
+  userId:number;
+  id:number;
 
   constructor(private router:Router,private ds:DataService, private toastr:ToastrService) { }
 
@@ -49,23 +49,15 @@ export class RegistrationComponent implements OnInit {
     });
   }
   onSubmit(){
-    let userObj=this.registerForm.value
-
-    //console.log(userObj)
-
+    let userObj=this.registerForm.value;
     let formData = new FormData();
-
 
     this.userId = (Math.floor(Math.random() * 301))+3000;
     userObj.userId=this.userId
     
-
     //adding image and other data to FormData object
     formData.append('photo',this.file,this.file.name);
- 
     formData.append("userObj",JSON.stringify(userObj))
-
-    console.log("the user data",userObj);
 
     this.ds.createUser(formData).subscribe(
       res=>{
@@ -75,18 +67,15 @@ export class RegistrationComponent implements OnInit {
         }
         else{
           this.toastr.success("Registeration sucessfull");
-          this.id=this.userId
-          console.log(this.id)
+          this.id=this.userId;
         }
       },
       err=>{
         this.toastr.error("Something went wrong in user creation");
         console.log(err)
       }
-    
-      )
+    )
   }
-
   login(){
     this.router.navigateByUrl("/login")
   }

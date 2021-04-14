@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
@@ -13,22 +14,30 @@ export class AddNewbookComponent implements OnInit {
 
 
   registerForm:FormGroup;
-  submitted=false;
+  submitted:boolean;
   file :File; 
-  length;
+  length:number;
 
   incomingfile(event:any) {
     this.file= event.target.files[0]; 
   }
 
-  currentRate=0;
+  currentRate:number=0;
 
-  constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
+  constructor(private ds:DataService, private router:Router,private toastr:ToastrService, private spinner:NgxSpinnerService) { 
+    this.submitted=false;
+  }
 
   ngOnInit(): void {
     //to get length of bookscollectionsarray
+    this.spinner.show();
     this.ds.getAllBooks().subscribe(
-      res=>{this.length=res.booksarray.length;}
+      res=>{this.length=res.booksarray.length;
+        this.spinner.hide();
+      },
+      err=>{this.toastr.error("Something went wrong");
+            console.log(err);
+          }
     )
     
     this.registerForm=new FormGroup({

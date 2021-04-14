@@ -10,18 +10,20 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class HomeComponent implements OnInit {
 
-  userId;
-  userObj;
+  userId:string;
+  userObj:any;
   userCartSize;
-  admin=false;
-  search;
-  category;
-  cat=false;
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService,private spinner: NgxSpinnerService) { }
+  admin:boolean;
+  search:string;
+  category:string;
+  cat:boolean;
+
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService,private spinner: NgxSpinnerService) { 
+    this.admin=false;
+    this.cat=false;
+  }
 
   ngOnInit(): void {
-
-    
     this.userId=localStorage.getItem("userId")
     
     if(this.userId=="3008"){
@@ -29,15 +31,13 @@ export class HomeComponent implements OnInit {
 
     }
     if(this.userId!=null){
+      this.spinner.show();
       this.userObj=this.ds.getUser(this.userId).subscribe(
         res=>{
           if(res.message=="success")
           {
-            this.spinner.show();
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 1000);
             this.userObj=res.user;
+            this.spinner.hide();
           }
           else{
             this.toastr.error(res.message)

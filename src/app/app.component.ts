@@ -11,16 +11,12 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class AppComponent implements OnInit{
   title = 'BookStore';
-  userId;
-  userCartSize;
-  userObj;
-  admin=false;
-  constructor(private router:Router,private ds:DataService, private toastr:ToastrService,private spinner: NgxSpinnerService){
-    this.spinner.show();
-
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 1000);
+  userId:string;
+  userCartSize:number;
+  userObj:any;
+  admin:boolean;
+  constructor( private router:Router, private ds:DataService, private toastr:ToastrService, private spinner: NgxSpinnerService){
+    this.admin=false;
   }
 
   ngOnInit(){
@@ -31,6 +27,7 @@ export class AppComponent implements OnInit{
       this.admin=true;
     }
     if(this.userId!=null){
+      this.spinner.show();
       this.userObj=this.ds.getUser(this.userId).subscribe(
         res=>{
           if(res.message=="success")
@@ -40,12 +37,13 @@ export class AppComponent implements OnInit{
           else{
             this.toastr.error(res.message)
             //navigate login
-            this.router.navigateByUrl("/login")
+            this.router.navigateByUrl("/login");
           }
+          this.spinner.hide();
         },
         err=>{
-          this.toastr.error("something went wrong")
-          console.log(err)
+          this.toastr.error("something went wrong");
+          console.log(err);
         }
       )
     }
@@ -62,8 +60,8 @@ export class AppComponent implements OnInit{
         });
       },
       err=>{
-        this.toastr.error("Something went wrong in getting all products")
-        console.log(err)
+        this.toastr.error("Something went wrong in getting all products");
+        console.log(err);
       }
     )
 
