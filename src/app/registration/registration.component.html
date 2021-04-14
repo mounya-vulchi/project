@@ -75,7 +75,7 @@
         </div>
         <!-- state -->
         <div class="col-md-3">
-          <div class="form-group mb-3">
+          <div class="form-floating mb-3">
             <select  class="form-select p-3" name="state"  id="state" formControlName="state" placeholder="Select" aria-label="Default select example">
                 <option selected disabled>Select your state...</option>
                 <option value="telangana">Telangana</option>
@@ -83,6 +83,7 @@
                 <option value="karnataka">Karnataka</option>
                 <option value="tamilnadu">Tamilnadu</option>
             </select>
+            <label for="state">State</label>
         </div>
         <!--validation for state-->
         <p *ngIf="registerForm.get('state').touched&&registerForm.get('state').errors?.required" class="text-danger">State required</p>
