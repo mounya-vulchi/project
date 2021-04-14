@@ -16,7 +16,6 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(){
     this.userId=localStorage.getItem("userId");
-    console.log(this.userId);
     if(this.userId=="3008"){
       this.admin=true;
     }

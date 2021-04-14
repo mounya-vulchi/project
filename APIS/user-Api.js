@@ -98,7 +98,7 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({userId:user.userId},"abcd",{expiresIn:1000});
+            let token = await jwt.sign({userId:user.userId},"abcd",{expiresIn:60000});
             
             //send token
             res.send({message:"success",signedToken:token,userId:user.userId});
@@ -128,7 +128,7 @@ userApiObj.get("/getuser/:userId",verifyToken,asyncHandler(async(req,res,next)=>
 userApiObj.put("/updateprofile",upload.single('photo'),verifyToken,asyncHandler(async(req,res,next)=>{
     let userCollectionObject=req.app.get("userCollectionObj");
 
-    let userObj =  JSON.parse(req.body.userObj)
+    let userObj =  JSON.parse(req.body.userObj);
 
     let user=await userCollectionObject.findOne({userId:userObj.userId});
 

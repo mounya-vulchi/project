@@ -1,3 +1,10 @@
 div.container {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.19), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
+  .img{
+    padding: 5%;
+  }
+  .details{
+    padding-top: 5%;
+    text-align: justify;
+  }

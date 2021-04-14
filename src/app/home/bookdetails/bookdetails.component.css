@@ -8,3 +8,17 @@ ngb-rating {
 p{
     font-size: 20px;
 }
+.row{
+    margin: 5%;
+    margin-top: 0%;
+}
+.book{
+    text-align: justify;
+}
+button{
+    margin: 1%;
+}
+.img{
+    margin-bottom: 3%;
+    text-align: center;
+}
