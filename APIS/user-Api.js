@@ -53,7 +53,6 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
    
    
     let userObj =  JSON.parse(req.body.userObj)
-    //let userObj = req.body;
     
     //check for user in db
     let user = await userCollectionObj.findOne({username:userObj.username});
@@ -71,16 +70,11 @@ userApiObj.post("/register",upload.single('photo'), asyncHandler(async(req,res,n
         userObj.password = hashedpwd;
         userObj.userImgLink = req.file.path;
 
-        //console.log(userObj)
-
         //create user
         let success=await userCollectionObj.insertOne(userObj);
-        res.send({message:"user created"})
-        //console.log("user created")
-       
-       
+        res.send({message:"user created"});
+          
     }
-   //console.log("user obj is",req.body);
 }))
 
 
@@ -100,15 +94,14 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
     else{
         //verify password
         let status = await bcryptjs.compare(userCredObj.password,user.password);
-        //console.log(status)
 
         //if pswd matched
         if(status == true){
             //create a token
-            let token = await jwt.sign({username:user.username},"abcd",{expiresIn:10000});
+            let token = await jwt.sign({userId:user.userId},"abcd",{expiresIn:1000});
             
             //send token
-            res.send({message:"success",signedToken:token,username:user.username});
+            res.send({message:"success",signedToken:token,userId:user.userId});
         }
         else{
             res.send({message:"Invalid password"});
@@ -117,71 +110,76 @@ userApiObj.post("/login",asyncHandler(async(req,res,next)=>{
 }))
 
 //get all users
-userApiObj.get("/getusers",asyncHandler(async(req,res,next)=>{
+userApiObj.get("/getusers",verifyToken,asyncHandler(async(req,res,next)=>{
     let userCollectionObject=req.app.get("userCollectionObj");
     let allUsers=await userCollectionObject.find().toArray();
     res.send({users:allUsers})
 }))
 //get user
-userApiObj.get("/getuser/:username",verifyToken,asyncHandler(async(req,res,next)=>{
+userApiObj.get("/getuser/:userId",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object
     let userCollectionObject=req.app.get("userCollectionObj")
-    let userObj=await userCollectionObject.findOne({username:req.params.username})
+    let userObj=await userCollectionObject.findOne({userId:parseInt(req.params.userId)});
     res.send({message:"success",user:userObj})
     
 }))
 
 //update userprofile
-userApiObj.put("/updateprofile",upload.single('photo'),asyncHandler(async(req,res,next)=>{
-    let userCollectionObject=req.app.get("userCollectionObj")
+userApiObj.put("/updateprofile",upload.single('photo'),verifyToken,asyncHandler(async(req,res,next)=>{
+    let userCollectionObject=req.app.get("userCollectionObj");
 
     let userObj =  JSON.parse(req.body.userObj)
-    // let hashedpwd = await bcryptjs.hash(userObj.password,6);
 
-    //    userObj.password = hashedpwd;
-       userObj.userImgLink = req.file.path;
-       console.log("the hashed password is",userObj)
+    let user=await userCollectionObject.findOne({userId:userObj.userId});
 
-    let user=await userCollectionObject.findOne({username:userObj.username})
-
-    if(user.password!==userObj.password){
-        console.log("the password is different")
-        let hashedpwd = await bcryptjs.hash(userObj.password,6);
-          userObj.password = hashedpwd;
-    }
-    else{
-        console.log("the password is same")    
-    }
-
-    console.log("the userobj status",user)
     if(user!==null){
-         let edit=await userCollectionObject.updateOne({username:userObj.username},{$set:{
+        if(user.password!==userObj.password){
+            console.log("the password is different");
+            let hashedpwd = await bcryptjs.hash(userObj.password,6);
+            userObj.password = hashedpwd;
+        }
+       
+         let edit=await userCollectionObject.updateOne({userId:userObj.userId},{$set:{
+            username:userObj.username,
             email:userObj.email,
             password:userObj.password,
             phonenumber:userObj.phonenumber,
             address:userObj.address,
             city:userObj.city,
             state:userObj.state,
-            pincode:userObj.pincode, 
-            //photo: new userObj.userImgLink,
-            userImgLink:userObj.userImgLink 
+            pincode:userObj.pincode
         }});
      
         res.send({message:true});
     }
     else{
-        res.send({message:"user not found"})
+        res.send({message:"user not found"});
     }
     
 }))
 //delete user
-userApiObj.post("/deleteuser",asyncHandler(async(req,res,next)=>{
+userApiObj.post("/deleteuser",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object
-    let userCollectionObject=req.app.get("userCollectionObj")
+    let userCollectionObject=req.app.get("userCollectionObj");
+    let cartCollectionObject=req.app.get("cartCollectionObj");
+    let wishlistCollectionObj=req.get("wishlistCollectionObj");
+    let myOrdersCollectionObj=req.get("myOrdersCollectionObj");
     console.log("the user is ",req.body)
-    let userObj=await userCollectionObject.findOne({username:req.body.username})
+    let userObj=await userCollectionObject.findOne({userId:req.body.userId});
+    let cartObj=await cartCollectionObject.find({userId:req.body.userId}).toArray();
+    let wishObj=await wishlistCollectionObj.find({userId:req.body.userId}).toArray();
+    let myorderObj=await myOrdersCollectionObj.find({userId:req.body.userId}).toArray();
     if(userObj!=null){
-        await userCollectionObject.deleteOne({username:req.body.username});
+        await userCollectionObject.deleteOne({userId:req.body.userId});
+        if(cartObj!=null){
+            await cartCollectionObject.delete({userId:req.body.userId});
+        }
+        if(wishObj!=null){
+            await wishlistCollectionObj.delete({userId:req.body.userId});
+        }
+        if(myorderObj!=null){
+            await myOrdersCollectionObj.delete({userId:req.body.userId});
+        }
         res.send({message:true});
     }
 }))

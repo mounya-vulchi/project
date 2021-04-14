@@ -37,15 +37,10 @@ const storage = new CloudinaryStorage({
 var upload = multer({ storage: storage });
 
 //create a newbook
-adminApiObj.post("/addnewbook",upload.single('photo'),asyncHandler(async(req,res,next)=>{
-    //console.log("hi ",req.body)
+adminApiObj.post("/addnewbook",upload.single('photo'),verifyToken,asyncHandler(async(req,res,next)=>{
     let NewBook=req.app.get("booksCollectionObj")
-
     let bookObj=JSON.parse(req.body.bookObj)
-    //console.log("the book details are ",bookObj)
-
     let book=await NewBook.findOne({booktitle:bookObj.booktitle})
-
     //if book is existed
     if(book!=null){
         res.send({message:"Book already Existed"})
@@ -56,7 +51,6 @@ adminApiObj.post("/addnewbook",upload.single('photo'),asyncHandler(async(req,res
 
         //create product
         let success=await NewBook.insertOne(bookObj);
-        //console.log("the img link is ",bookObj)
         res.send({message:"New Book Added"})
     }
 }))
@@ -74,7 +68,8 @@ adminApiObj.get("/getallbooks",asyncHandler(async(req,res,next)=>{
 adminApiObj.get("/bookdetails/:book",asyncHandler(async(req,res,next)=>{
     let Books=req.app.get("booksCollectionObj")
     
-    let BookDetails=await Books.findOne({booktitle:req.params.book})
+    let BookDetails=await Books.findOne({bookid:parseInt(req.params.book)});
+    
     if(BookDetails!==null){
         res.send({Details:BookDetails})
     }
@@ -84,12 +79,12 @@ adminApiObj.get("/bookdetails/:book",asyncHandler(async(req,res,next)=>{
 }))
 
 //update book details
-adminApiObj.put("/updatebook",asyncHandler(async(req,res,next)=>{
-    //console.log(req.body)
+adminApiObj.put("/updatebook/:book",verifyToken,asyncHandler(async(req,res,next)=>{
     let AllBooks=req.app.get("booksCollectionObj")
-    let BookDetails=await AllBooks.findOne({booktitle:req.body.booktitle})
+    let BookDetails=await AllBooks.findOne({bookid:req.body.bookid})
     if(BookDetails!==null){
-        let edit=await AllBooks.updateOne({booktitle:req.body.booktitle},{$set:{
+        let edit=await AllBooks.updateOne({bookid:req.body.bookid},{$set:{
+            booktitle:req.body.booktitle,
             author:req.body.author,
             price:req.body.price,
             publisher:req.body.publisher,
@@ -107,21 +102,20 @@ adminApiObj.put("/updatebook",asyncHandler(async(req,res,next)=>{
 }))
 
 //delete the book
-adminApiObj.post("/deletebook",asyncHandler(async(req,res,next)=>{
-    //console.log(req.body)
+adminApiObj.post("/deletebook",verifyToken,asyncHandler(async(req,res,next)=>{
     let AllBooks=req.app.get("booksCollectionObj")
-    let BookDetails=await AllBooks.findOne({booktitle:req.body.booktitle})
+    let BookDetails=await AllBooks.findOne({bookid:req.body.bookid})
 
     //if username alreaddy taken
     if(BookDetails!==null){
-        let remove=await AllBooks.deleteOne({booktitle:req.body.booktitle});
+        let remove=await AllBooks.deleteOne({bookid:req.body.bookid});
         res.send({message:true});
     }
 
 }))
 
 //get category wise books
-adminApiObj.get("/categorybooks/:cat",asyncHandler(async(req,res,next)=>{
+adminApiObj.get("/categorybooks/:cat",verifyToken,asyncHandler(async(req,res,next)=>{
     let Books=req.app.get("booksCollectionObj")
     
     let BookDetails=await Books.find({category:req.params.cat})
