@@ -10,7 +10,7 @@ import { DataService } from 'src/app/data.service';
   styleUrls: ['./editprofile.component.css']
 })
 export class EditprofileComponent implements OnInit {
-
+@Input
   userObj:string;
   userId:string;
   photo1:string;
