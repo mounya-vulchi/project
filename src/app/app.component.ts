@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   title = 'BookStore';
   userId:string;
   userCartSize:number;
-  userObj:any;
+  userObj:Object;
   admin:boolean;
   constructor( private router:Router, private ds:DataService, private toastr:ToastrService, private spinner: NgxSpinnerService){
     this.admin=false;
