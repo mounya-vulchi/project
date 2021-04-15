@@ -12,7 +12,7 @@ import { DataService } from '../data.service';
 export class UserComponent implements OnInit {
 
   userId:string;
-  userObj:any;
+  userObj:Object;
 
   constructor(private router:Router,private ds:DataService, private toastr:ToastrService,private spinner: NgxSpinnerService) { }
 

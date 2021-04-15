@@ -11,7 +11,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class UsersManagementComponent implements OnInit {
 
-  Users:any=[];
+  Users=[];
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {

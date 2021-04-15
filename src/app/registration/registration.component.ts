@@ -53,7 +53,7 @@ export class RegistrationComponent implements OnInit {
     let formData = new FormData();
 
     this.userId = (Math.floor(Math.random() * 301))+3000;
-    userObj.userId=this.userId;
+    userObj.userId=this.userId
     
     //adding image and other data to FormData object
     formData.append('photo',this.file,this.file.name);

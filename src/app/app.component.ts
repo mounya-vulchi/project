@@ -10,7 +10,7 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'BookStore';
+ 
   userId:string;
   userCartSize:number;
   userObj:Object;

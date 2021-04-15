@@ -16,8 +16,8 @@ export class UsercartComponent implements OnInit {
 
   userId:string;
   username:string;
-  cart:any=[];
-  booksArray:any=[];
+  cart=[];
+  booksArray=[];
   status:boolean;
   userCartSize:number;
   amount:number;

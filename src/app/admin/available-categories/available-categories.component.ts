@@ -12,7 +12,7 @@ import { DataService } from 'src/app/data.service';
 export class AvailableCategoriesComponent implements OnInit {
 
   searchTerm:String;
-  categories:any=[];
+  categories=[];
   books:any;
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) { }
 

@@ -13,7 +13,7 @@ import { DataService } from 'src/app/data.service';
 export class EditbookComponent implements OnInit {
 
   bookimg:string;
-  bookid:any;
+  bookid:string;
 
   registerForm=new FormGroup({
     bookid:new FormControl({value:'',disabled:true}),
