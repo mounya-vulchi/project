@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
@@ -10,11 +11,11 @@ import { DataService } from 'src/app/data.service';
 })
 export class BooksInCategoryComponent implements OnInit {
 
-  userId;
+  userId:string;
   booksArray=[];
   
   @Input() searchTerm:string;  
-  constructor(private ds:DataService, private router:Router, private toastr:ToastrService) { }
+  constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.userId=localStorage.getItem("userId");
@@ -22,9 +23,11 @@ export class BooksInCategoryComponent implements OnInit {
   }
 
   getBooks(){
+    this.spinner.show();
     this.ds.getAllBooks().subscribe(
       res=>{
         this.booksArray=res.booksarray;
+        this.spinner.hide();
       },
       err=>{
         this.toastr.error("Error! Something went wrong...!")

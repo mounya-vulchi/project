@@ -11,33 +11,25 @@ import { DataService } from '../data.service';
 })
 export class UserComponent implements OnInit {
 
-  userId;
-  userObj;
+  userId:string;
+  userObj:Object;
 
-  constructor(private router:Router,private ds:DataService, private toastr:ToastrService,private spinner: NgxSpinnerService) { 
-
-    this.spinner.show();
-
-    setTimeout(() => {
-      this.spinner.hide();
-    }, 1000);
-  }
+  constructor(private router:Router,private ds:DataService, private toastr:ToastrService,private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    let userId=localStorage.getItem("userId")
+    let userId=localStorage.getItem("userId");
+    this.spinner.show();
     this.userObj=this.ds.getUser(userId).subscribe(
       res=>{
         if(res.message=="success")
         {
-          
           this.userObj=res.user;
         }
         else{
           this.toastr.error(res.message)
           //navigate login
           this.router.navigateByUrl("/login")
-
-        }
+        }this.spinner.hide();
       },
       err=>{
         this.toastr.error("something went wrong")
@@ -49,7 +41,6 @@ export class UserComponent implements OnInit {
     this.router.navigateByUrl("/userdashboard/usercart")
   }
   logout(){
-   //clear local storage
    localStorage.clear();
    this.router.navigateByUrl("/login")
    .then(()=>{

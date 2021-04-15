@@ -9,6 +9,16 @@
     font-weight: bold;
     color: white;
 }
-footer {
+footer{
+    
+    padding-top: 5%;
+    padding-bottom: 5%;
     color: white;
+}
+footer a{
+    color: white;
+    text-decoration: none;
+}
+footer a :hover{
+    color: darkblue;
 }

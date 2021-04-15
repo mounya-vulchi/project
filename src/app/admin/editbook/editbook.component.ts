@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/data.service';
 
@@ -11,8 +12,8 @@ import { DataService } from 'src/app/data.service';
 })
 export class EditbookComponent implements OnInit {
 
-  bookimg;
-  bookid;
+  bookimg:string;
+  bookid:string;
 
   registerForm=new FormGroup({
     bookid:new FormControl({value:'',disabled:true}),
@@ -26,17 +27,17 @@ export class EditbookComponent implements OnInit {
     category: new FormControl(''),
     description: new FormControl('')
   });
-  submitted=false;
-
+  submitted:boolean;
   file :File; 
 
   incomingfile(event:any) {
     this.file= event.target.files[0]; 
   }
+  currentRate:number;
 
-  currentRate;
-
-  constructor(private ds:DataService,private router:Router, private toastr:ToastrService) { }
+  constructor(private ds:DataService,private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) {
+    this.submitted=false;
+   }
 
   ngOnInit(): void {
     this.bookid=localStorage.getItem("book")
@@ -44,6 +45,7 @@ export class EditbookComponent implements OnInit {
   }
 
   getBookDetails(){
+    this.spinner.show();
     this.ds.getBookDetails(this.bookid).subscribe(
       res=>{
         if(res.Details){
@@ -60,6 +62,7 @@ export class EditbookComponent implements OnInit {
             description: new FormControl(res.Details.description)
           })
           this.bookimg=res.Details.bookImgLink;
+          this.spinner.hide();
         }
         else{
           this.toastr.warning(res.message)
@@ -88,12 +91,13 @@ export class EditbookComponent implements OnInit {
     )}
 
   deletebook(){
+    this.spinner.show();
     this.ds.deleteBook(this.registerForm.value).subscribe(
       res=>{
         if(res.message){
           this.toastr.info("Book removed from BookStore")
           this.router.navigateByUrl("/admin/allbooks")
-        }
+        }this.spinner.hide();
       },
       err=>{
         this.toastr.error("Something went wrong in user creation");

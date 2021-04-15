@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 import { DataService } from 'src/app/data.service';
@@ -13,21 +14,29 @@ import { DataService } from 'src/app/data.service';
 export class UsercartComponent implements OnInit {
 
 
-  userId;
-  username;
+  userId:string;
+  username:string;
   cart=[];
   booksArray=[];
-  bookdetails;
-  status=false;
-  userCartSize;
-  total: any;
-  amount
-  constructor(private ds:DataService,private router:Router, private toastr:ToastrService) {}
+  status:boolean;
+  userCartSize:number;
+  amount:number;
+
+  constructor(private ds:DataService,private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) {
+    this.status=false;
+  }
+
   ngOnInit(): void {
     this.userId=localStorage.getItem("userId");
+    this.spinner.show();
     this.ds.getUser(this.userId).subscribe(
       res=>{
         this.username=res.user.username;
+        this.spinner.hide();
+      },
+      err=>{
+        this.toastr.error("Something went wrong in getting cart items");
+        console.log(err);
       }
     )
     this.getCart();
