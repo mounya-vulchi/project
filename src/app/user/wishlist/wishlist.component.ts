@@ -14,7 +14,7 @@ export class WishlistComponent implements OnInit {
 
   userId:string;
   username:string;
-  wishlist:any=[];
+  wishlist=[];
   userCartSize:number;
   
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) {}

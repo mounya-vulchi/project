@@ -11,7 +11,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class CategoryComponent implements OnInit {
 
-  booksArray:any=[];
+  booksArray=[];
   @Input() searchTerm:String;
   @Input() category:String;
   constructor(private ds:DataService, private router:Router,private toastr:ToastrService, private spinner:NgxSpinnerService) { }

@@ -11,7 +11,7 @@ import { DataService } from 'src/app/data.service';
 })
 export class AvailableBooksComponent implements OnInit {
 
-  booksArray:any=[];
+  booksArray=[];
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {

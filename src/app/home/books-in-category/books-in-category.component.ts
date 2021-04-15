@@ -12,7 +12,7 @@ import { DataService } from 'src/app/data.service';
 export class BooksInCategoryComponent implements OnInit {
 
   userId:string;
-  booksArray:any=[];
+  booksArray=[];
   
   @Input() searchTerm:string;  
   constructor(private ds:DataService, private router:Router, private toastr:ToastrService, private spinner:NgxSpinnerService) { }

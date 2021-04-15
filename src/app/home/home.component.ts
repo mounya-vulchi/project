@@ -11,8 +11,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class HomeComponent implements OnInit {
 
   userId:string;
-  userObj:any;
-  userCartSize;
+  userObj:Object;
+  userCartSize:number;
   admin:boolean;
   search:string;
   category:string;

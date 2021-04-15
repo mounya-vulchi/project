@@ -11,7 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class MyordersComponent implements OnInit {
 userId:string;
 username:string;
-order:any=[]
+order=[]
   constructor(private ds:DataService,private router:Router,private toastr:ToastrService, private spinner:NgxSpinnerService) {}
 
   ngOnInit(): void {
