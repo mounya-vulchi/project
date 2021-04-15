@@ -68,8 +68,10 @@ export class AppComponent implements OnInit{
   }
   logout(){
     localStorage.clear();
-    this.router.navigateByUrl("/home");
-    window.location.reload ();
+    this.router.navigateByUrl("/home")
+    .then(()=>{
+      window.location.reload ();
+     })
   } 
   
 }

@@ -9,7 +9,6 @@ export class DataService {
 
   constructor(private hc:HttpClient) { }
 
-  x=0;
   //user services
   
   createUser(userObj):Observable<any>{
@@ -51,7 +50,6 @@ export class DataService {
     return this.hc.get("/wishlist/getwishlistitems/"+userId);
   }
   deleteWishlistProduct(obj):Observable<any>{
-   
     return this.hc.post("/wishlist/deleteproduct",obj);
   }
 

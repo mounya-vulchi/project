@@ -1,6 +1,6 @@
 <body>
   
-<nav class="navbar navbar-expand-lg" style="background-color: #C3073F;">
+<nav class="navbar navbar-expand-lg sticky-top" style="background-color: #C3073F;">
   <img src="https://i.postimg.cc/tT6BZkKJ/bookstoreicon.png" alt="digital-library-online-book-store-preview"  width="40px">
     <a class="navbar-brand" href="#" style="font-size: 25px;">BookStore</a>
     <button class="navbar-toggler navbar-light bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,28 +50,75 @@
 
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple"><p style="font-size: 20px; color: white">Loading...</p></ngx-spinner>
 
-<footer class="py-5"  style="background-color: #C3073F;">
+<footer style="background-color: #C3073F;">
   <div class="container p-3">
     <div class="row ms-5 ps-5">
       <div class="col-md-4 ">
         <h5>Get to Know Us</h5>
-        <p>About Us</p>
-        <p>Careers</p>
-        <p>Press releases</p>
-        <p>Gift a Smile</p>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><p>About Us</p></a>
+            <!-- About us modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header bg-dark">
+                    <h5 class="modal-title" id="staticBackdropLabel">About Us</h5>
+                    <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                    <img src="https://i.postimg.cc/tT6BZkKJ/bookstoreicon.png"  width="80%">
+                    <span><h1 class="m-1 text-dark" routerLink="/home" data-bs-dismiss="modal" style="cursor: pointer;">BookStore</h1></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <a href="#"><p>Careers</p></a>
+        <a href="#"><p>Press releases</p></a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#smileDrop"><p>Gift a Smile</p></a>
+          <!-- Gift a Smile modal -->
+          <div class="modal fade" id="smileDrop" data-bs-backdrop="static">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header bg-dark">
+                  <h5 class="modal-title" id="staticBackdropLabel">Gift a Smile</h5>
+                  <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                  <img src="https://i.postimg.cc/j2sgVw8h/smiley.png"  width="100%">
+                  <span><h1 class="m-1 text-success" routerLink="/home" data-bs-dismiss="modal" style="cursor: pointer;">Keep Smiling...</h1></span>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
       <div class="col-md-4 ">
         <h5>Connect with Us</h5>
-        <p>Facebook</p>
-        <p>Twitter</p>
-        <p>Instagram</p>
+        <a href="https://www.facebook.com/"><p>Facebook</p></a>
+        <a href="https://twitter.com/"><p>Twitter</p></a>
+        <a href="https://www.instagram.com/"><p>Instagram</p></a>
       </div>
       <div class="col-md-4">
         <h5>Let Us Help You</h5>
-        <p>Your Account</p>
-        <p>Returns centre</p>
-        <p>App Download</p>
-        <p>Help</p>
+        <a routerLink="/user/userdashboard"><p>Your Account</p></a>
+        <a routerLink="/user/userdashboard/myorder"><p>Returns centre</p></a>
+        <a href="https://mfrp-bookstore.herokuapp.com"><p>App Download</p></a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#help"><p>Help</p></a>
+          <!-- Help modal -->
+          <div class="modal fade" id="help" data-bs-backdrop="static">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header bg-dark">
+                  <h5 class="modal-title" id="helpLabel">Help</h5>
+                  <button type="button" class="btn-close " data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center text-dark">
+                  <h5>Hello...What can we help you with?</h5>
+                    <h5  routerLink="/user/userdashboard/myorder" data-bs-dismiss="modal" style="cursor: pointer; color: navy;"><i class="fas fa-clipboard-list"></i> Your Orders</h5>
+                    <h5  routerLink="/user/userdashboard/userprofile" data-bs-dismiss="modal" style="cursor: pointer;color: navy;"><i class="fas fa-user-circle"></i> Your Profile</h5>
+                    <h5  routerLink="/user/userdashboard/editprofile" data-bs-dismiss="modal" style="cursor: pointer;color: navy;"><i class="fas fa-user-edit"></i> Account Settings</h5>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>

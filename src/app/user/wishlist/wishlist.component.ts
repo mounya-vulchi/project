@@ -53,8 +53,8 @@ export class WishlistComponent implements OnInit {
         this.ds.setCartSubjectSize(res.cartsize);
       },
       err=>{
-        this.toastr.error("Something went wrong in getting all products")
-        console.log(err)
+        this.toastr.error("Something went wrong in getting all products");
+        console.log(err);
       }
     )
 
