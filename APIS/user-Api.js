@@ -162,14 +162,14 @@ userApiObj.post("/deleteuser",verifyToken,asyncHandler(async(req,res,next)=>{
     //get user usercollection object
     let userCollectionObject=req.app.get("userCollectionObj");
     let cartCollectionObject=req.app.get("cartCollectionObj");
-    let wishlistCollectionObj=req.get("wishlistCollectionObj");
-    let myOrdersCollectionObj=req.get("myOrdersCollectionObj");
-    console.log("the user is ",req.body)
+    let wishlistCollectionObj=req.app.get("wishlistCollectionObj");
+    let myOrdersCollectionObj=req.app.get("myOrdersCollectionObj");
+    //console.log("the user is ",req.body.userId)
     let userObj=await userCollectionObject.findOne({userId:req.body.userId});
     let cartObj=await cartCollectionObject.find({userId:req.body.userId}).toArray();
     let wishObj=await wishlistCollectionObj.find({userId:req.body.userId}).toArray();
     let myorderObj=await myOrdersCollectionObj.find({userId:req.body.userId}).toArray();
-    if(userObj!=null){
+    if(userObj!==null){
         await userCollectionObject.deleteOne({userId:req.body.userId});
         if(cartObj!=null){
             await cartCollectionObject.delete({userId:req.body.userId});
@@ -181,6 +181,29 @@ userApiObj.post("/deleteuser",verifyToken,asyncHandler(async(req,res,next)=>{
             await myOrdersCollectionObj.delete({userId:req.body.userId});
         }
         res.send({message:true});
+    }
+}))
+
+//password reset
+userApiObj.post("/passwordreset",asyncHandler(async(req,res,next)=>{
+    
+    //get user collectionobject
+    let userCollectionObject = req.app.get("userCollectionObj")
+    //verify  username
+    let user = await userCollectionObject.findOne({username:req.body.username})
+    
+    if(user==null){
+        res.send({message:"Invalid username"});
+    }
+    else{
+        //console.log("user exist")
+        let hash=await bcryptjs.hash(req.body.password,6)
+        //update user obj with new password
+        let success=await userCollectionObject.updateOne({username:req.body.username},{$set:{
+            password:hash
+        }})
+        res.send({message:"Password Reset Successfully"});
+        
     }
 }))
 //export

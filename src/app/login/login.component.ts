@@ -12,22 +12,27 @@ import { DataService } from '../data.service';
 export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
+  forgotForm:FormGroup;
   alert:boolean;
   alertmsg:string;
   closeAlert:boolean;
+  close:boolean;
 
-  constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { }
+  constructor(private ds:DataService, private router:Router,private toastr:ToastrService) { 
+    this.close=false;
+  }
 
   ngOnInit(): void {
     this.loginForm=new FormGroup({
-
-      //username
       username:new FormControl(null,Validators.required),
-      
-      //password
       password:new FormControl(null,Validators.required),
-
     });
+    this.forgotForm=new FormGroup({
+      username:new FormControl(null,Validators.required),
+      password:new FormControl(null,[Validators.required,Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')]),
+      confirmpassword: new FormControl(null,Validators.required)
+    })
+    
   }
     
   onSubmit(){
@@ -39,14 +44,14 @@ export class LoginComponent implements OnInit {
               //store token and username in local storage
               localStorage.setItem("token",res.signedToken);
               localStorage.setItem("userId",res.userId);
-              if(res.userId=="3008"){
+              if(res.userId==="3008"){
 
                 this.toastr.success(res.username,' Login success');
                 this.router.navigateByUrl("/admin")
                 .then(()=>{
                   window.location.reload ();
                  })
-                }
+              }
               else{
               //navigate to user component
               this.toastr.success(res.username,' Login success');
@@ -78,6 +83,31 @@ export class LoginComponent implements OnInit {
 
 regiser(){
   this.router.navigateByUrl("/register")
+}
+
+
+ChangePassword(){
+  let Obj=this.forgotForm.value;
+  
+  if(Obj.password===Obj.confirmpassword){
+    this.ds.changePassword(Obj).subscribe(
+      res=>{
+        if(res.message==="Password Reset Successfully"){
+          this.toastr.success(res.message);
+          this.close=true;
+        }
+        else{
+          this.toastr.error(res.message);
+        }
+      },
+      err=>{
+        this.toastr.error("Something went wrong in password reset");
+        console.log(err)
+      })
+    }
+    else{
+      this.toastr.error("Passwords doesn't matched");
+    }
 }
 
 }

@@ -12,21 +12,22 @@ export class DataService {
   //user services
   
   createUser(userObj):Observable<any>{
-    return this.hc.post("/user/register",userObj)
-
+    return this.hc.post("/user/register",userObj);
   }
   loginUser(userCredObj):Observable<any>{
-    return this.hc.post("/user/login",userCredObj)
-
+    return this.hc.post("/user/login",userCredObj);
+  }
+  changePassword(obj):Observable<any>{
+    return this.hc.post("/user/passwordreset",obj);
   }
   getUser(userId):Observable<any>{
-    return this.hc.get("/user/getuser/"+userId)
+    return this.hc.get("/user/getuser/"+userId);
   }
   getAllUsers():Observable<any>{
-    return this.hc.get("/user/getusers")
+    return this.hc.get("/user/getusers");
   }
   deleteUser(user):Observable<any>{
-    return this.hc.post("/user/deleteuser",user)
+    return this.hc.post("/user/deleteuser",user);
   }
   getCartItems(userId):Observable<any>{
     return this.hc.get("/cart/getcartitems/"+userId);

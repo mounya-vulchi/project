@@ -26,7 +26,7 @@
         <p *ngIf="loginForm.get('password').touched&&loginForm.get('password').errors?.required" class="text-danger">*Password required</p>
        
      
-    
+        <a class="text-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forgot Password</a>
         <div class="col-12 mb-1 text-center">
             <button type="submit" class="btn btn-success mt-3 px-5" [disabled]="loginForm.invalid">Login</button><br>
             <span>New User? </span>
@@ -34,6 +34,53 @@
            
         </div>
     </form>
+    </div>
+
+
+    <!-- modal for ForGot Password -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Change Password</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="changepassword" class="row  g-2 p-3" [formGroup]="forgotForm" (ngSubmit)="ChangePassword()">
+              <!--username-->
+              <div class="form-floating mb-3 ">
+                <input type="text" class="form-control" id="username" placeholder="Username" name="username" formControlName="username">
+                <label for="username">Username</label>
+              </div>
+              <!--validation for username-->
+              <p *ngIf="forgotForm.get('username').touched&&forgotForm.get('username').errors?.required" class="text-danger">*Username required</p>
+               
+              <!--password-->
+              <div class="form-floating mb-3 ">
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password" formControlName="password">
+                <label for="password">New Password</label>
+              </div>
+              <!-- validation for password -->
+              <div *ngIf="forgotForm.get('password').invalid&&forgotForm.get('password').touched" class="text-danger">
+                <span *ngIf="forgotForm.get('password').errors?.required" class="text-danger">Password is required</span>
+                <span *ngIf="forgotForm.get('password').errors?.pattern" class="text-danger">*Password should have minimum 6 characters, atleast 1 uppercase letter and 1 digit</span>
+            </div>
+              <!--confirm password-->
+              <div class="form-floating mb-3 ">
+                <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm Password" name="confirmpassword" formControlName="confirmpassword">
+                <label for="confirmpassword">Confirm Password</label>
+              </div>
+              <!--validation for password-->
+              <p *ngIf="forgotForm.get('confirmpassword').touched&&forgotForm.get('confirmpassword').errors?.required" class="text-danger">*Password required</p>
+              
+              <div class="col-12 text-center">
+                  <button type="submit" class="btn btn-sm btn-primary mt-3" *ngIf="!close" [disabled]="forgotForm.invalid">Update password</button>
+                  <button class="btn btn-sm btn-success" *ngIf="close" data-bs-dismiss="modal">goto login</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
     </div>
 
 </body>
